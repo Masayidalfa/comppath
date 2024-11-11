@@ -1,6 +1,6 @@
-#Web Pencari Lomba : CompPath sebagai Projek Akhir SIB Mandiri NFA
-<br/>
-Anggota Kelompok : 
+# Web Pencari Lomba : CompPath sebagai Projek Akhir SIB Mandiri NFA
+
+Anggota Kelompok : <br/>
 - AHMAD AL-FAQIH ASASI
 - IHWANUL FIKRI RAMADHAN
 - MUHAMAD MASAYID ALFARIZQI
