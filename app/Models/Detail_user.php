@@ -11,7 +11,7 @@ class Detail_user extends Model
 {
     use HasFactory;
     protected $table = 'detail_user';
-    protected $filliable = [
+    protected $fillable = [
         'alamat',
         'no_handphone',
         'usia',

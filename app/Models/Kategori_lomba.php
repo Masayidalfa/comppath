@@ -10,7 +10,7 @@ class Kategori_lomba extends Model
 {
     use HasFactory;
     protected $table = 'katekori_lomba';
-    protected $filliable = 
+    protected $fillable = 
     ['nama_kategori'];
     public $timestamps = false;
 
