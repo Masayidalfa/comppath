@@ -9,49 +9,103 @@ use Illuminate\Support\Facades\Validator;
 
 class Kelola_lombaController extends Controller
 {
-    //fungsi indexx (tampilkan data)
-    public function index(){
-    //get all Kelola_lomba
-    $kelola_lomba = Kelola_lomba::all();
+    // Fungsi index (tampilkan data)
+    public function index()
+    {
+        // Ambil semua data kelola_lomba
+        $kelola_lomba = Kelola_lomba::all();
 
-    //return collection of posts as a resource
-    return new ResponsResource(true, 'List Data Posts', $kelola_lomba);
+        // Mengembalikan koleksi data sebagai resource
+        return new ResponsResource(true, 'List Data Kelola Lomba', $kelola_lomba);
     }
 
-    //fungsi store
+    // Fungsi store (menyimpan data)
     public function store(Request $request)
     {
-        //validasi data
+        // Validasi data
         $validator = Validator::make($request->all(), [
             'lomba_id' => 'required|integer',
             'lomba_katekori_lomba_id' => 'required|integer',
             'detail_user_id' => 'required|integer'
         ]);
 
-        //jika validasi gagal
-        if($validator->fails()){
+        // Jika validasi gagal
+        if ($validator->fails()) {
             return response()->json($validator->errors(), 422);
         }
 
-        //create data
+        // Menyimpan data kelola_lomba
         $kelola_lomba = Kelola_lomba::create([
             'lomba_id' => $request->lomba_id,
             'lomba_katekori_lomba_id' => $request->lomba_katekori_lomba_id,
             'detail_user_id' => $request->detail_user_id
         ]);
 
-        //return response
+        // Mengembalikan response setelah berhasil ditambahkan
         return new ResponsResource(true, 'Data Berhasil Ditambahkan!', $kelola_lomba);
-}
+    }
 
-        //fungsi show detail
-        public function show($id)
-        {
-            //find post by ID
-            $kelola_lomba = Kelola_lomba::find($id);
+    // Fungsi show (menampilkan detail berdasarkan ID)
+    public function show($id)
+    {
+        // Mencari data kelola_lomba berdasarkan ID
+        $kelola_lomba = Kelola_lomba::find($id);
 
-            //return single post as a resource
-            return new ResponsResource(true, 'Detail Data Kelola_lomba!', $kelola_lomba);
+        if (!$kelola_lomba) {
+            return response()->json(['message' => 'Data tidak ditemukan'], 404);
         }
 
+        // Mengembalikan detail data kelola_lomba
+        return new ResponsResource(true, 'Detail Data Kelola Lomba!', $kelola_lomba);
+    }
+
+    // Fungsi update (mengupdate data kelola_lomba)
+    public function update(Request $request, $id)
+    {
+        // Validasi data
+        $validator = Validator::make($request->all(), [
+            'lomba_id' => 'required|integer',
+            'lomba_katekori_lomba_id' => 'required|integer',
+            'detail_user_id' => 'required|integer'
+        ]);
+
+        // Jika validasi gagal
+        if ($validator->fails()) {
+            return response()->json($validator->errors(), 422);
+        }
+
+        // Mencari data kelola_lomba berdasarkan ID
+        $kelola_lomba = Kelola_lomba::find($id);
+
+        if (!$kelola_lomba) {
+            return response()->json(['message' => 'Data tidak ditemukan'], 404);
+        }
+
+        // Mengupdate data kelola_lomba
+        $kelola_lomba->update([
+            'lomba_id' => $request->lomba_id,
+            'lomba_katekori_lomba_id' => $request->lomba_katekori_lomba_id,
+            'detail_user_id' => $request->detail_user_id
+        ]);
+
+        // Mengembalikan response setelah data diupdate
+        return new ResponsResource(true, 'Data Berhasil Diupdate!', $kelola_lomba);
+    }
+
+    // Fungsi destroy (menghapus data kelola_lomba)
+    public function destroy($id)
+    {
+        // Mencari data kelola_lomba berdasarkan ID
+        $kelola_lomba = Kelola_lomba::find($id);
+
+        if (!$kelola_lomba) {
+            return response()->json(['message' => 'Data tidak ditemukan'], 404);
+        }
+
+        // Menghapus data kelola_lomba
+        $kelola_lomba->delete();
+
+        // Mengembalikan response setelah data dihapus
+        return new ResponsResource(true, 'Data Berhasil Dihapus!', null);
+    }
 }
