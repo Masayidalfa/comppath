@@ -20,7 +20,11 @@ Route::apiResource('/user', UserController::class);
 Route::apiResource('/detail_user', Detail_userController::class);
 
 //kategori_lomba
-Route::apiResource('/kategori_lomba', Kategori_lombaController::class);
+Route::get('/kategori', [Kategori_lombaController::class, 'index']);
+Route::post('/kategori', [Kategori_lombaController::class, 'store']); 
+Route::get('/kategori/{id}', [Kategori_lombaController::class, 'show']); 
+Route::put('/kategori/{id}', [Kategori_lombaController::class, 'update']); 
+Route::delete('/kategori/{id}', [Kategori_lombaController::class, 'destroy']); 
 
 //kelola_lomba
 Route::apiResource('/kelola_lomba', Kelola_lombaController::class);
