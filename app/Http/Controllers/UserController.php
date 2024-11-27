@@ -10,50 +10,90 @@ use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
 {
-    //fungsi indexx (tampilkan data)
     public function index()
     {
-        //get all user
         $users = User::all();
-
-        //return collection of posts as a resource
-        return new ResponsResource(true, 'List Data Posts', $users);
+        return new ResponsResource(true, 'List Data Users', $users);
     }
 
-    //fungsi store (menambah data)
     public function store(Request $request)
     {
-        //mendefinisikan peraturan validasi
-        $validator = Validator::make($request->all(),[
+        $validator = Validator::make($request->all(), [
             'name' => 'required',
             'email' => 'required|email|unique:users',
-            'password' => 'required',
+            'password' => 'required|min:6',
         ]);
 
-        // chek jika validasi gagal
         if ($validator->fails()) {
             return response()->json($validator->errors(), 422);
         }
-        // create user
+
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
 
-        //jika berhasil
         return new ResponsResource(true, 'Data user berhasil ditambahkan', $user);
+    }
 
-}
+    public function show($id)
+    {
+        $user = User::find($id);
 
-        //fungsi show detail
-        public function show($id)
-        {
-            //find post by ID
-            $user = User::find($id);
-
-            //return single post as a resource
-            return new ResponsResource(true, 'Detail Data User!', $user);
+        if (!$user) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Data User tidak ditemukan',
+            ], 404);
         }
 
+        return new ResponsResource(true, 'Detail Data User!', $user);
+    }
+
+    public function update(Request $request, $id)
+    {
+        $user = User::find($id);
+
+        if (!$user) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Data User tidak ditemukan',
+            ], 404);
+        }
+
+        $validator = Validator::make($request->all(), [
+            'name' => 'required',
+            'email' => 'required|email|unique:users,email,' . $id,
+            'password' => 'nullable|min:6',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json($validator->errors(), 422);
+        }
+
+        $user->update([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => $request->password ? Hash::make($request->password) : $user->password,
+        ]);
+
+        return new ResponsResource(true, 'Data user berhasil diubah', $user);
+    }
+
+    public function destroy($id)
+    {
+        $user = User::find($id);
+
+        if (!$user) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Data User tidak ditemukan',
+            ], 404);
+        }
+
+        $user->delete();
+
+        return new ResponsResource(true, 'Data User berhasil dihapus', null);
+    }
 }

@@ -9,19 +9,15 @@ use Illuminate\Support\Facades\Validator;
 
 class PendaftaranController extends Controller
 {
-    //fungsi indexx (tampilkan data)
-    public function index(){
-        //get all Pendaftaran
+    public function index()
+    {
         $pendaftaran = Pendaftaran::all();
-
-        //return collection of posts as a resource
         return new ResponsResource(true, 'List Data Posts', $pendaftaran);
     }
 
-    //fungsi store
-    public function store(Request $request){
-        //definisikan validasi
-        $validator = Validator::make($request->all(),[
+    public function store(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
             'bukti_pembayaran' => 'required',
             'tanggal_pendaftaran' => 'required|date',
             'jenjang' => 'required',
@@ -31,32 +27,69 @@ class PendaftaranController extends Controller
             'detail_user_id' => 'required|integer'
         ]);
 
-        //chek jika validasi gagal
         if ($validator->fails()) {
             return response()->json($validator->errors(), 422);
         }
 
-        //create pendaftaran
-        $pendaftaran = Pendaftaran::create([
-            'bukti_pembayaran' => $request->bukti_pembayaran,
-            'tanggal_pendaftaran' => $request->tanggal_pendaftaran,
-            'jenjang' => $request->jenjang,
-            'status_pendaftaran' => $request->status_pendaftaran,
-            'bukti_persyaratan' => $request->bukti_persyaratan,
-            'lomba_id' => $request->lomba_id,
-            'detail_user_id' => $request->detail_user_id,
+        $pendaftaran = Pendaftaran::create($request->all());
+        return new ResponsResource(true, 'Data Pendaftaran berhasil ditambahkan', $pendaftaran);
+    }
+
+    public function show($id)
+    {
+        $pendaftaran = Pendaftaran::find($id);
+
+        if (!$pendaftaran) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Data Pendaftaran tidak ditemukan',
+            ], 404);
+        }
+
+        return new ResponsResource(true, 'Detail Data Pendaftaran!', $pendaftaran);
+    }
+
+    public function update(Request $request, $id)
+    {
+        $pendaftaran = Pendaftaran::find($id);
+
+        if (!$pendaftaran) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Data Pendaftaran tidak ditemukan',
+            ], 404);
+        }
+
+        $validator = Validator::make($request->all(), [
+            'bukti_pembayaran' => 'required',
+            'tanggal_pendaftaran' => 'required|date',
+            'jenjang' => 'required',
+            'status_pendaftaran' => 'required',
+            'bukti_persyaratan' => 'required',
+            'lomba_id' => 'required|integer',
+            'detail_user_id' => 'required|integer',
         ]);
 
-        //jika berhasil
-        return new ResponsResource(true, 'Data Pendaftaran berhasil ditambahkan', $pendaftaran);
-}
-
-        //fungsi show detail
-        public function show($id){
-            //find post by ID
-            $pendaftaran = Pendaftaran::find($id);
-
-            //return single post as a resource
-            return new ResponsResource(true, 'Detail Data Pendaftaran!', $pendaftaran);
+        if ($validator->fails()) {
+            return response()->json($validator->errors(), 422);
         }
+
+        $pendaftaran->update($request->all());
+        return new ResponsResource(true, 'Data Pendaftaran berhasil diubah', $pendaftaran);
+    }
+
+    public function destroy($id)
+    {
+        $pendaftaran = Pendaftaran::find($id);
+
+        if (!$pendaftaran) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Data Pendaftaran tidak ditemukan',
+            ], 404);
+        }
+
+        $pendaftaran->delete();
+        return new ResponsResource(true, 'Data Pendaftaran berhasil dihapus', null);
+    }
 }

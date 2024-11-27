@@ -9,20 +9,15 @@ use Illuminate\Support\Facades\Validator;
 
 class LombaController extends Controller
 {
-    //fungsi indexx (tampilkan data)
-    public function index(){
-        //get all lomba
-    $lomba = Lomba::all();
-
-    //return collection of posts as a resource
-    return new ResponsResource(true, 'List Data Posts', $lomba);
+    public function index()
+    {
+        $lomba = Lomba::all();
+        return new ResponsResource(true, 'List Data Posts', $lomba);
     }
 
-    //fungsi store
-    
-    public function store(Request $request){
-        //definisikan validasi
-        $validator = Validator::make($request->all(),[
+    public function store(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
             'detail_lomba' => 'required',
             'gambar_lomba' => 'required',
             'biaya_pendaftaran' => 'required|integer',
@@ -35,37 +30,72 @@ class LombaController extends Controller
             'katekori_lomba_id' => 'required|integer'
         ]);
 
-        //chek jika validasi gagal
         if ($validator->fails()) {
             return response()->json($validator->errors(), 422);
         }
 
-        //create lomba
-        $lomba = Lomba::create([
-            'detail_lomba' => $request->detail_lomba,
-            'gambar_lomba' => $request->gambar_lomba,
-            'biaya_pendaftaran' => $request->biaya_pendaftaran,
-            'tanggal_mulai' => $request->tanggal_mulai,
-            'tanggal_akhir' => $request->tanggal_akhir,
-            'nama_lomba' => $request->nama_lomba,
-            'jumlah_pesrta' => $request->jumlah_pesrta,
-            'batas_peserta' => $request->batas_peserta,
-            'persyaratan_lomba' => $request->persyaratan_lomba,
-            'katekori_lomba_id' => $request->katekori_lomba_id
-        ]);
-
-        //jika berhasil
+        $lomba = Lomba::create($request->all());
         return new ResponsResource(true, 'Data Lomba berhasil ditambahkan', $lomba);
-}
+    }
 
-        //fungsi show detail
-        public function show($id)
-        {
-            //find post by ID
-            $lomba = Lomba::find($id);
+    public function show($id)
+    {
+        $lomba = Lomba::find($id);
 
-            //return single post as a resource
-            return new ResponsResource(true, 'Detail Data Lomba!', $lomba);
+        if (!$lomba) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Data Lomba tidak ditemukan',
+            ], 404);
         }
 
+        return new ResponsResource(true, 'Detail Data Lomba!', $lomba);
+    }
+
+    public function update(Request $request, $id)
+    {
+        $lomba = Lomba::find($id);
+
+        if (!$lomba) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Data Lomba tidak ditemukan',
+            ], 404);
+        }
+
+        $validator = Validator::make($request->all(), [
+            'detail_lomba' => 'required',
+            'gambar_lomba' => 'required',
+            'biaya_pendaftaran' => 'required|integer',
+            'tanggal_mulai' => 'required|date',
+            'tanggal_akhir' => 'required|date',
+            'nama_lomba' => 'required',
+            'jumlah_pesrta' => 'required|integer',
+            'batas_peserta' => 'required|integer',
+            'persyaratan_lomba' => 'required',
+            'katekori_lomba_id' => 'required|integer'
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json($validator->errors(), 422);
+        }
+
+        $lomba->update($request->all());
+        return new ResponsResource(true, 'Data Lomba berhasil diubah', $lomba);
+    }
+
+    public function destroy($id)
+    {
+        $lomba = Lomba::find($id);
+
+        if (!$lomba) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Data Lomba tidak ditemukan',
+            ], 404);
+        }
+
+        $lomba->delete();
+        return new ResponsResource(true, 'Data Lomba berhasil dihapus', null);
+    }
 }
