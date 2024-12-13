@@ -13,6 +13,7 @@ Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
 
+
 //User
 Route::apiResource('/user', UserController::class);
 
