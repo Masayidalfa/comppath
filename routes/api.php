@@ -1,5 +1,7 @@
 <?php
 
+
+use App\Http\Controllers\Auth\AuthController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
@@ -31,3 +33,6 @@ Route::apiResource('/lomba', LombaController::class);
 
 //pendaftaran
 Route::apiResource('/pendaftaran', PendaftaranController::class);
+
+Route::get('/register', [AuthController::class, 'index']);
+Route::post('/register/proses', [AuthController::class, 'register']);
