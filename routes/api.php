@@ -1,7 +1,6 @@
 <?php
 
-
-use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\Api\AuthController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
@@ -11,9 +10,9 @@ use App\Http\Controllers\PendaftaranController;
 use App\Http\Controllers\Kelola_lombaController;
 use App\Http\Controllers\Kategori_lombaController;
 
-Route::get('/user', function (Request $request) {
-    return $request->user();
-})->middleware('auth:sanctum');
+// Route::get('/user', function (Request $request) {
+//     return $request->user();
+// })->middleware('auth:sanctum');
 
 
 //User
@@ -34,5 +33,7 @@ Route::apiResource('/lomba', LombaController::class);
 //pendaftaran
 Route::apiResource('/pendaftaran', PendaftaranController::class);
 
-Route::get('/register', [AuthController::class, 'index']);
-Route::post('/register/proses', [AuthController::class, 'register']);
+
+
+Route::post('/register', [AuthController::class, 'register']);
+Route::post('/login', [AuthController::class, 'login']);
