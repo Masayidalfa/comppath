@@ -7,7 +7,7 @@ function Layout({ children }) {
   return (
     <Fragment>
       <Header />
-      <div id="layoutSidenav">
+      <div id="layoutSidenav" style={{ width: "200vh" }}>
         <Sidebar />
         <div id="layoutSidenav_content">
           <main>

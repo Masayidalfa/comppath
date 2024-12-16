@@ -4,20 +4,20 @@ import "datatables.net";
 import "datatables.net-dt/css/dataTables.dataTables.css";
 import axios from "axios";
 
-function Kategori() {
+function User() {
   const tableRef = useRef(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [kategori, setKategori] = useState([]);
-  // Pengambilan API Kategori dengan axios dan Asyncronus Async/Await
+  const [user, setUser] = useState([]);
+  // Pengambilan API User dengan axios dan Asyncronus Async/Await
   useEffect(() => {
-    const fetchKategori = async () => {
+    const fetchUser = async () => {
       try {
-        const response = await axios.get("http://localhost:8000/api/kategori");
+        const response = await axios.get("http://localhost:8000/api/user");
         if (response.data.success) {
-          setKategori(response.data.data);
+          setUser(response.data.data);
         } else {
-          setError("Failed to Fetch Data Kategori");
+          setError("Failed to Fetch Data User");
         }
       } catch (err) {
         setError(err.message || "An error Occured");
@@ -25,7 +25,7 @@ function Kategori() {
         setLoading(false);
       }
     };
-    fetchKategori();
+    fetchUser();
   }, []);
 
   useEffect(() => {
@@ -41,12 +41,12 @@ function Kategori() {
 
   return (
     <div className="container-fluid px-4">
-      <h1 className="mt-4">Kategori</h1>
+      <h1 className="mt-4">User</h1>
       <ol className="breadcrumb mb-4">
         <li className="breadcrumb-item">
           <a href="index.html">Dashboard</a>
         </li>
-        <li className="breadcrumb-item active">Kategori</li>
+        <li className="breadcrumb-item active">User</li>
       </ol>
       <div className="card mb-4">
         <div className="card-body">
@@ -75,20 +75,23 @@ function Kategori() {
             <thead>
               <tr>
                 <th>No</th>
-                <th>Kategori</th>
+                <th>User</th>
+                <th>User</th>
               </tr>
             </thead>
             <tfoot>
               <tr>
               <th>No</th>
-              <th>Kategori</th>
+              <th>User</th>
+              <th>User</th>
               </tr>
             </tfoot>
             <tbody>
-                {kategori.map((item, index) => (
+                {user.map((item, index) => (
                 <tr key={item.id}>
                     <td>{index + 1}</td>
-                    <td>{item.nama_kategori}</td>
+                    <td>{item.name}</td>
+                    <td>{item.email}</td>
                 </tr>
                 ))}
 
@@ -99,4 +102,4 @@ function Kategori() {
     </div>
   );
 }
-export default Kategori;
+export default User;
