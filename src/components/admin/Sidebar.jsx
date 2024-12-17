@@ -38,11 +38,23 @@ function Sidebar() {
               data-bs-parent="#sidenavAccordion"
             >
               <nav className="sb-sidenav-menu-nested nav">
+              <a className="nav-link" href="/user">
+                  User
+                </a>
+                <a className="nav-link" href="/detail-user">
+                  Detail User
+                </a>
                 <a className="nav-link" href="/kategori">
                   Kategori
                 </a>
-                <a className="nav-link" href="layout-sidenav-light.html">
-                  Light Sidenav
+                <a className="nav-link" href="/lomba">
+                  Lomba
+                </a>
+                <a className="nav-link" href="/pendaftaran">
+                  Pendaftaran
+                </a>
+                <a className="nav-link" href="/kelola-lomba">
+                  Kelola Lomba
                 </a>
               </nav>
             </div>
