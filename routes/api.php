@@ -15,25 +15,48 @@ use App\Http\Controllers\Kategori_lombaController;
 // })->middleware('auth:sanctum');
 
 
-//User
-Route::apiResource('/user', UserController::class);
+// User
+Route::get('/user', [UserController::class, 'index']);
+Route::post('/user', [UserController::class, 'store']);
+Route::get('/user/{id}', [UserController::class, 'show']);
+Route::put('/user/{id}', [UserController::class, 'update']);
+Route::delete('/user/{id}', [UserController::class, 'destroy']);
 
-//Detail user
-Route::apiResource('/detail_user', Detail_userController::class);
+// Detail User
+Route::get('/detail_user', [Detail_userController::class, 'index']);
+Route::post('/detail_user', [Detail_userController::class, 'store']);
+Route::get('/detail_user/{id}', [Detail_userController::class, 'show']);
+Route::put('/detail_user/{id}', [Detail_userController::class, 'update']);
+Route::delete('/detail_user/{id}', [Detail_userController::class, 'destroy']);
 
-//kategori_lomba
-Route::apiResource('/kategori', Kategori_lombaController::class);
+// Kategori Lomba
+Route::get('/kategori', [Kategori_lombaController::class, 'index']);
+Route::post('/kategori', [Kategori_lombaController::class, 'store']);
+Route::get('/kategori/{id}', [Kategori_lombaController::class, 'show']);
+Route::put('/kategori/{id}', [Kategori_lombaController::class, 'update']);
+Route::delete('/kategori/{id}', [Kategori_lombaController::class, 'destroy']);
 
-//kelola_lomba
-Route::apiResource('/kelola_lomba', Kelola_lombaController::class);
+// Kelola Lomba
+Route::get('/kelola_lomba', [Kelola_lombaController::class, 'index']);
+Route::post('/kelola_lomba', [Kelola_lombaController::class, 'store']);
+Route::get('/kelola_lomba/{id}', [Kelola_lombaController::class, 'show']);
+Route::put('/kelola_lomba/{id}', [Kelola_lombaController::class, 'update']);
+Route::delete('/kelola_lomba/{id}', [Kelola_lombaController::class, 'destroy']);
 
-//lomba
-Route::apiResource('/lomba', LombaController::class);
+// Lomba
+Route::get('/lomba', [LombaController::class, 'index']);
+Route::post('/lomba', [LombaController::class, 'store']);
+Route::get('/lomba/{id}', [LombaController::class, 'show']);
+Route::put('/lomba/{id}', [LombaController::class, 'update']);
+Route::delete('/lomba/{id}', [LombaController::class, 'destroy']);
 
-//pendaftaran
-Route::apiResource('/pendaftaran', PendaftaranController::class);
+// Pendaftaran
+Route::get('/pendaftaran', [PendaftaranController::class, 'index']);
+Route::post('/pendaftaran', [PendaftaranController::class, 'store']);
+Route::get('/pendaftaran/{id}', [PendaftaranController::class, 'show']);
+Route::put('/pendaftaran/{id}', [PendaftaranController::class, 'update']);
+Route::delete('/pendaftaran/{id}', [PendaftaranController::class, 'destroy']);
 
-
-
+// Auth
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
