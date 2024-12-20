@@ -1,30 +1,39 @@
-function Header() {
+/* eslint-disable react/prop-types */
+import { useState } from "react";
+
+
+function Header({ toggleSidebar }) {
+
+  const [isDropdownOpen, setDropdownOpen] = useState(false);
+
+  const toggleDropdown = () => {
+    setDropdownOpen((prev) => !prev);
+  };
+
   return (
-    <nav className="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+    <nav className="bg-gray-800 text-white px-4 flex items-center justify-between">
       {/* Navbar Brand*/}
-      <a className="navbar-brand ps-3" href="index.html">
+      <a className="text-lg font-semibold" href="index.html">
         Start Bootstrap
       </a>
       {/* Sidebar Toggle*/}
       <button
-        className="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0"
-        id="sidebarToggle"
-        href="#!"
+        onClick={toggleSidebar}
+        className="text-gray-300 hover:text-white focus:outline-none focus:ring"
       >
         <i className="fas fa-bars" />
       </button>
       {/* Navbar Search*/}
-      <form className="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
-        <div className="input-group">
+      <form className="hidden md:flex items-center">
+        <div className="relative">
           <input
-            className="form-control"
+            className="bg-gray-700 text-white rounded-l px-4 py-2 focus:outline-none focus:ring"
             type="text"
             placeholder="Search for..."
             aria-label="Search for..."
-            aria-describedby="btnNavbarSearch"
           />
           <button
-            className="btn btn-primary"
+            className="bg-blue-600 hover:bg-blue-700 text-white rounded-r px-4 py-2 focus:outline-none focus:ring"
             id="btnNavbarSearch"
             type="button"
           >
@@ -32,42 +41,24 @@ function Header() {
           </button>
         </div>
       </form>
-      {/* Navbar*/}
-      <ul className="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
-        <li className="nav-item dropdown">
-          <a
-            className="nav-link dropdown-toggle"
-            id="navbarDropdown"
-            href="#"
-            role="button"
-            data-bs-toggle="dropdown"
-            aria-expanded="false"
+     {/* Navbar */}
+     <ul className="flex items-center space-x-4 relative">
+        <li>
+          <button
+            onClick={toggleDropdown}
+            className="text-gray-300 hover:text-white focus:outline-none focus:ring"
           >
             <i className="fas fa-user fa-fw" />
-          </a>
-          <ul
-            className="dropdown-menu dropdown-menu-end"
-            aria-labelledby="navbarDropdown"
-          >
-            <li>
-              <a className="dropdown-item" href="#!">
-                Settings
-              </a>
-            </li>
-            <li>
-              <a className="dropdown-item" href="#!">
-                Activity Log
-              </a>
-            </li>
-            <li>
-              <hr className="dropdown-divider" />
-            </li>
-            <li>
-              <a className="dropdown-item" href="#!">
-                Logout
-              </a>
-            </li>
-          </ul>
+          </button>
+          {isDropdownOpen && (
+            <ul className="absolute right-0 mt-2 bg-gray-700 text-white rounded shadow-lg w-48">
+              <li>
+                <a className="block px-4 py-2 hover:bg-gray-600" href="#!">
+                  Logout
+                </a>
+              </li>
+            </ul>
+          )}
         </li>
       </ul>
     </nav>
