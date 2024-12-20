@@ -10,7 +10,7 @@ function Sidebar({ isOpen }) {
   return (
     <div
       className={`fixed top-0 left-0 h-full bg-gray-800 text-white w-64 transition-transform transform ${
-        isOpen ? "translate-x-0" : "-translate-x-full"
+        isOpen ? "translate-x-0" : "-translate-x-48"
       }`}
     >
       <nav className="flex flex-col h-full" id="sidenavAccordion">
@@ -38,21 +38,27 @@ function Sidebar({ isOpen }) {
           {isMasterDataOpen && (
             <div className="ml-4">
               <a className="block text-gray-300 hover:text-white p-2 rounded" href="/user">
+              <i className="fas fa-user mr-3"></i>
                 User
               </a>
               <a className="block text-gray-300 hover:text-white p-2 rounded" href="/detail-user">
+              <i className="fas fa-address-card mr-3"></i>
                 Detail User
               </a>
               <a className="block text-gray-300 hover:text-white p-2 rounded" href="/kategori">
+              <i className="fas fa-hashtag mr-3"></i>
                 Kategori
               </a>
               <a className="block text-gray-300 hover:text-white p-2 rounded" href="/lomba">
+              <i className="fas fa-trophy mr-3"></i>
                 Lomba
               </a>
               <a className="block text-gray-300 hover:text-white p-2 rounded" href="/pendaftaran">
+              <i className="fas fa-book mr-3"></i>
                 Pendaftaran
               </a>
               <a className="block text-gray-300 hover:text-white p-2 rounded" href="/kelola-lomba">
+              <i className="fas fa-pencil mr-3"></i>                
                 Kelola Lomba
               </a>
             </div>

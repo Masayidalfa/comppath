@@ -5,21 +5,23 @@ import Sidebar from "../../components/admin/Sidebar";
 import Footer from "../../components/admin/Footer";
 
 function Layout({ children }) {
+  // State untuk toggle sidebar
+  const [isSidebarOpen, setSidebarOpen] = useState(true);
 
-   // State untuk toggle sidebar
-   const [isSidebarOpen, setSidebarOpen] = useState(true);
+  const toggleSidebar = () => {
+    setSidebarOpen((prev) => !prev);
+  };
 
-   const toggleSidebar = () => {
-     setSidebarOpen((prev) => !prev);
-   };
- 
-
-   return (
+  return (
     <Fragment>
-      <Header toggleSidebar={toggleSidebar} />
+      <Header toggleSidebar={toggleSidebar} isSidebarOpen={isSidebarOpen} />
       <div className="flex">
         <Sidebar isOpen={isSidebarOpen} />
-        <div className={`flex-1 flex flex-col min-h-screen transition-all ${isSidebarOpen ? "ml-64" : "ml-0"}`}>
+        <div
+          className={`flex-1 flex flex-col min-h-screen transition-all ${
+            isSidebarOpen ? "ml-64" : "ml-16"
+          }`}
+        >
           <main className="flex-grow p-4 bg-gray-50">{children}</main>
           <Footer />
         </div>
