@@ -10,15 +10,15 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class Detail_user extends Model
 {
     use HasFactory;
-    protected $table = 'detail_user';
+    protected $table = 'detail_users';
     protected $fillable = [
+        'user_id',
         'alamat',
         'no_handphone',
-        'usia',
+        'tanggal_lahir',
         'jenis_kelamin',
-        'role',
         'instansi',
-        'user_id'
+        'foto_profil'
     ];
 
     public $timestamps = false;
@@ -29,15 +29,10 @@ class Detail_user extends Model
        return $this->belongsTo(User::class);
    }
 
-   //relasi one to many ke tabel pendaftaran
-   public function pendaftaran(): HasMany
+   //relasi one to many ke tabel registration
+   public function registration(): HasMany
    {
-       return $this->hasMany(Pendaftaran::class, 'detail_user_id');
+       return $this->hasMany(Registration::class, 'detail_user_id');
    }
 
-   //relasi one to many ke tabel kelola_lomba
-   public function kelola_lomba(): HasMany
-   {
-       return $this->hasMany(Kelola_lomba::class, 'detail_user_id');
-   }
 }

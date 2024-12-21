@@ -2,15 +2,15 @@
 
 namespace Database\Factories;
 
-use App\Models\Lomba;
+use App\Models\Competition;
 use App\Models\Detail_user;
-use App\Models\Kategori_lomba;
+use App\Models\Category;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Kelola_lomba>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Kelola_competition>
  */
-class Kelola_lombaFactory extends Factory
+class Kelola_competitionFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -20,8 +20,8 @@ class Kelola_lombaFactory extends Factory
     public function definition(): array
     {
         return [
-        'lomba_id' => Lomba::factory(),
-        'lomba_katekori_lomba_id' => Kategori_lomba::factory(),
+        'competition_id' => Competition::factory(),
+        'competition_katekori_competition_id' => Category::factory(),
         'detail_user_id' => Detail_user::factory()
         ];
     }

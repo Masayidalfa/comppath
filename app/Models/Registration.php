@@ -6,31 +6,33 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class Kelola_lomba extends Model
+class Registration extends Model
 {
+
     use HasFactory;
-    protected $table = 'kelola_lomba';
+    protected $table = 'registrations';
     protected $fillable = [
-        'lomba_id',
-        'lomba_katekori_lomba_id',
-        'detail_user_id',
+        'user_id',
+        'competition_id',
+        'registration_date',
+        'status',
+        'requirements_file',
+        'payment_proof'
+    ];
+    protected $attributes = [
+        'status' => 'pending',
     ];
     public $timestamps = false;
 
-    // relasi inverse one to many ke tabel lomba
-    public function lomba(): BelongsTo
+    // relasi inverse one to many ke tabel competition
+    public function competition(): BelongsTo
     {
-        return $this->belongsTo(Lomba::class);
+        return $this->belongsTo(Competition::class);
     }
 
     // relasi inverse one to many ke tabel detail_user
     public function detailUser(): BelongsTo
     {
         return $this->belongsTo(Detail_user::class);
-    }
-
-    public function kategori_lomba(): BelongsTo
-    {
-        return $this->belongsTo(Kategori_lomba::class);
     }
 }

@@ -2,14 +2,14 @@
 
 namespace Database\Factories;
 
-use App\Models\Lomba;
+use App\Models\Competition;
 use App\Models\Detail_user;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Pendaftaran>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Registration>
  */
-class PendaftaranFactory extends Factory
+class RegistrationFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -20,11 +20,11 @@ class PendaftaranFactory extends Factory
     {
         return [
         'bukti_pembayaran' => fake()->imageUrl(200, 150, 'payment', true),
-        'tanggal_pendaftaran' => fake()->date(),
+        'tanggal_registration' => fake()->date(),
         'jenjang' => fake()->randomElement(['SD', 'SMP', 'SMA', 'SMK', 'Kuliah', 'Umum']),
-        'status_pendaftaran' => fake()->randomElement(['Diterima', 'Ditolak']),
+        'status_registration' => fake()->randomElement(['Diterima', 'Ditolak']),
         'bukti_persyaratan' => fake()->imageUrl(200, 150, 'document', true),
-        'lomba_id' => Lomba::factory(),
+        'competition_id' => Competition::factory(),
         'detail_user_id' => Detail_user::factory()
         ];
     }

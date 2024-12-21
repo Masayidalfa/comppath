@@ -5,9 +5,9 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Kategori_lomba>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Category>
  */
-class Kategori_lombaFactory extends Factory
+class CategoryFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -17,7 +17,7 @@ class Kategori_lombaFactory extends Factory
     public function definition(): array
     {
         return [
-            'nama_kategori' => fake()->randomElement(['Olahraga', 'Seni Budaya', 'Esport', 'Desain'])
+            'nama_category' => fake()->randomElement(['Olahraga', 'Seni Budaya', 'Esport', 'Desain'])
         ];
     }
 }
