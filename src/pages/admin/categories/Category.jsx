@@ -1,23 +1,24 @@
+/* eslint-disable no-unused-vars */
 import React, { useEffect, useRef, useState } from "react";
 import $ from "jquery";
 import "datatables.net";
 import "datatables.net-dt/css/dataTables.dataTables.css";
 import axios from "axios";
 
-function User() {
+function Category() {
   const tableRef = useRef(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [user, setUser] = useState([]);
-  // Pengambilan API User dengan axios dan Asyncronus Async/Await
+  const [category, setCategory] = useState([]);
+  // Pengambilan API Category dengan axios dan Asyncronus Async/Await
   useEffect(() => {
-    const fetchUser = async () => {
+    const fetchCategory = async () => {
       try {
-        const response = await axios.get("http://localhost:8000/api/user");
+        const response = await axios.get("http://localhost:8000/api/category");
         if (response.data.success) {
-          setUser(response.data.data);
+          setCategory(response.data.data);
         } else {
-          setError("Failed to Fetch Data User");
+          setError("Failed to Fetch Data Category");
         }
       } catch (err) {
         setError(err.message || "An error Occured");
@@ -25,7 +26,7 @@ function User() {
         setLoading(false);
       }
     };
-    fetchUser();
+    fetchCategory();
   }, []);
 
   useEffect(() => {
@@ -41,12 +42,12 @@ function User() {
 
   return (
     <div className="container-fluid px-4">
-      <h1 className="mt-4">User</h1>
+      <h1 className="mt-4">Category</h1>
       <ol className="breadcrumb mb-4">
         <li className="breadcrumb-item">
           <a href="index.html">Dashboard</a>
         </li>
-        <li className="breadcrumb-item active">User</li>
+        <li className="breadcrumb-item active">Category</li>
       </ol>
       <div className="card mb-4">
         <div className="card-body">
@@ -75,23 +76,23 @@ function User() {
             <thead>
               <tr>
                 <th>No</th>
-                <th>User</th>
-                <th>User</th>
+                <th>Category</th>
+                <th>Gambar</th>
               </tr>
             </thead>
             <tfoot>
               <tr>
               <th>No</th>
-              <th>User</th>
-              <th>User</th>
+              <th>Category</th>
+              <th>Gambar</th>
               </tr>
             </tfoot>
             <tbody>
-                {user.map((item, index) => (
+                {category.map((item, index) => (
                 <tr key={item.id}>
                     <td>{index + 1}</td>
                     <td>{item.name}</td>
-                    <td>{item.email}</td>
+                    <td>{item.gambar}</td>
                 </tr>
                 ))}
 
@@ -102,4 +103,4 @@ function User() {
     </div>
   );
 }
-export default User;
+export default Category;

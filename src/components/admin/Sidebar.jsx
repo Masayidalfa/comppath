@@ -45,21 +45,17 @@ function Sidebar({ isOpen }) {
               <i className="fas fa-address-card mr-3"></i>
                 Detail User
               </a>
-              <a className="block text-gray-300 hover:text-white p-2 rounded" href="/kategori">
+              <a className="block text-gray-300 hover:text-white p-2 rounded" href="/category">
               <i className="fas fa-hashtag mr-3"></i>
-                Kategori
+                Category
               </a>
-              <a className="block text-gray-300 hover:text-white p-2 rounded" href="/lomba">
+              <a className="block text-gray-300 hover:text-white p-2 rounded" href="/competition">
               <i className="fas fa-trophy mr-3"></i>
-                Lomba
+                Competition
               </a>
-              <a className="block text-gray-300 hover:text-white p-2 rounded" href="/pendaftaran">
+              <a className="block text-gray-300 hover:text-white p-2 rounded" href="/registration">
               <i className="fas fa-book mr-3"></i>
-                Pendaftaran
-              </a>
-              <a className="block text-gray-300 hover:text-white p-2 rounded" href="/kelola-lomba">
-              <i className="fas fa-pencil mr-3"></i>                
-                Kelola Lomba
+                Registration
               </a>
             </div>
           )}

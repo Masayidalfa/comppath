@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useEffect, useRef, useState } from "react";
 import $ from "jquery";
 import "datatables.net";
@@ -76,12 +77,12 @@ function DetailUser() {
               <tr>
                 <th>No</th>
                 <th>User Id</th>
-                <th>Jenis Kelamin</th>
-                <th>Usia</th>
                 <th>Alamat</th>
                 <th>No Handphone</th>
-                <th>Role</th>
+                <th>Tanggal Lahir</th>
+                <th>Jenis Kelamin</th>
                 <th>Instansi</th>
+                <th>Foto Profil</th>
                 
               </tr>
             </thead>
@@ -89,12 +90,12 @@ function DetailUser() {
               <tr>
               <th>No</th>
               <th>User Id</th>
-              <th>Jenis Kelamin</th>
-              <th>Usia</th>
               <th>Alamat</th>
               <th>No Handphone</th>
-              <th>Role</th>
+              <th>Tanggal Lahir</th>
+              <th>Jenis Kelamin</th>
               <th>Instansi</th>
+              <th>Foto Profil</th>
               
               </tr>
             </tfoot>
@@ -103,12 +104,12 @@ function DetailUser() {
                 <tr key={item.id}>
                     <td>{index + 1}</td>
                     <td>{item.user_id}</td>
-                    <td>{item.jenis_kelamin}</td>
-                    <td>{item.usia}</td>
                     <td>{item.alamat}</td>
                     <td>{item.no_handphone}</td>
-                    <td>{item.role}</td>
+                    <td>{item.tanggal_lahir}</td>
+                    <td>{item.jenis_kelamin}</td>
                     <td>{item.instansi}</td>
+                    <td>{item.foto_profil}</td>
                 </tr>
                 ))}
 

@@ -1,23 +1,24 @@
+/* eslint-disable no-unused-vars */
 import React, { useEffect, useRef, useState } from "react";
 import $ from "jquery";
 import "datatables.net";
 import "datatables.net-dt/css/dataTables.dataTables.css";
 import axios from "axios";
 
-function Pendaftaran() {
+function Competition() {
   const tableRef = useRef(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [pendaftaran, setPendaftaran] = useState([]);
-  // Pengambilan API Pendaftaran dengan axios dan Asyncronus Async/Await
+  const [competition, setCompetition] = useState([]);
+  // Pengambilan API Competition dengan axios dan Asyncronus Async/Await
   useEffect(() => {
-    const fetchPendaftaran = async () => {
+    const fetchCompetition = async () => {
       try {
-        const response = await axios.get("http://localhost:8000/api/pendaftaran");
+        const response = await axios.get("http://localhost:8000/api/competition");
         if (response.data.success) {
-          setPendaftaran(response.data.data);
+          setCompetition(response.data.data);
         } else {
-          setError("Failed to Fetch Data Pendaftaran");
+          setError("Failed to Fetch Data Competition");
         }
       } catch (err) {
         setError(err.message || "An error Occured");
@@ -25,7 +26,7 @@ function Pendaftaran() {
         setLoading(false);
       }
     };
-    fetchPendaftaran();
+    fetchCompetition();
   }, []);
 
   useEffect(() => {
@@ -41,12 +42,12 @@ function Pendaftaran() {
 
   return (
     <div className="container-fluid px-4">
-      <h1 className="mt-4">Pendaftaran</h1>
+      <h1 className="mt-4">Competition</h1>
       <ol className="breadcrumb mb-4">
         <li className="breadcrumb-item">
           <a href="index.html">Dashboard</a>
         </li>
-        <li className="breadcrumb-item active">Pendaftaran</li>
+        <li className="breadcrumb-item active">Competition</li>
       </ol>
       <div className="card mb-4">
         <div className="card-body">
@@ -75,38 +76,52 @@ function Pendaftaran() {
             <thead>
               <tr>
                 <th>No</th>
-                <th>Lomba Id</th>
-                <th>Detail User ID `peserta` </th>
-                <th>Status</th>
-                <th>Bukti Pembayaran</th>
-                <th>Bukti Persyaratan</th>
-                <th>Tanggal Pendaftaran</th>
-                <th>Jenjang</th>
+                <th>Nama Competition</th>
+                <th>Detail Competition</th>
+                <th>Gambar Competition</th>
+                <th>Category Competition</th>
+                <th>Jenjang Competition</th>
+                <th>Tanggal Mulai</th>
+                <th>Tanggal Akhir</th>
+                <th>Penyelenggara Id</th>
+                <th>Biaya Registration</th>
+                <th>Persyaratan Competition</th>
+                <th>Link Group</th>
+                
               </tr>
             </thead>
             <tfoot>
               <tr>
               <th>No</th>
-              <th>Lomba Id</th>
-              <th>Detail User ID `peserta` </th>
-              <th>Status</th>
-              <th>Bukti Pembayaran</th>
-              <th>Bukti Persyaratan</th>
-              <th>Tanggal Pendaftaran</th>
-              <th>Jenjang</th>
+              <th>Nama Competition</th>
+              <th>Detail Competition</th>
+              <th>Gambar Competition</th>
+              <th>Category Competition</th>
+              <th>Jenjang Competition</th>
+              <th>Tanggal Mulai</th>
+              <th>Tanggal Akhir</th>
+              <th>Penyelenggara Id</th>
+              <th>Biaya Registration</th>
+              <th>Persyaratan Competition</th>
+              <th>Link Group</th>
+              
               </tr>
             </tfoot>
             <tbody>
-                {pendaftaran.map((item, index) => (
+                {competition.map((item, index) => (
                 <tr key={item.id}>
                     <td>{index + 1}</td>
-                    <td>{item.lomba_id}</td>
-                    <td>{item.detail_user_id}</td>
-                    <td>{item.status_pendaftaran}</td>
-                    <td>{item.bukti_pembayaran}</td>
-                    <td>{item.bukti_persyaratan}</td>
-                    <td>{item.tanggal_pendaftaran}</td>
+                    <td>{item.name}</td>
+                    <td>{item.description}</td>
+                    <td>{item.image}</td>
+                    <td>{item.category_id}</td>
                     <td>{item.jenjang}</td>
+                    <td>{item.start_date}</td>
+                    <td>{item.end_date}</td>
+                    <td>{item.creator_id}</td>
+                    <td>{item.fee}</td>
+                    <td>{item.requirement}</td>
+                    <td>{item.group_link}</td>
                 </tr>
                 ))}
 
@@ -117,4 +132,4 @@ function Pendaftaran() {
     </div>
   );
 }
-export default Pendaftaran;
+export default Competition;
