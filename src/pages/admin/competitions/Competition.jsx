@@ -10,18 +10,21 @@ function Competition() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [competition, setCompetition] = useState([]);
-  // Pengambilan API Competition dengan axios dan Asyncronus Async/Await
+
+  // Pengambilan API Competition dengan axios dan Asynchronous Async/Await
   useEffect(() => {
     const fetchCompetition = async () => {
       try {
-        const response = await axios.get("http://localhost:8000/api/competition");
+        const response = await axios.get(
+          "http://localhost:8000/api/competition"
+        );
         if (response.data.success) {
           setCompetition(response.data.data);
         } else {
           setError("Failed to Fetch Data Competition");
         }
       } catch (err) {
-        setError(err.message || "An error Occured");
+        setError(err.message || "An error occurred");
       } finally {
         setLoading(false);
       }
@@ -31,9 +34,9 @@ function Competition() {
 
   useEffect(() => {
     if (!loading && !error) {
-      // inisiasi dataTable tanpa 'data' dan 'columns'
+      // Inisiasi dataTable tanpa 'data' dan 'columns'
       const table = $(tableRef.current).DataTable();
-      // membersihkan dataTables saat komponen unmount
+      // Membersihkan dataTables saat komponen unmount
       return () => {
         table.destroy(false);
       };
@@ -41,95 +44,155 @@ function Competition() {
   }, [loading, error]);
 
   return (
-    <div className="container-fluid px-4">
-      <h1 className="mt-4">Competition</h1>
-      <ol className="breadcrumb mb-4">
-        <li className="breadcrumb-item">
-          <a href="index.html">Dashboard</a>
-        </li>
-        <li className="breadcrumb-item active">Competition</li>
-      </ol>
-      <div className="card mb-4">
-        <div className="card-body">
-          DataTables is a third party plugin that is used to generate the demo
-          table below. For more information about DataTables, please visit the
-          <a target="_blank" href="https://datatables.net/">
-            official DataTables documentation
-          </a>
-          .
-        </div>
-      </div>
-      <div className="card mb-4">
-        <div className="card-header">
-          <i className="fas fa-table me-1" />
-          DataTable Example
-        </div>
+    <div className="container mx-auto px-4">
+      <div className="mt-4">
+        <h1 className="text-2xl font-semibold text-gray-800">Competition</h1>
+        <nav
+          className="text-sm font-medium text-gray-500 mt-2"
+          aria-label="breadcrumb"
+        >
+          <ol className="flex space-x-2">
+            <li>
+              <a href="index.html" className="text-blue-500 hover:underline">
+                Dashboard
+              </a>
+            </li>
+            <li>
+              <span className="text-gray-400">/</span>
+            </li>
+            <li className="text-gray-800">Competition</li>
+          </ol>
+        </nav>
       </div>
 
-      <div className="card-body">
+      <div className="bg-white rounded-lg shadow-md p-4 mt-6">
         {loading ? (
-          <p>Loading</p>
+          <p className="text-gray-500">Loading...</p>
         ) : error ? (
-          <p>error anjay</p>
+          <p className="text-red-500">{error}</p>
         ) : (
-          <table ref={tableRef}>
-            <thead>
-              <tr>
-                <th>No</th>
-                <th>Nama Competition</th>
-                <th>Detail Competition</th>
-                <th>Gambar Competition</th>
-                <th>Category Competition</th>
-                <th>Jenjang Competition</th>
-                <th>Tanggal Mulai</th>
-                <th>Tanggal Akhir</th>
-                <th>Penyelenggara Id</th>
-                <th>Biaya Registration</th>
-                <th>Persyaratan Competition</th>
-                <th>Link Group</th>
-                
-              </tr>
-            </thead>
-            <tfoot>
-              <tr>
-              <th>No</th>
-              <th>Nama Competition</th>
-              <th>Detail Competition</th>
-              <th>Gambar Competition</th>
-              <th>Category Competition</th>
-              <th>Jenjang Competition</th>
-              <th>Tanggal Mulai</th>
-              <th>Tanggal Akhir</th>
-              <th>Penyelenggara Id</th>
-              <th>Biaya Registration</th>
-              <th>Persyaratan Competition</th>
-              <th>Link Group</th>
-              
-              </tr>
-            </tfoot>
-            <tbody>
-                {competition.map((item, index) => (
-                <tr key={item.id}>
-                    <td>{index + 1}</td>
-                    <td>{item.name}</td>
-                    <td>{item.description}</td>
-                    <td>{item.image}</td>
-                    <td>{item.category_id}</td>
-                    <td>{item.jenjang}</td>
-                    <td>{item.start_date}</td>
-                    <td>{item.end_date}</td>
-                    <td>{item.creator_id}</td>
-                    <td>{item.fee}</td>
-                    <td>{item.requirement}</td>
-                    <td>{item.group_link}</td>
+          <div className="overflow-x-auto px-4">
+            <table
+              ref={tableRef}
+              className="min-w-full table-auto border-collapse border border-gray-300"
+            >
+              <thead className="bg-gray-100">
+                <tr>
+                  {[
+                    "No",
+                    "Nama Competition",
+                    "Detail Competition",
+                    "Gambar Competition",
+                    "Category Competition",
+                    "Jenjang Competition",
+                    "Tanggal Mulai",
+                    "Tanggal Akhir",
+                    "Penyelenggara Id",
+                    "Biaya Registration",
+                    "Persyaratan Competition",
+                    "Link Group",
+                  ].map((header, index) => (
+                    <th
+                      key={index}
+                      className="px-4 py-2 border border-gray-300 text-left text-sm font-medium text-gray-700"
+                    >
+                      {header}
+                    </th>
+                  ))}
                 </tr>
-                ))}
+              </thead>
+              <tfoot>
+                <tr>
+                  {[
+                    "No",
+                    "Nama Competition",
+                    "Detail Competition",
+                    "Gambar Competition",
+                    "Category Competition",
+                    "Jenjang Competition",
+                    "Tanggal Mulai",
+                    "Tanggal Akhir",
+                    "Penyelenggara Id",
+                    "Biaya Registration",
+                    "Persyaratan Competition",
+                    "Link Group",
+                  ].map((footer, index) => (
+                    <th
+                      key={index}
+                      className="px-4 py-2 border border-gray-300 text-left text-sm font-medium text-gray-700"
+                    >
+                      {footer}
+                    </th>
+                  ))}
+                </tr>
+              </tfoot>
+              <tbody>
+                {competition.map((item, index) => (
+                  <tr key={item.id} className="text-gray-800">
+                    <td className="px-4 py-2 border border-gray-300">
+                      {index + 1}
+                    </td>
+                    <td className="px-4 py-2 border border-gray-300">
+                      {item.name}
+                    </td>
+                    <td className="px-4 py-2 border border-gray-300">
+                      {item.description}
+                    </td>
+                    <td className="px-4 py-2 border border-gray-300">
+                      <img
+                        src={`http://localhost:8000/storage/${item.image}`}
+                        alt="Competition"
+                        className="w-16 h-16 object-cover rounded-md"
+                      />
+                    </td>
+                    <td className="px-4 py-2 border border-gray-300">
+                      {item.category_id}
+                    </td>
+                    <td className="px-4 py-2 border border-gray-300">
+                      {item.jenjang}
+                    </td>
+                    <td className="px-4 py-2 border border-gray-300">
+                      {item.start_date}
+                    </td>
+                    <td className="px-4 py-2 border border-gray-300">
+                      {item.end_date}
+                    </td>
+                    <td className="px-4 py-2 border border-gray-300">
+                      {item.creator_id}
+                    </td>
+                    <td className="px-4 py-2 border border-gray-300">
+                      {item.fee}
+                    </td>
+                    <td className="px-4 py-2 border border-gray-300">
+                      <a
+                        href={`http://localhost:8000/storage/${item.requirement}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-blue-500 hover:underline"
+                      >
+                        View PDF
+                      </a>
+                    </td>
 
-            </tbody>
-          </table>
+                    <td className="px-4 py-2 border border-gray-300">
+                      <a
+                        href={item.group_link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-blue-500 hover:underline"
+                      >
+                        {item.group_link}
+                      </a>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         )}
       </div>
     </div>
   );
 }
+
 export default Competition;

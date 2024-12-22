@@ -14,7 +14,9 @@ function DetailUser() {
   useEffect(() => {
     const fetchDetailUser = async () => {
       try {
-        const response = await axios.get("http://localhost:8000/api/detail_user");
+        const response = await axios.get(
+          "http://localhost:8000/api/detail_user"
+        );
         if (response.data.success) {
           setDetailUser(response.data.data);
         } else {
@@ -41,80 +43,116 @@ function DetailUser() {
   }, [loading, error]);
 
   return (
-    <div className="container-fluid px-4">
-      <h1 className="mt-4">DetailUser</h1>
-      <ol className="breadcrumb mb-4">
-        <li className="breadcrumb-item">
-          <a href="index.html">Dashboard</a>
-        </li>
-        <li className="breadcrumb-item active">DetailUser</li>
-      </ol>
-      <div className="card mb-4">
-        <div className="card-body">
-          DataTables is a third party plugin that is used to generate the demo
-          table below. For more information about DataTables, please visit the
-          <a target="_blank" href="https://datatables.net/">
-            official DataTables documentation
-          </a>
-          .
-        </div>
-      </div>
-      <div className="card mb-4">
-        <div className="card-header">
-          <i className="fas fa-table me-1" />
-          DataTable Example
-        </div>
+    <div className="container mx-auto px-4">
+      <div className="mt-4">
+        <h1 className="text-2xl font-semibold text-gray-800">Detail User</h1>
+        <nav
+          className="text-sm font-medium text-gray-500 mt-2"
+          aria-label="breadcrumb"
+        >
+          <ol className="flex space-x-2">
+            <li>
+              <a href="index.html" className="text-blue-500 hover:underline">
+                Dashboard
+              </a>
+            </li>
+            <li>
+              <span className="text-gray-400">/</span>
+            </li>
+            <li className="text-gray-800">Detail User</li>
+          </ol>
+        </nav>
       </div>
 
-      <div className="card-body">
+      <div className="bg-white shadow-md rounded-lg p-4 mt-4">
         {loading ? (
-          <p>Loading</p>
+          <p className="text-center text-gray-500">Loading...</p>
         ) : error ? (
-          <p>error anjay</p>
+          <p className="text-center text-red-500">{error}</p>
         ) : (
-          <table ref={tableRef}>
-            <thead>
-              <tr>
-                <th>No</th>
-                <th>User Id</th>
-                <th>Alamat</th>
-                <th>No Handphone</th>
-                <th>Tanggal Lahir</th>
-                <th>Jenis Kelamin</th>
-                <th>Instansi</th>
-                <th>Foto Profil</th>
-                
-              </tr>
-            </thead>
-            <tfoot>
-              <tr>
-              <th>No</th>
-              <th>User Id</th>
-              <th>Alamat</th>
-              <th>No Handphone</th>
-              <th>Tanggal Lahir</th>
-              <th>Jenis Kelamin</th>
-              <th>Instansi</th>
-              <th>Foto Profil</th>
-              
-              </tr>
-            </tfoot>
-            <tbody>
-                {detailUser.map((item, index) => (
-                <tr key={item.id}>
-                    <td>{index + 1}</td>
-                    <td>{item.user_id}</td>
-                    <td>{item.alamat}</td>
-                    <td>{item.no_handphone}</td>
-                    <td>{item.tanggal_lahir}</td>
-                    <td>{item.jenis_kelamin}</td>
-                    <td>{item.instansi}</td>
-                    <td>{item.foto_profil}</td>
+          <div className="overflow-x-auto">
+            <table
+              ref={tableRef}
+              className="min-w-full divide-y divide-gray-200 text-sm text-gray-700"
+            >
+              <thead className="bg-gray-50">
+                <tr>
+                  <th className="px-4 py-2 text-left font-semibold text-gray-600">
+                    No
+                  </th>
+                  <th className="px-4 py-2 text-left font-semibold text-gray-600">
+                    User ID
+                  </th>
+                  <th className="px-4 py-2 text-left font-semibold text-gray-600">
+                    Alamat
+                  </th>
+                  <th className="px-4 py-2 text-left font-semibold text-gray-600">
+                    No Handphone
+                  </th>
+                  <th className="px-4 py-2 text-left font-semibold text-gray-600">
+                    Tanggal Lahir
+                  </th>
+                  <th className="px-4 py-2 text-left font-semibold text-gray-600">
+                    Jenis Kelamin
+                  </th>
+                  <th className="px-4 py-2 text-left font-semibold text-gray-600">
+                    Instansi
+                  </th>
+                  <th className="px-4 py-2 text-left font-semibold text-gray-600">
+                    Foto Profil
+                  </th>
                 </tr>
+              </thead>
+              <tfoot className="bg-gray-50">
+                <tr>
+                  <th className="px-4 py-2 text-left font-semibold text-gray-600">
+                    No
+                  </th>
+                  <th className="px-4 py-2 text-left font-semibold text-gray-600">
+                    User ID
+                  </th>
+                  <th className="px-4 py-2 text-left font-semibold text-gray-600">
+                    Alamat
+                  </th>
+                  <th className="px-4 py-2 text-left font-semibold text-gray-600">
+                    No Handphone
+                  </th>
+                  <th className="px-4 py-2 text-left font-semibold text-gray-600">
+                    Tanggal Lahir
+                  </th>
+                  <th className="px-4 py-2 text-left font-semibold text-gray-600">
+                    Jenis Kelamin
+                  </th>
+                  <th className="px-4 py-2 text-left font-semibold text-gray-600">
+                    Instansi
+                  </th>
+                  <th className="px-4 py-2 text-left font-semibold text-gray-600">
+                    Foto Profil
+                  </th>
+                </tr>
+              </tfoot>
+              <tbody className="divide-y divide-gray-200">
+                {detailUser.map((item, index) => (
+                  <tr key={item.id} className="hover:bg-gray-100">
+                    <td className="px-4 py-2">{index + 1}</td>
+                    <td className="px-4 py-2">{item.user_id}</td>
+                    <td className="px-4 py-2">{item.alamat}</td>
+                    <td className="px-4 py-2">{item.no_handphone}</td>
+                    <td className="px-4 py-2">{item.tanggal_lahir}</td>
+                    <td className="px-4 py-2">{item.jenis_kelamin}</td>
+                    <td className="px-4 py-2">{item.instansi}</td>
+                    <td className="px-4 py-2">
+                      <img
+                        src={`http://localhost:8000/storage/${item.foto_profil}`}
+                        alt="Foto Profil"
+                        className="w-10 h-10 rounded-full"
+                      />
+                    </td>
+                  </tr>
                 ))}
-
-            </tbody>
-          </table>
+              </tbody>
+            </table>
+          </div>
         )}
       </div>
     </div>

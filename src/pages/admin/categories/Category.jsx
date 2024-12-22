@@ -10,6 +10,7 @@ function Category() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [category, setCategory] = useState([]);
+  
   // Pengambilan API Category dengan axios dan Asyncronus Async/Await
   useEffect(() => {
     const fetchCategory = async () => {
@@ -41,61 +42,69 @@ function Category() {
   }, [loading, error]);
 
   return (
-    <div className="container-fluid px-4">
-      <h1 className="mt-4">Category</h1>
-      <ol className="breadcrumb mb-4">
-        <li className="breadcrumb-item">
-          <a href="index.html">Dashboard</a>
-        </li>
-        <li className="breadcrumb-item active">Category</li>
-      </ol>
-      <div className="card mb-4">
-        <div className="card-body">
-          DataTables is a third party plugin that is used to generate the demo
-          table below. For more information about DataTables, please visit the
-          <a target="_blank" href="https://datatables.net/">
-            official DataTables documentation
-          </a>
-          .
-        </div>
-      </div>
-      <div className="card mb-4">
-        <div className="card-header">
-          <i className="fas fa-table me-1" />
-          DataTable Example
-        </div>
+    <div className="container mx-auto px-4">
+      <div className="mt-4">
+        <h1 className="text-2xl font-semibold text-gray-800">Category</h1>
+        <nav
+          className="text-sm font-medium text-gray-500 mt-2"
+          aria-label="breadcrumb"
+        >
+          <ol className="flex space-x-2">
+            <li>
+              <a href="index.html" className="text-blue-500 hover:underline">
+                Dashboard
+              </a>
+            </li>
+            <li>
+              <span className="text-gray-400">/</span>
+            </li>
+            <li className="text-gray-800">Category</li>
+          </ol>
+        </nav>
       </div>
 
-      <div className="card-body">
+      <div className="bg-white rounded-lg shadow-md p-4 mt-6">
         {loading ? (
-          <p>Loading</p>
+          <p className="text-gray-500">Loading...</p>
         ) : error ? (
-          <p>error anjay</p>
+          <p className="text-red-500">{error}</p>
         ) : (
-          <table ref={tableRef}>
-            <thead>
+          <table
+            ref={tableRef}
+            className="min-w-full table-auto border-collapse border border-gray-300"
+          >
+            <thead className="bg-gray-100">
               <tr>
-                <th>No</th>
-                <th>Category</th>
-                <th>Gambar</th>
+                <th className="px-4 py-2 border border-gray-300">No</th>
+                <th className="px-4 py-2 border border-gray-300">Category</th>
+                <th className="px-4 py-2 border border-gray-300">Gambar</th>
               </tr>
             </thead>
             <tfoot>
               <tr>
-              <th>No</th>
-              <th>Category</th>
-              <th>Gambar</th>
+                <th className="px-4 py-2 border border-gray-300">No</th>
+                <th className="px-4 py-2 border border-gray-300">Category</th>
+                <th className="px-4 py-2 border border-gray-300">Gambar</th>
               </tr>
             </tfoot>
             <tbody>
-                {category.map((item, index) => (
-                <tr key={item.id}>
-                    <td>{index + 1}</td>
-                    <td>{item.name}</td>
-                    <td>{item.gambar}</td>
+              {category.map((item, index) => (
+                <tr key={item.id} className="text-gray-800">
+                  <td className="px-4 py-2 border border-gray-300">
+                    {index + 1}
+                  </td>
+                  <td className="px-4 py-2 border border-gray-300">
+                    {item.name}
+                  </td>
+                  <td className="px-4 py-2 border border-gray-300">
+                    <img
+                      src={`http://localhost:8000/storage/${item.gambar}`}
+                      alt="Category"
+                      className="w-10 h-10 object-cover rounded-md"
+                    />
+                  </td>
                 </tr>
-                ))}
-
+              ))}
             </tbody>
           </table>
         )}
@@ -103,4 +112,5 @@ function Category() {
     </div>
   );
 }
+
 export default Category;
