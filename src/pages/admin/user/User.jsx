@@ -45,12 +45,12 @@ function User() {
       <div className="mt-4">
         <h1 className="text-2xl font-semibold text-gray-800">User</h1>
         <nav
-          className="text-sm font-medium text-gray-500 mt-2"
+          className="text-sm font-medium text-gray-500 mt-2 mb-4"
           aria-label="breadcrumb"
         >
           <ol className="flex space-x-2">
             <li>
-              <a href="index.html" className="text-blue-500 hover:underline">
+              <a href="/" className="text-blue-500 hover:underline">
                 Dashboard
               </a>
             </li>
@@ -60,8 +60,8 @@ function User() {
             <li className="text-gray-800">User</li>
           </ol>
         </nav>
+        <a href="/user/create" className="mr-auto min-w-min py-2 px-4 text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">Tambah User + </a>
       </div>
-
       <div className="bg-white shadow-md rounded-lg p-4 mt-4">
         {loading ? (
           <p className="text-center text-gray-500">Loading...</p>

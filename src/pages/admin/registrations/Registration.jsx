@@ -41,13 +41,26 @@ function Registration() {
 
   return (
     <div className="container mx-auto px-4">
-      <h1 className="text-2xl font-bold mt-6">Registration</h1>
-      <ol className="breadcrumb flex gap-2 text-sm text-gray-600 mt-2">
-        <li>
-          <a href="index.html" className="text-blue-500 hover:underline">Dashboard</a>
-        </li>
-        <li className="text-gray-500">/ Registration</li>
-      </ol>
+      <div className="mt-4">
+        <h1 className="text-2xl font-semibold text-gray-800">Registration</h1>
+        <nav
+          className="text-sm font-medium text-gray-500 mt-2 mb-4"
+          aria-label="breadcrumb"
+        >
+          <ol className="flex space-x-2">
+            <li>
+              <a href="/" className="text-blue-500 hover:underline">
+                Dashboard
+              </a>
+            </li>
+            <li>
+              <span className="text-gray-400">/</span>
+            </li>
+            <li className="text-gray-800">Registration</li>
+          </ol>
+        </nav>
+        <a href="/registration/create" className="mr-auto min-w-min py-2 px-4 text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">Tambah Registration + </a>
+      </div>
 
       <div className="mt-6 bg-white shadow-md rounded-lg p-6">
         {loading ? (
@@ -89,7 +102,7 @@ function Registration() {
                 >
                   <td className="border border-gray-200 px-4 py-2 text-center">{index + 1}</td>
                   <td className="border border-gray-200 px-4 py-2">{item.user_id}</td>
-                  <td className="border border-gray-200 px-4 py-2">{item.competition_id}</td>
+                  <td className="border border-gray-200 px-4 py-2">{item.registration_id}</td>
                   <td className="border border-gray-200 px-4 py-2">{item.registration_date}</td>
                   <td className="border border-gray-200 px-4 py-2">{item.status}</td>
                   <td className="border border-gray-200 px-4 py-2">
