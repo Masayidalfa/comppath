@@ -1,30 +1,45 @@
 // import './App.css'
 import Layout from './layout/admin/index'
 import { Routes, Route } from 'react-router-dom'
-// import LayoutUser from './layout/user/IndexUser';
-// import Registration from './pages/user/FormPendaftaran';
 import Dashboard from './pages/admin/Dashboard'
-import Kategori from './pages/admin/kategori/Kategori'
+//Users
 import User from './pages/admin/user/User'
+import AddUser from './pages/admin/user/AddUser'
+//Detail User
 import DetailUser from './pages/admin/detail_user/DetailUser'
-import Lomba from './pages/admin/lomba/Lomba'
-import Pendaftaran from './pages/admin/pendaftaran/Pendaftaran'
-import KelolaLomba from './pages/admin/kelola_lomba/KelolaLomba'
-import AddKategori from './pages/admin/kategori/addKategori'
+import AddDetailUser from './pages/admin/detail_user/AddDetailUser'
+//Categories
+import Category from './pages/admin/categories/Category'
+import AddCategory from './pages/admin/categories/AddCategory'
+//Competitions
+import Competition from './pages/admin/competitions/Competition'
+import AddCompetition from './pages/admin/competitions/AddCompetition'
+//Registrations
+import Registration from './pages/admin/registrations/Registration'
+import AddRegistration from './pages/admin/registrations/AddRegistration'
+
 function App() {
   return (
     // <LayoutUser>
     <Layout>
       <Routes>
-        {/* <Route path='/' element={<Registration/>}></Route> */}
         <Route path="/" element={<Dashboard/>}></Route>
-        <Route path="/kategori" element={<Kategori/>}></Route>
+        {/* Users */}
         <Route path="/user" element={<User/>}></Route>
+        <Route path="/user/create" element={<AddUser/>}></Route>
+        {/* Detail User */}
         <Route path="/detail-user" element={<DetailUser/>}></Route>
-        <Route path="/lomba" element={<Lomba/>}></Route>
-        <Route path="/pendaftaran" element={<Pendaftaran/>}></Route>
-        <Route path="/kelola-lomba" element={<KelolaLomba/>}></Route>
-        <Route path="/addKategori" element={<AddKategori/>}></Route>
+        <Route path="/detail-user/create" element={<AddDetailUser/>}></Route>
+        {/* Categories */}
+        <Route path="/category" element={<Category/>}></Route>
+        <Route path="/category/create" element={<AddCategory/>}></Route>
+        {/* Competitions */}
+        <Route path="/competition" element={<Competition/>}></Route>
+        <Route path="/competition/create" element={<AddCompetition/>}></Route>
+        {/* Registrations */}
+        <Route path="/registration" element={<Registration/>}></Route>
+        <Route path="/registration/create" element={<AddRegistration/>}></Route>
+        
         <Route path="*" element={<h1>404</h1>}></Route>
       </Routes>
       {/* </LayoutUser> */}

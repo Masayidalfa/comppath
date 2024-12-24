@@ -1,4 +1,3 @@
-// eslint-disable-next-line no-unused-vars
 import React, { useEffect, useRef, useState } from "react";
 import $ from "jquery";
 import "datatables.net";
@@ -82,59 +81,63 @@ function User() {
 
   return (
     <div className="container-fluid px-4">
-      <h1 className="mt-4">User Management</h1>
+      <h1 className="mt-4">User</h1>
       <ol className="breadcrumb mb-4">
         <li className="breadcrumb-item">
           <a href="index.html">Dashboard</a>
         </li>
         <li className="breadcrumb-item active">User</li>
       </ol>
-    <div className="card mb-4">
-      <div className="card-header">
-          <a href="/personel/create" className="btn btn-primary mb-3">Tambah Personel</a>
-        </div>
+      <div className="card mb-4">
         <div className="card-body">
-          {loading ? (
-            <p>Loading...</p>
-          ) : error ? (
-            <p>Error: {error}</p>
-          ) : (
-            <table ref={tableRef} className="table table-bordered">
-              <thead>
-                <tr>
-                  <th>No</th>
-                  <th>User</th>
-                  <th>Email</th>
-                  <th>Actions</th>
-                </tr>
-              </thead>
-              <tbody>
+          DataTables is a third party plugin that is used to generate the demo
+          table below. For more information about DataTables, please visit the
+          <a target="_blank" href="https://datatables.net/">
+            official DataTables documentation
+          </a>
+          .
+        </div>
+      </div>
+      <div className="card mb-4">
+        <div className="card-header">
+          <i className="fas fa-table me-1" />
+          DataTable Example
+        </div>
+      </div>
+
+      <div className="card-body">
+        {loading ? (
+          <p>Loading</p>
+        ) : error ? (
+          <p>error anjay</p>
+        ) : (
+          <table ref={tableRef}>
+            <thead>
+              <tr>
+                <th>No</th>
+                <th>User</th>
+                <th>User</th>
+              </tr>
+            </thead>
+            <tfoot>
+              <tr>
+              <th>No</th>
+              <th>User</th>
+              <th>User</th>
+              </tr>
+            </tfoot>
+            <tbody>
                 {user.map((item, index) => (
-                  <tr key={item.id}>
+                <tr key={item.id}>
                     <td>{index + 1}</td>
                     <td>{item.name}</td>
                     <td>{item.email}</td>
-                    <td>
-                      <div className="btn-group">
-                          <button className="btn btn-primary">View</button>
-                          &nbsp;
-                          <a href={`/user/edit/${item.id}`} className="btn btn-warning">Edit</a>
-
-                          &nbsp;
-                        <button
-                          className="btn btn-danger"
-                          onClick={() => handleDelete(item.id)}
-                        >
-                          Delete
-                        </button>
-                      </div>
-                    </td>
-                  </tr>
+                </tr>
                 ))}
-              </tbody>
-            </table>
-          )}
-        </div>
+
+            </tbody>
+          </table>
+        )}
       </div>
     </div>
   );

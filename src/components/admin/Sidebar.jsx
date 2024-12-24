@@ -1,171 +1,124 @@
-function Sidebar() {
+/* eslint-disable react/prop-types */
+import { useState } from "react";
+
+function Sidebar({ isOpen }) {
+  const [isMasterDataOpen, setMasterDataOpen] = useState(false);
+  const [isPagesOpen, setPagesOpen] = useState(false);
+  const [isAuthOpen, setAuthOpen] = useState(false);
+  const [isErrorOpen, setErrorOpen] = useState(false);
+
   return (
-    <div id="layoutSidenav_nav">
-      <nav
-        className="sb-sidenav accordion sb-sidenav-dark"
-        id="sidenavAccordion"
-      >
-        <div className="sb-sidenav-menu">
-          <div className="nav">
-            <div className="sb-sidenav-menu-heading">Core</div>
-            <a className="nav-link" href="/">
-              <div className="sb-nav-link-icon">
-                <i className="fas fa-tachometer-alt" />
-              </div>
-              Dashboard
-            </a>
-            <div className="sb-sidenav-menu-heading">Interface</div>
-            <a
-              className="nav-link collapsed"
-              href="#"
-              data-bs-toggle="collapse"
-              data-bs-target="#collapseLayouts"
-              aria-expanded="false"
-              aria-controls="collapseLayouts"
-            >
-              <div className="sb-nav-link-icon">
-                <i className="fas fa-columns" />
-              </div>
+    <div
+      className={`fixed top-0 left-0 h-full bg-gray-800 text-white w-64 transition-transform transform ${
+        isOpen ? "translate-x-0" : "-translate-x-48"
+      }`}
+    >
+      <nav className="flex flex-col h-full" id="sidenavAccordion">
+        <div className="flex-grow p-4">
+          <div className="text-sm font-semibold uppercase text-gray-400 mb-4">Core</div>
+          <a className="flex items-center text-gray-300 hover:text-white p-2 rounded" href="/">
+            <div className="mr-3">
+              <i className="fas fa-tachometer-alt" />
+            </div>
+            Dashboard
+          </a>
+
+          <div className="text-sm font-semibold uppercase text-gray-400 mt-6 mb-4">Interface</div>
+          {/* Master Data */}
+          <button
+            onClick={() => setMasterDataOpen(!isMasterDataOpen)}
+            className="flex items-center justify-between w-full text-gray-300 hover:text-white p-2 rounded"
+          >
+            <div className="flex items-center">
+              <i className="fas fa-columns mr-3" />
               Master Data
-              <div className="sb-sidenav-collapse-arrow">
-                <i className="fas fa-angle-down" />
-              </div>
-            </a>
-            <div
-              className="collapse"
-              id="collapseLayouts"
-              aria-labelledby="headingOne"
-              data-bs-parent="#sidenavAccordion"
-            >
-              <nav className="sb-sidenav-menu-nested nav">
-              <a className="nav-link" href="/user">
-                  User
-                </a>
-                <a className="nav-link" href="/detail-user">
-                  Detail User
-                </a>
-                <a className="nav-link" href="/kategori">
-                  Kategori
-                </a>
-                <a className="nav-link" href="/lomba">
-                  Lomba
-                </a>
-                <a className="nav-link" href="/pendaftaran">
-                  Pendaftaran
-                </a>
-                <a className="nav-link" href="/kelola-lomba">
-                  Kelola Lomba
-                </a>
-              </nav>
             </div>
-            <a
-              className="nav-link collapsed"
-              href="#"
-              data-bs-toggle="collapse"
-              data-bs-target="#collapsePages"
-              aria-expanded="false"
-              aria-controls="collapsePages"
-            >
-              <div className="sb-nav-link-icon">
-                <i className="fas fa-book-open" />
-              </div>
+            <i className={`fas fa-angle-${isMasterDataOpen ? "up" : "down"}`} />
+          </button>
+          {isMasterDataOpen && (
+            <div className="ml-4">
+              <a className="block text-gray-300 hover:text-white p-2 rounded" href="/user">
+              <i className="fas fa-user mr-3"></i>
+                User
+              </a>
+              <a className="block text-gray-300 hover:text-white p-2 rounded" href="/detail-user">
+              <i className="fas fa-address-card mr-3"></i>
+                Detail User
+              </a>
+              <a className="block text-gray-300 hover:text-white p-2 rounded" href="/category">
+              <i className="fas fa-hashtag mr-3"></i>
+                Category
+              </a>
+              <a className="block text-gray-300 hover:text-white p-2 rounded" href="/competition">
+              <i className="fas fa-trophy mr-3"></i>
+                Competition
+              </a>
+              <a className="block text-gray-300 hover:text-white p-2 rounded" href="/registration">
+              <i className="fas fa-book mr-3"></i>
+                Registration
+              </a>
+            </div>
+          )}
+
+          {/* Pages */}
+          <button
+            onClick={() => setPagesOpen(!isPagesOpen)}
+            className="flex items-center justify-between w-full text-gray-300 hover:text-white p-2 rounded mt-4"
+          >
+            <div className="flex items-center">
+              <i className="fas fa-book-open mr-3" />
               Pages
-              <div className="sb-sidenav-collapse-arrow">
-                <i className="fas fa-angle-down" />
-              </div>
-            </a>
-            <div
-              className="collapse"
-              id="collapsePages"
-              aria-labelledby="headingTwo"
-              data-bs-parent="#sidenavAccordion"
-            >
-              <nav
-                className="sb-sidenav-menu-nested nav accordion"
-                id="sidenavAccordionPages"
-              >
-                <a
-                  className="nav-link collapsed"
-                  href="#"
-                  data-bs-toggle="collapse"
-                  data-bs-target="#pagesCollapseAuth"
-                  aria-expanded="false"
-                  aria-controls="pagesCollapseAuth"
-                >
-                  Authentication
-                  <div className="sb-sidenav-collapse-arrow">
-                    <i className="fas fa-angle-down" />
-                  </div>
-                </a>
-                <div
-                  className="collapse"
-                  id="pagesCollapseAuth"
-                  aria-labelledby="headingOne"
-                  data-bs-parent="#sidenavAccordionPages"
-                >
-                  <nav className="sb-sidenav-menu-nested nav">
-                    <a className="nav-link" href="login.html">
-                      Login
-                    </a>
-                    <a className="nav-link" href="register.html">
-                      Register
-                    </a>
-                    <a className="nav-link" href="password.html">
-                      Forgot Password
-                    </a>
-                  </nav>
-                </div>
-                <a
-                  className="nav-link collapsed"
-                  href="#"
-                  data-bs-toggle="collapse"
-                  data-bs-target="#pagesCollapseError"
-                  aria-expanded="false"
-                  aria-controls="pagesCollapseError"
-                >
-                  Error
-                  <div className="sb-sidenav-collapse-arrow">
-                    <i className="fas fa-angle-down" />
-                  </div>
-                </a>
-                <div
-                  className="collapse"
-                  id="pagesCollapseError"
-                  aria-labelledby="headingOne"
-                  data-bs-parent="#sidenavAccordionPages"
-                >
-                  <nav className="sb-sidenav-menu-nested nav">
-                    <a className="nav-link" href="401.html">
-                      401 Page
-                    </a>
-                    <a className="nav-link" href="404.html">
-                      404 Page
-                    </a>
-                    <a className="nav-link" href="500.html">
-                      500 Page
-                    </a>
-                  </nav>
-                </div>
-              </nav>
             </div>
-            <div className="sb-sidenav-menu-heading">Addons</div>
-            <a className="nav-link" href="charts.html">
-              <div className="sb-nav-link-icon">
-                <i className="fas fa-chart-area" />
-              </div>
-              Charts
-            </a>
-            <a className="nav-link" href="tables.html">
-              <div className="sb-nav-link-icon">
-                <i className="fas fa-table" />
-              </div>
-              Tables
-            </a>
-          </div>
+            <i className={`fas fa-angle-${isPagesOpen ? "up" : "down"}`} />
+          </button>
+          {isPagesOpen && (
+            <div className="ml-4">
+              <button
+                onClick={() => setAuthOpen(!isAuthOpen)}
+                className="flex items-center justify-between w-full text-gray-300 hover:text-white p-2 rounded"
+              >
+                Authentication
+                <i className={`fas fa-angle-${isAuthOpen ? "up" : "down"}`} />
+              </button>
+              {isAuthOpen && (
+                <div className="ml-4">
+                  <a className="block text-gray-300 hover:text-white p-2 rounded" href="login.html">
+                    Login
+                  </a>
+                  <a className="block text-gray-300 hover:text-white p-2 rounded" href="register.html">
+                    Register
+                  </a>
+                  <a className="block text-gray-300 hover:text-white p-2 rounded" href="password.html">
+                    Forgot Password
+                  </a>
+                </div>
+              )}
+              <button
+                onClick={() => setErrorOpen(!isErrorOpen)}
+                className="flex items-center justify-between w-full text-gray-300 hover:text-white p-2 rounded mt-2"
+              >
+                Error
+                <i className={`fas fa-angle-${isErrorOpen ? "up" : "down"}`} />
+              </button>
+              {isErrorOpen && (
+                <div className="ml-4">
+                  <a className="block text-gray-300 hover:text-white p-2 rounded" href="401.html">
+                    401 Page
+                  </a>
+                  <a className="block text-gray-300 hover:text-white p-2 rounded" href="404.html">
+                    404 Page
+                  </a>
+                  <a className="block text-gray-300 hover:text-white p-2 rounded" href="500.html">
+                    500 Page
+                  </a>
+                </div>
+              )}
+            </div>
+          )}
         </div>
-        <div className="sb-sidenav-footer">
-          <div className="small">Logged in as:</div>
-          Start Bootstrap
+        <div className="p-4 border-t border-gray-700">
+          <div className="text-sm text-gray-400">Logged in as:</div>
+          <div className="text-white">Start Bootstrap</div>
         </div>
       </nav>
     </div>
