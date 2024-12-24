@@ -13,7 +13,7 @@ function Lomba() {
   useEffect(() => {
     const fetchLomba = async () => {
       try {
-        const response = await axios.get("http://localhost:8000/api/lomba");
+        const response = await axios.get("http://localhost:8000/api/competition");
         if (response.data.success) {
           setLomba(response.data.data);
         } else {
@@ -88,22 +88,6 @@ function Lomba() {
                 
               </tr>
             </thead>
-            <tfoot>
-              <tr>
-              <th>No</th>
-              <th>Nama</th>
-              <th>Detail Lomba</th>
-              <th>Gambar Lomba</th>
-              <th>Kategori Lomba</th>
-              <th>Persyaratan Lomba</th>
-              <th>Batas Peserta</th>
-              <th>Jumlah Peserta</th>
-              <th>Tanggal Mulai</th>
-              <th>Tanggal Akhir</th>
-              <th>Biaya Pendaftaran</th>
-              
-              </tr>
-            </tfoot>
             <tbody>
                 {lomba.map((item, index) => (
                 <tr key={item.id}>

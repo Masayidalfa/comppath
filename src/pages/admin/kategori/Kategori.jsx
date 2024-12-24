@@ -13,7 +13,7 @@ function Kategori() {
   useEffect(() => {
     const fetchKategori = async () => {
       try {
-        const response = await axios.get("http://localhost:8000/api/kategori");
+        const response = await axios.get("http://localhost:8000/api/category");
         if (response.data.success) {
           setKategori(response.data.data);
         } else {
