@@ -3,76 +3,36 @@ import $ from "jquery";
 import "datatables.net";
 import "datatables.net-dt/css/dataTables.dataTables.css";
 import axios from "axios";
-import Swal from 'sweetalert2'
 
-function User() {
+function Lomba() {
   const tableRef = useRef(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [user, setUser] = useState([]);
-
-  // Fetch data from API
+  const [lomba, setLomba] = useState([]);
+  // Pengambilan API Lomba dengan axios dan Asyncronus Async/Await
   useEffect(() => {
-    const fetchUser = async () => {
+    const fetchLomba = async () => {
       try {
-        const response = await axios.get("http://localhost:8000/api/user");
+        const response = await axios.get("http://localhost:8000/api/competition");
         if (response.data.success) {
-          setUser(response.data.data);
+          setLomba(response.data.data);
         } else {
-          setError("Failed to fetch user data");
+          setError("Failed to Fetch Data Lomba");
         }
       } catch (err) {
-        setError(err.message || "An error occurred");
+        setError(err.message || "An error Occured");
       } finally {
         setLoading(false);
       }
     };
-    fetchUser();
+    fetchLomba();
   }, []);
-
-  const handleDelete = (id) => {
-    Swal.fire({
-      title: "Are you sure?",
-      text: "You won't be able to revert this!",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Yes, delete it!"
-    }).then((result) => {
-      if (result.isConfirmed) {
-        axios.delete(`http://localhost:8000/api/user/${id}`)
-        .then((response) => {
-          if(response.data.success){
-            Swal.fire({
-              title: "Deleted!",
-              text: "Your file has been deleted.",
-              icon: "success"
-            });
-          } else{
-            Swal.fire({
-              title: "Error!",
-              text: "Your file has been deleted.",
-              icon: "Failed"
-            });
-          }
-        })
-        .catch((error) => {
-          Swal.fire({
-            title: "Error!",
-            text: "An Error Occured While Deleting The Data",
-            icon: "Error"
-          });
-          console.error("Deleting Error", error)
-        })
-      }
-    });
-  }
 
   useEffect(() => {
     if (!loading && !error) {
-      // Initialize DataTable
+      // inisiasi dataTable tanpa 'data' dan 'columns'
       const table = $(tableRef.current).DataTable();
+      // membersihkan dataTables saat komponen unmount
       return () => {
         table.destroy(false);
       };
@@ -81,12 +41,12 @@ function User() {
 
   return (
     <div className="container-fluid px-4">
-      <h1 className="mt-4">User</h1>
+      <h1 className="mt-4">Lomba</h1>
       <ol className="breadcrumb mb-4">
         <li className="breadcrumb-item">
           <a href="index.html">Dashboard</a>
         </li>
-        <li className="breadcrumb-item active">User</li>
+        <li className="breadcrumb-item active">Lomba</li>
       </ol>
       <div className="card mb-4">
         <div className="card-body">
@@ -115,23 +75,33 @@ function User() {
             <thead>
               <tr>
                 <th>No</th>
-                <th>User</th>
-                <th>User</th>
+                <th>Nama</th>
+                <th>Detail Lomba</th>
+                <th>Gambar Lomba</th>
+                <th>Kategori Lomba</th>
+                <th>Persyaratan Lomba</th>
+                <th>Batas Peserta</th>
+                <th>Jumlah Peserta</th>
+                <th>Tanggal Mulai</th>
+                <th>Tanggal Akhir</th>
+                <th>Biaya Pendaftaran</th>
+                
               </tr>
             </thead>
-            <tfoot>
-              <tr>
-              <th>No</th>
-              <th>User</th>
-              <th>User</th>
-              </tr>
-            </tfoot>
             <tbody>
-                {user.map((item, index) => (
+                {lomba.map((item, index) => (
                 <tr key={item.id}>
                     <td>{index + 1}</td>
-                    <td>{item.name}</td>
-                    <td>{item.email}</td>
+                    <td>{item.nama_lomba}</td>
+                    <td>{item.detail_lomba}</td>
+                    <td>{item.gambar_lomba}</td>
+                    <td>{item.katekori_lomba}</td>
+                    <td>{item.persyaratan_lomba}</td>
+                    <td>{item.batas_peserta}</td>
+                    <td>{item.jumlah_peserta}</td>
+                    <td>{item.tanggal_mulai}</td>
+                    <td>{item.tanggal_akhir}</td>
+                    <td>{item.biaya_pendaftaran}</td>
                 </tr>
                 ))}
 
@@ -142,5 +112,4 @@ function User() {
     </div>
   );
 }
-
-export default User;
+export default Lomba;

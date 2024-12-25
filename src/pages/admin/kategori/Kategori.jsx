@@ -3,76 +3,36 @@ import $ from "jquery";
 import "datatables.net";
 import "datatables.net-dt/css/dataTables.dataTables.css";
 import axios from "axios";
-import Swal from 'sweetalert2'
 
-function User() {
+function Kategori() {
   const tableRef = useRef(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [user, setUser] = useState([]);
-
-  // Fetch data from API
+  const [kategori, setKategori] = useState([]);
+  // Pengambilan API Kategori dengan axios dan Asyncronus Async/Await
   useEffect(() => {
-    const fetchUser = async () => {
+    const fetchKategori = async () => {
       try {
-        const response = await axios.get("http://localhost:8000/api/user");
+        const response = await axios.get("http://localhost:8000/api/category");
         if (response.data.success) {
-          setUser(response.data.data);
+          setKategori(response.data.data);
         } else {
-          setError("Failed to fetch user data");
+          setError("Failed to Fetch Data Kategori");
         }
       } catch (err) {
-        setError(err.message || "An error occurred");
+        setError(err.message || "An error Occured");
       } finally {
         setLoading(false);
       }
     };
-    fetchUser();
+    fetchKategori();
   }, []);
-
-  const handleDelete = (id) => {
-    Swal.fire({
-      title: "Are you sure?",
-      text: "You won't be able to revert this!",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Yes, delete it!"
-    }).then((result) => {
-      if (result.isConfirmed) {
-        axios.delete(`http://localhost:8000/api/user/${id}`)
-        .then((response) => {
-          if(response.data.success){
-            Swal.fire({
-              title: "Deleted!",
-              text: "Your file has been deleted.",
-              icon: "success"
-            });
-          } else{
-            Swal.fire({
-              title: "Error!",
-              text: "Your file has been deleted.",
-              icon: "Failed"
-            });
-          }
-        })
-        .catch((error) => {
-          Swal.fire({
-            title: "Error!",
-            text: "An Error Occured While Deleting The Data",
-            icon: "Error"
-          });
-          console.error("Deleting Error", error)
-        })
-      }
-    });
-  }
 
   useEffect(() => {
     if (!loading && !error) {
-      // Initialize DataTable
+      // inisiasi dataTable tanpa 'data' dan 'columns'
       const table = $(tableRef.current).DataTable();
+      // membersihkan dataTables saat komponen unmount
       return () => {
         table.destroy(false);
       };
@@ -81,12 +41,12 @@ function User() {
 
   return (
     <div className="container-fluid px-4">
-      <h1 className="mt-4">User</h1>
+      <h1 className="mt-4">Kategori</h1>
       <ol className="breadcrumb mb-4">
         <li className="breadcrumb-item">
           <a href="index.html">Dashboard</a>
         </li>
-        <li className="breadcrumb-item active">User</li>
+        <li className="breadcrumb-item active">Kategori</li>
       </ol>
       <div className="card mb-4">
         <div className="card-body">
@@ -115,23 +75,20 @@ function User() {
             <thead>
               <tr>
                 <th>No</th>
-                <th>User</th>
-                <th>User</th>
+                <th>Kategori</th>
               </tr>
             </thead>
             <tfoot>
               <tr>
               <th>No</th>
-              <th>User</th>
-              <th>User</th>
+              <th>Kategori</th>
               </tr>
             </tfoot>
             <tbody>
-                {user.map((item, index) => (
+                {kategori.map((item, index) => (
                 <tr key={item.id}>
                     <td>{index + 1}</td>
-                    <td>{item.name}</td>
-                    <td>{item.email}</td>
+                    <td>{item.nama_kategori}</td>
                 </tr>
                 ))}
 
@@ -142,5 +99,4 @@ function User() {
     </div>
   );
 }
-
-export default User;
+export default Kategori;
