@@ -7,6 +7,7 @@ import Footer from "../../components/admin/Footer";
 function Layout({ children }) {
   // State untuk toggle sidebar
   const [isSidebarOpen, setSidebarOpen] = useState(true);
+  console.log("AdminLayout Children:", children);
 
   const toggleSidebar = () => {
     setSidebarOpen((prev) => !prev);
@@ -28,6 +29,7 @@ function Layout({ children }) {
       </div>
     </Fragment>
   );
+  
 }
 
 export default Layout;

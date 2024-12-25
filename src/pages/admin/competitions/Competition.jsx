@@ -131,7 +131,7 @@ function Competition() {
               </tfoot>
               <tbody>
                 {competition.map((item, index) => (
-                  <tr key={item.id} className="text-gray-800">
+                  <tr key={item.id} className="text-gray-800 text-center">
                     <td className="px-4 py-2 border border-gray-300">
                       {index + 1}
                     </td>
@@ -187,7 +187,7 @@ function Competition() {
                         rel="noopener noreferrer"
                         className="text-blue-500 hover:underline"
                       >
-                        {item.group_link}
+                        <i className="fa-solid fa-link"></i>
                       </a>
                     </td>
                   </tr>

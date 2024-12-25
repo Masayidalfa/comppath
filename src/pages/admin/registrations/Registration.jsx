@@ -78,7 +78,7 @@ function Registration() {
                 <th className="border border-gray-200 px-4 py-2">Id Penyelenggara</th>
                 <th className="border border-gray-200 px-4 py-2">Id Lomba</th>
                 <th className="border border-gray-200 px-4 py-2">Tanggal Pendaftaran</th>
-                <th className="border border-gray-200 px-4 py-2">Status Lomba</th>
+                <th className="border border-gray-200 px-4 py-2">Status Pendaftaran</th>
                 <th className="border border-gray-200 px-4 py-2">Bukti Persyaratan</th>
                 <th className="border border-gray-200 px-4 py-2">Bukti Pembayaran</th>
               </tr>
@@ -89,7 +89,7 @@ function Registration() {
                 <th className="border border-gray-200 px-4 py-2">Id Penyelenggara</th>
                 <th className="border border-gray-200 px-4 py-2">Id Lomba</th>
                 <th className="border border-gray-200 px-4 py-2">Tanggal Pendaftaran</th>
-                <th className="border border-gray-200 px-4 py-2">Status Lomba</th>
+                <th className="border border-gray-200 px-4 py-2">Status Pendaftaran</th>
                 <th className="border border-gray-200 px-4 py-2">Bukti Persyaratan</th>
                 <th className="border border-gray-200 px-4 py-2">Bukti Pembayaran</th>
               </tr>
@@ -107,7 +107,7 @@ function Registration() {
                   <td className="border border-gray-200 px-4 py-2">{item.status}</td>
                   <td className="border border-gray-200 px-4 py-2">
                     <a
-                      href={`http://localhost:8000/storage/requirements/${item.required_file}`}
+                      href={`http://localhost:8000/storage/${item.requirements_file}`}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-blue-500 hover:underline"
@@ -117,7 +117,7 @@ function Registration() {
                   </td>
                   <td className="border border-gray-200 px-4 py-2">
                     <a
-                      href={`http://localhost:8000/storage/payments_proofs/${item.payment_proof}`}
+                      href={`http://localhost:8000/storage/${item.payment_proof}`}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-blue-500 hover:underline"

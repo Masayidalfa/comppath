@@ -79,6 +79,7 @@ function Category() {
                 <th className="px-4 py-2 border border-gray-300">No</th>
                 <th className="px-4 py-2 border border-gray-300">Category</th>
                 <th className="px-4 py-2 border border-gray-300">Gambar</th>
+                <th className="px-4 py-2 border border-gray-300">Action</th>
               </tr>
             </thead>
             <tfoot>
@@ -86,6 +87,7 @@ function Category() {
                 <th className="px-4 py-2 border border-gray-300">No</th>
                 <th className="px-4 py-2 border border-gray-300">Category</th>
                 <th className="px-4 py-2 border border-gray-300">Gambar</th>
+                <th className="px-4 py-2 border border-gray-300">Action</th>
               </tr>
             </tfoot>
             <tbody>
@@ -103,6 +105,11 @@ function Category() {
                       alt="Category"
                       className="w-10 h-10 object-cover rounded-md"
                     />
+                  </td>
+                  <td className="px-4 py-2 border border-gray-300">
+                    <a href={'/category/edit/' + item.id + ''} className="bg-orange-400 hover:bg-amber-300 text-white font-bold py-2 px-4 rounded-full">
+                    <i className="fa-solid fa-pen-to-square"></i>
+                    </a>
                   </td>
                 </tr>
               ))}
