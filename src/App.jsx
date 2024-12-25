@@ -1,5 +1,9 @@
 import { Routes, Route } from 'react-router-dom'
 
+//layout
+import AdminLayout from './layout/admin/index'
+import FrontendLayout from './layout/frontend/index'
+
 //Admin
 import Dashboard from './pages/admin/Dashboard'
 import User from './pages/admin/user/User'
@@ -29,30 +33,37 @@ import CreateLomba from './pages/frontend/profile/CreateLomba'
 
 function App() {
   return (
-    <Layout>
-      <Routes>
+    <Routes>
+      {/* Admin Routes */}
+      <Route path="/" element={<AdminLayout><Dashboard /></AdminLayout>} />
+      <Route path="/user" element={<AdminLayout><User /></AdminLayout>} />
+      <Route path="/user/create" element={<AdminLayout><AddUser /></AdminLayout>} />
+      <Route path="/detail-user" element={<AdminLayout><DetailUser /></AdminLayout>} />
+      <Route path="/detail-user/create" element={<AdminLayout><AddDetailUser /></AdminLayout>} />
+      <Route path="/category" element={<AdminLayout><Category /></AdminLayout>} />
+      <Route path="/category/create" element={<AdminLayout><AddCategory /></AdminLayout>} />
+      <Route path="/category/edit/:id" element={<AdminLayout><EditCategory /></AdminLayout>} />
+      <Route path="/competition" element={<AdminLayout><Competition /></AdminLayout>} />
+      <Route path="/competition/create" element={<AdminLayout><AddCompetition /></AdminLayout>} />
+      <Route path="/registration" element={<AdminLayout><Registration /></AdminLayout>} />
+      <Route path="/registration/create" element={<AdminLayout><AddRegistration /></AdminLayout>} />
 
-        {/* Admin Page */}
-        <Route path="/" element={<Dashboard/>}></Route>
-        {/* Users */}
-        <Route path="/user" element={<User/>}></Route>
-        <Route path="/user/create" element={<AddUser/>}></Route>
-        {/* Detail User */}
-        <Route path="/detail-user" element={<DetailUser/>}></Route>
-        <Route path="/detail-user/create" element={<AddDetailUser/>}></Route>
-        {/* Categories */}
-        <Route path="/category" element={<Category/>}></Route>
-        <Route path="/category/create" element={<AddCategory/>}></Route>
-        {/* Competitions */}
-        <Route path="/competition" element={<Competition/>}></Route>
-        <Route path="/competition/create" element={<AddCompetition/>}></Route>
-        {/* Registrations */}
-        <Route path="/registration" element={<Registration/>}></Route>
-        <Route path="/registration/create" element={<AddRegistration/>}></Route>
-        
-        <Route path="*" element={<h1>404</h1>}></Route>
-      </Routes>
-    </Layout>
+      {/* Frontend Routes */}
+      <Route path="/frontend" element={<FrontendLayout><Landing /></FrontendLayout>} />
+      <Route path="/daftar-kategori" element={<FrontendLayout><DaftarKategori /></FrontendLayout>} />
+      <Route path="/daftar-lomba" element={<FrontendLayout><DaftarLomba /></FrontendLayout>} />
+      <Route path="/detail-lomba" element={<FrontendLayout><DetailLomba /></FrontendLayout>} />
+      <Route path="/form-pendaftaran" element={<FrontendLayout><FormPendaftaran /></FrontendLayout>} />
+      <Route path="/profile" element={<FrontendLayout><Profil /></FrontendLayout>} />
+      <Route path="/kegiatan" element={<FrontendLayout><Kegiatan /></FrontendLayout>} />
+      <Route path="/daftar-peserta" element={<FrontendLayout><DaftarPeserta /></FrontendLayout>} />
+      <Route path="/daftar-lomba-kontributor" element={<FrontendLayout><DaftarLombaKontributor /></FrontendLayout>} />
+      <Route path="/create-lomba" element={<FrontendLayout><CreateLomba /></FrontendLayout>} />
+
+
+      {/* 404 Not Found */}
+      <Route path="*" element={<h1>404 - Not Found</h1>} />
+    </Routes>
   )
 }
 
