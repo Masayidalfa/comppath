@@ -10,10 +10,11 @@ use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
 {
-    function index()
+    public function index()
     {
-        $userData = User::get();
-        return new ResponsResource(true, 'List Data User', $userData);
+        // Mengambil semua data detail_user
+        $user = User::all();
+        return new ResponsResource(true, 'List Data User', $user);
     }
 
     public function store(Request $request)
