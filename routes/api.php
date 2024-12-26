@@ -35,6 +35,7 @@ Route::get('/category/{id}', [CategoryController::class, 'show']);
 Route::put('/category/{id}', [CategoryController::class, 'update']);
 Route::delete('/category/{id}', [CategoryController::class, 'destroy']);
 
+
 // Competition
 Route::get('/competition', [CompetitionController::class, 'index']);
 Route::post('/competition', [CompetitionController::class, 'store']);

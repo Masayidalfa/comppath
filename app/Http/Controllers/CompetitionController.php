@@ -175,10 +175,17 @@ class CompetitionController extends Controller
 
     // fungsi untuk data di page daftar lomba
     public function indexCompetitions()
-    {
-        $competitions = Competition::select('id', 'name', 'image', 'jenjang', 'fee', 'status')->get();
-        return response()->json($competitions);
-    }
+{
+    $competitions = Competition::with('category:id,name,gambar') // Relasi ke kategori
+        ->select('id', 'name', 'image', 'jenjang', 'fee', 'status', 'category_id') // Pilih kolom yang dibutuhkan
+        ->get();
+
+    return response()->json([
+        'success' => true,
+        'message' => 'Data kompetisi berhasil diambil',
+        'data' => $competitions
+    ]);
+}
 
     // fungsi untuk daftar lomba kontributor
     public function getCreatedCompetitions(Request $request)
