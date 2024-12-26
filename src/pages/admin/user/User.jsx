@@ -4,7 +4,7 @@ import $ from "jquery";
 import "datatables.net";
 import "datatables.net-dt/css/dataTables.dataTables.css";
 import axios from "axios";
-import Swal from 'sweetalert2'
+import Swal from "sweetalert2";
 
 function User() {
   const tableRef = useRef(null);
@@ -31,6 +31,7 @@ function User() {
     fetchUser();
   }, []);
 
+  //Fungsi untuk delete data
   const handleDelete = (id) => {
     Swal.fire({
       title: "Are you sure?",
@@ -39,40 +40,41 @@ function User() {
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
-      confirmButtonText: "Yes, delete it!"
+      confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        axios.delete(`http://localhost:8000/api/user/${id}`)
-        .then((response) => {
-          if(response.data.success){
-            Swal.fire({
-              title: "Deleted!",
-              text: "Your file has been deleted.",
-              icon: "success"
-            });
-          } else{
+        axios
+          .delete(`http://localhost:8000/api/user/${id}`)
+          .then((response) => {
+            if (response.data.success) {
+              Swal.fire({
+                title: "Deleted!",
+                text: "Your file has been deleted.",
+                icon: "success",
+              });
+              setUser(user.filter((u) => u.id !== id));
+            } else {
+              Swal.fire({
+                title: "Error!",
+                text: "Failed to delete the data.",
+                icon: "error",
+              });
+            }
+          })
+          .catch((error) => {
             Swal.fire({
               title: "Error!",
-              text: "Your file has been deleted.",
-              icon: "Failed"
+              text: "An error occurred while deleting the data.",
+              icon: "error",
             });
-          }
-        })
-        .catch((error) => {
-          Swal.fire({
-            title: "Error!",
-            text: "An Error Occured While Deleting The Data",
-            icon: "Error"
+            console.error("Deleting Error", error);
           });
-          console.error("Deleting Error", error)
-        })
       }
     });
-  }
+  };
 
   useEffect(() => {
     if (!loading && !error) {
-      // Initialize DataTable
       const table = $(tableRef.current).DataTable();
       return () => {
         table.destroy(false);
@@ -81,63 +83,110 @@ function User() {
   }, [loading, error]);
 
   return (
-    <div className="container-fluid px-4">
-      <h1 className="mt-4">User</h1>
-      <ol className="breadcrumb mb-4">
-        <li className="breadcrumb-item">
-          <a href="index.html">Dashboard</a>
-        </li>
-        <li className="breadcrumb-item active">User</li>
-      </ol>
-      <div className="card mb-4">
-        <div className="card-body">
-          DataTables is a third party plugin that is used to generate the demo
-          table below. For more information about DataTables, please visit the
-          <a target="_blank" href="https://datatables.net/">
-            official DataTables documentation
-          </a>
-          .
-        </div>
-      </div>
-      <div className="card mb-4">
-        <div className="card-header">
-          <i className="fas fa-table me-1" />
-          DataTable Example
-        </div>
+    <div className="container mx-auto px-4">
+      <div className="mt-4">
+        <h1 className="text-2xl font-semibold text-gray-800">User</h1>
+        <nav
+          className="text-sm font-medium text-gray-500 mt-2 mb-4"
+          aria-label="breadcrumb"
+        >
+          <ol className="flex space-x-2">
+            <li>
+              <a href="/" className="text-blue-500 hover:underline">
+                Dashboard
+              </a>
+            </li>
+            <li>
+              <span className="text-gray-400">/</span>
+            </li>
+            <li className="text-gray-800">User</li>
+          </ol>
+        </nav>
+        <a
+          href="/user/create"
+          className="py-2 px-4 text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+        >
+          Tambah User +
+        </a>
       </div>
 
-      <div className="card-body">
+      <div className="bg-white shadow-md rounded-lg p-4 mt-4">
         {loading ? (
-          <p>Loading</p>
+          <p className="text-center text-gray-500">Loading...</p>
         ) : error ? (
-          <p>error anjay</p>
+          <p className="text-center text-red-500">{error}</p>
         ) : (
-          <table ref={tableRef}>
-            <thead>
-              <tr>
-                <th>No</th>
-                <th>User</th>
-                <th>User</th>
-              </tr>
-            </thead>
-            <tfoot>
-              <tr>
-              <th>No</th>
-              <th>User</th>
-              <th>User</th>
-              </tr>
-            </tfoot>
-            <tbody>
-                {user.map((item, index) => (
-                <tr key={item.id}>
-                    <td>{index + 1}</td>
-                    <td>{item.name}</td>
-                    <td>{item.email}</td>
+          <div className="overflow-x-auto">
+            <table
+              ref={tableRef}
+              className="min-w-full divide-y divide-gray-200 text-sm text-gray-700"
+            >
+              <thead className="bg-gray-50">
+                <tr>
+                  <th className="px-4 py-2 text-left font-semibold text-gray-600">
+                    No
+                  </th>
+                  <th className="px-4 py-2 text-left font-semibold text-gray-600">
+                    Name
+                  </th>
+                  <th className="px-4 py-2 text-left font-semibold text-gray-600">
+                    Email
+                  </th>
+                  <th className="px-4 py-2 text-left font-semibold text-gray-600">
+                    Role
+                  </th>
+                  <th className="px-4 py-2 text-left font-semibold text-gray-600">
+                    Actions
+                  </th>
                 </tr>
+              </thead>
+              <tfoot className="bg-gray-50">
+                <tr>
+                  <th className="px-4 py-2 text-left font-semibold text-gray-600">
+                    No
+                  </th>
+                  <th className="px-4 py-2 text-left font-semibold text-gray-600">
+                    Name
+                  </th>
+                  <th className="px-4 py-2 text-left font-semibold text-gray-600">
+                    Email
+                  </th>
+                  <th className="px-4 py-2 text-left font-semibold text-gray-600">
+                    Role
+                  </th>
+                  <th className="px-4 py-2 text-left font-semibold text-gray-600">
+                    Actions
+                  </th>
+                </tr>
+              </tfoot>
+              <tbody className="divide-y divide-gray-200">
+                {user.map((item, index) => (
+                  <tr key={item.id} className="hover:bg-gray-100">
+                    <td className="px-4 py-2">{index + 1}</td>
+                    <td className="px-4 py-2">{item.name}</td>
+                    <td className="px-4 py-2">{item.email}</td>
+                    <td className="px-4 py-2">{item.role}</td>
+                    <td className="px-4 py-2">
+                      {/* edit */}
+                      <a
+                        href={"/user/edit/" + item.id + ""}
+                        className="py-1 px-2 text-sm font-medium rounded-md text-white bg-amber-300 hover:bg-orange-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500"
+                      >
+                        <i className="fa-solid fa-pen-to-square"></i>
+                      </a>
+                      {/* delete */}
+                      <button
+                        onClick={() => handleDelete(item.id)}
+                        className="py-1 px-2 m-1 text-sm font-medium rounded-md text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
+                      >
+                        <i className="fa-solid fa-trash"></i>
+                      </button>
+                    </td>
+                  </tr>
                 ))}
-
-            </tbody>
-          </table>
+              </tbody>
+            </table>
+          </div>
         )}
       </div>
     </div>

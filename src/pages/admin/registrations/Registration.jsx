@@ -4,6 +4,7 @@ import $ from "jquery";
 import "datatables.net";
 import "datatables.net-dt/css/dataTables.dataTables.css";
 import axios from "axios";
+import Swal from "sweetalert2";
 
 function Registration() {
   const tableRef = useRef(null);
@@ -29,6 +30,35 @@ function Registration() {
     };
     fetchRegistration();
   }, []);
+
+  // fungsi Delete
+  const handleDelete = (id) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axios
+          .delete(`http://localhost:8000/api/registration/${id}`)
+          .then((response) => {
+            if (response.data.success) {
+              Swal.fire("Deleted!", "Your registration has been deleted.", "success");
+              setRegistration(registration.filter((r) => r.id !== id));
+            } else {
+              Swal.fire("Error!", "Failed to delete the registration.", "error");
+            }
+          })
+          .catch((error) => {
+            Swal.fire("Error!", "An error occurred while deleting.", "error");
+          });
+      }
+    });
+  };
 
   useEffect(() => {
     if (!loading && !error) {
@@ -81,6 +111,7 @@ function Registration() {
                 <th className="border border-gray-200 px-4 py-2">Status Pendaftaran</th>
                 <th className="border border-gray-200 px-4 py-2">Bukti Persyaratan</th>
                 <th className="border border-gray-200 px-4 py-2">Bukti Pembayaran</th>
+                <th className="border border-gray-200 px-4 py-2">Actions</th>
               </tr>
             </thead>
             <tfoot>
@@ -92,6 +123,7 @@ function Registration() {
                 <th className="border border-gray-200 px-4 py-2">Status Pendaftaran</th>
                 <th className="border border-gray-200 px-4 py-2">Bukti Persyaratan</th>
                 <th className="border border-gray-200 px-4 py-2">Bukti Pembayaran</th>
+                <th className="border border-gray-200 px-4 py-2">Actions</th>
               </tr>
             </tfoot>
             <tbody>
@@ -102,7 +134,7 @@ function Registration() {
                 >
                   <td className="border border-gray-200 px-4 py-2 text-center">{index + 1}</td>
                   <td className="border border-gray-200 px-4 py-2">{item.user_id}</td>
-                  <td className="border border-gray-200 px-4 py-2">{item.registration_id}</td>
+                  <td className="border border-gray-200 px-4 py-2">{item.competition_id}</td>
                   <td className="border border-gray-200 px-4 py-2">{item.registration_date}</td>
                   <td className="border border-gray-200 px-4 py-2">{item.status}</td>
                   <td className="border border-gray-200 px-4 py-2">
@@ -125,6 +157,22 @@ function Registration() {
                       View Proof
                     </a>
                   </td>
+                  <td className="px-4 py-2 border border-gray-300">
+                      {/* edit */}
+                      <a
+                        href={"/registration/edit/" + item.id + ""}
+                        className="py-1 px-2 text-sm font-medium rounded-md text-white bg-amber-300 hover:bg-orange-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500"
+                      >
+                        <i className="fa-solid fa-pen-to-square"></i>
+                      </a>
+                      {/* delete */}
+                      <button
+                        onClick={() => handleDelete(item.id)}
+                        className="py-1 px-2 m-1 text-sm font-medium rounded-md text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
+                      >
+                        <i className="fa-solid fa-trash"></i>
+                      </button>
+                    </td>
                 </tr>
               ))}
             </tbody>

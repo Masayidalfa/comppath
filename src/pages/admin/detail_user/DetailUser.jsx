@@ -4,26 +4,26 @@ import $ from "jquery";
 import "datatables.net";
 import "datatables.net-dt/css/dataTables.dataTables.css";
 import axios from "axios";
+import Swal from "sweetalert2";
 
 function DetailUser() {
   const tableRef = useRef(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [detailUser, setDetailUser] = useState([]);
-  // Pengambilan API DetailUser dengan axios dan Asyncronus Async/Await
+
+  // Fetch data from API
   useEffect(() => {
     const fetchDetailUser = async () => {
       try {
-        const response = await axios.get(
-          "http://localhost:8000/api/detail_user"
-        );
+        const response = await axios.get("http://localhost:8000/api/detail_user");
         if (response.data.success) {
           setDetailUser(response.data.data);
         } else {
-          setError("Failed to Fetch Data DetailUser");
+          setError("Failed to fetch detail user data");
         }
       } catch (err) {
-        setError(err.message || "An error Occured");
+        setError(err.message || "An error occurred");
       } finally {
         setLoading(false);
       }
@@ -33,14 +33,42 @@ function DetailUser() {
 
   useEffect(() => {
     if (!loading && !error) {
-      // inisiasi dataTable tanpa 'data' dan 'columns'
       const table = $(tableRef.current).DataTable();
-      // membersihkan dataTables saat komponen unmount
       return () => {
         table.destroy(false);
       };
     }
   }, [loading, error]);
+
+  const handleEdit = (id) => {
+    window.location.href = `/detail-user/edit/${id}`;
+  };
+
+  const handleDelete = async (id) => {
+    const confirmDelete = await Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#d33",
+      cancelButtonColor: "#3085d6",
+      confirmButtonText: "Yes, delete it!",
+    });
+
+    if (confirmDelete.isConfirmed) {
+      try {
+        const response = await axios.delete(`http://localhost:8000/api/detail_user/${id}`);
+        if (response.data.success) {
+          setDetailUser(detailUser.filter((user) => user.id !== id));
+          Swal.fire("Deleted!", "Detail User has been deleted.", "success");
+        } else {
+          Swal.fire("Error!", "Failed to delete Detail user.", "error");
+        }
+      } catch (err) {
+        Swal.fire("Error!", err.message || "An error occurred.", "error");
+      }
+    }
+  };
 
   return (
     <div className="container mx-auto px-4">
@@ -62,7 +90,12 @@ function DetailUser() {
             <li className="text-gray-800">Detail User</li>
           </ol>
         </nav>
-        <a href="/detail-user/create" className="mr-auto min-w-min py-2 px-4 text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">Tambah Detail User + </a>
+        <a
+          href="/detail-user/create"
+          className="py-2 px-4 text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+        >
+          Tambah Detail User +
+        </a>
       </div>
 
       <div className="bg-white shadow-md rounded-lg p-4 mt-4">
@@ -102,6 +135,9 @@ function DetailUser() {
                   <th className="px-4 py-2 text-left font-semibold text-gray-600">
                     Foto Profil
                   </th>
+                  <th className="px-4 py-2 text-left font-semibold text-gray-600">
+                    Actions
+                  </th>
                 </tr>
               </thead>
               <tfoot className="bg-gray-50">
@@ -130,6 +166,9 @@ function DetailUser() {
                   <th className="px-4 py-2 text-left font-semibold text-gray-600">
                     Foto Profil
                   </th>
+                  <th className="px-4 py-2 text-left font-semibold text-gray-600">
+                    Actions
+                  </th>
                 </tr>
               </tfoot>
               <tbody className="divide-y divide-gray-200">
@@ -149,6 +188,20 @@ function DetailUser() {
                         className="w-10 h-10 rounded-full"
                       />
                     </td>
+                    <td className="px-4 py-2">
+                      <button
+                        onClick={() => handleEdit(item.id)}
+                        className="py-1 px-2 mr-2 text-sm text-white bg-yellow-500 rounded hover:bg-yellow-600"
+                      >
+                        <i className="fa-solid fa-pen-to-square"></i>
+                      </button>
+                      <button
+                        onClick={() => handleDelete(item.id)}
+                        className="py-1 px-2 text-sm text-white bg-red-500 rounded hover:bg-red-600"
+                      >
+                        <i className="fa-solid fa-trash"></i>
+                      </button>
+                    </td>
                   </tr>
                 ))}
               </tbody>
@@ -159,4 +212,5 @@ function DetailUser() {
     </div>
   );
 }
+
 export default DetailUser;

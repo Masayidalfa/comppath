@@ -4,6 +4,7 @@ import $ from "jquery";
 import "datatables.net";
 import "datatables.net-dt/css/dataTables.dataTables.css";
 import axios from "axios";
+import Swal from "sweetalert2";
 
 function Category() {
   const tableRef = useRef(null);
@@ -29,6 +30,48 @@ function Category() {
     };
     fetchCategory();
   }, []);
+
+  // Fungsi untuk menghapus data kategori
+  const handleDelete = (id) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axios
+          .delete(`http://localhost:8000/api/category/${id}`)
+          .then((response) => {
+            if (response.data.success) {
+              Swal.fire({
+                title: "Deleted!",
+                text: "Your category has been deleted.",
+                icon: "success",
+              });
+              setCategory(category.filter((c) => c.id !== id));
+            } else {
+              Swal.fire({
+                title: "Error!",
+                text: "Failed to delete the category.",
+                icon: "error",
+              });
+            }
+          })
+          .catch((error) => {
+            Swal.fire({
+              title: "Error!",
+              text: "An error occurred while deleting the category.",
+              icon: "error",
+            });
+            console.error("Deleting Error", error);
+          });
+      }
+    });
+  };
 
   useEffect(() => {
     if (!loading && !error) {
@@ -107,9 +150,18 @@ function Category() {
                     />
                   </td>
                   <td className="px-4 py-2 border border-gray-300">
-                    <a href={'/category/edit/' + item.id + ''} className="bg-orange-400 hover:bg-amber-300 text-white font-bold py-2 px-4 rounded-full">
-                    <i className="fa-solid fa-pen-to-square"></i>
+                    <a
+                      href={"/category/edit/" + item.id}
+                      className="py-1 px-2 text-sm font-medium rounded-md text-white bg-amber-300 hover:bg-orange-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500"
+                    >
+                      <i className="fa-solid fa-pen-to-square"></i>
                     </a>
+                    <button
+                      onClick={() => handleDelete(item.id)}
+                      className="py-1 px-2 m-1 text-sm font-medium rounded-md text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
+                    >
+                      <i className="fa-solid fa-trash"></i>
+                    </button>
                   </td>
                 </tr>
               ))}
