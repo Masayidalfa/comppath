@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 function AddUser() {
-  const [user, setUser] = useState({ name: "", email: "", password: "" });
+  const [user, setUser] = useState({ name: "", email: "", password: "", role: "" });
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -13,6 +13,7 @@ function AddUser() {
     formData.append("name", user.name);
     formData.append("email", user.email);
     formData.append("password", user.password);
+    formData.append("role", user.role);
 
     try {
       const response = await axios.post("http://localhost:8000/api/user", formData, {
@@ -89,6 +90,24 @@ function AddUser() {
               onChange={(e) => setUser({ ...user, email: e.target.value })}
               required
             />
+          </div>
+
+          {/* Role */}
+          <div className="mb-4">
+            <label htmlFor="role" className="block text-sm font-medium text-gray-700">Role</label>
+            <select
+              id="role"
+              name="role"
+              className="mt-1 block w-1/2 px-3 py-2 border-gray-800 pb-2 shadow-sm focus:border-blue-500 focus:ring-blue-500 focus:outline-none ring-2 ring-transparent sm:text-sm border-b-2"
+              value={user.role}
+              onChange={(e) => setUser({...user, role: e.target.value })}
+              required
+            >
+              <option value="">Pilih Role</option>
+              <option value="admin">Admin</option>
+              <option value="kontributor">Kontributor</option>
+              <option value="user">User</option>
+            </select>
           </div>
 
           {/* Password */}
