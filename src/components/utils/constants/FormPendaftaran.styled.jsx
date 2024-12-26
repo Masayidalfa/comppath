@@ -1,75 +1,90 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 export const Container = styled.div`
-  margin: 1rem auto;
-  max-width: 800px;
-  padding: 1rem;
-`;
-
-export const FormTitle = styled.h1`
-  color:rgb(16, 17, 17);
-  font-size: 3rem;
-  margin-bottom: 1rem;
-  font-family: 'Poppins', sans-serif;
-  text-align: center;
-`;
-
-export const ErrorMessage = styled.p`
-  color: red;
-  font-size: 1.5rem;
-  text-align: center;
-`;
-
-export const Form = styled.form`
   display: flex;
   flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 20px;
+`;
+
+export const Title = styled.h1`
+  font-size: 24px;
+  color: #333;
+  margin-bottom: 20px;
+`;
+
+export const FormWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
   align-items: flex-start;
+  gap: 20px;
+  background-color: #f9f9f9;
+  padding: 65px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 `;
 
-export const FormGroup = styled.div`
-  margin-bottom: 1rem;
-  width: 100%;
+export const ImagePreview = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 150px;
+  background-color: #e0e0e0;
+  border-radius: 8px;
+  overflow: hidden;
+
+  img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    border-bottom: 1px solid #ccc;
+  }
 `;
 
-export const Label = styled.label`
-  color:rgb(29, 30, 31);
-  font-size: 1.59rem;
-  font-family: 'Poppins', sans-serif;
+export const CompetitionName = styled.p`
+  margin-top: 10px;
+  font-size: 16px;
+  color: #333;
+  text-align: center;
 `;
 
-export const FormSelect = styled.select`
-  margin-top: 0.5rem;
-  padding: 0.5rem;
-  border: 2px solid rgb(136, 178, 231);
-  border-radius: 10px;
-  font-size: 1.59rem;
-  width: 100%;
-  color:rgb(16, 17, 17);
+export const FormField = styled.div`
+  margin-bottom: 15px;
+  display: flex;
+  flex-direction: column;
+
+  label {
+    margin-bottom: 5px;
+    font-size: 14px;
+    color: #333;
+  }
+
+  select {
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
 `;
 
-export const FormInput = styled.input`
-  margin-top: 0.5rem;
-  padding: 0.5rem;
-  border: 2px solid rgb(136, 178, 231);
-  border-radius: 10px;
-  font-size: 1.59rem;
-  width: 100%;
-  color:rgb(16, 17, 17);
+export const Input = styled.input`
+  padding: 10px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
 `;
 
-export const SubmitButton = styled.button`
-  background-color: #03b1dd;
-  color: white;
+export const Button = styled.button`
+  padding: 10px 15px;
+  font-size: 14px;
   border: none;
-  padding: 0.8rem 2rem;
-  border-radius: 10px;
+  border-radius: 4px;
+  background-color: ${(props) => (props.primary ? "#007bff" : "#fff")};
+  color: ${(props) => (props.primary ? "#fff" : "#007bff")};
   cursor: pointer;
-  transition: background-color 0.3s ease;
-  font-size: 1.59rem;
-  width: 100%;
-  height: auto;
 
   &:hover {
-    background-color: #218838;
+    background-color: ${(props) => (props.primary ? "#0056b3" : "#f0f0f0")};
   }
 `;

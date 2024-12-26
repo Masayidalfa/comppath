@@ -51,9 +51,9 @@ function App() {
       {/* Frontend Routes */}
       <Route path="/frontend" element={<FrontendLayout><Landing /></FrontendLayout>} />
       <Route path="/daftar-kategori" element={<FrontendLayout><DaftarKategori /></FrontendLayout>} />
-      <Route path="/daftar-lomba" element={<FrontendLayout><DaftarLomba /></FrontendLayout>} />
-      <Route path="/detail-lomba" element={<FrontendLayout><DetailLomba /></FrontendLayout>} />
-      <Route path="/form-pendaftaran" element={<FrontendLayout><FormPendaftaran /></FrontendLayout>} />
+      <Route path="/daftar_lomba" element={<FrontendLayout><DaftarLomba /></FrontendLayout>} />
+      <Route path="/detail_lomba/:id" element={<FrontendLayout><DetailLomba /></FrontendLayout>} />
+      <Route path="/pendaftaran/:id" element={<FrontendLayout><FormPendaftaran /></FrontendLayout>} />
       <Route path="/profile" element={<FrontendLayout><Profil /></FrontendLayout>} />
       <Route path="/kegiatan" element={<FrontendLayout><Kegiatan /></FrontendLayout>} />
       <Route path="/daftar-peserta" element={<FrontendLayout><DaftarPeserta /></FrontendLayout>} />
