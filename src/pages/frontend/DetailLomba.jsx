@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useParams, useNavigate } from "react-router-dom";
@@ -54,7 +55,7 @@ const DetailLomba = () => {
   if (loading) return <p>Loading...</p>;
   if (error) return <p>{error}</p>;
 
-  const { name, description, start_date, end_date, fee, status, jenjang, requirement, image } = data;
+  const { name, description, start_date, end_date, fee, requirement, image } = data;
 
   const imageUrl = image || "/logo.jpg";
 
