@@ -1,5 +1,38 @@
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 function Register () {
+    const [formData, setFormData] = useState({
+        name: '',
+        email: '',
+        password: '',
+    });
+
+    const [error, setError] = useState(null);
+    const navigate = useNavigate();
+    const handleChange = (e) => {
+        const {name, value} = e.target;
+        setFormData({...formData, [name]: value});
+    };
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        setError(null);
+        try {
+            const response = await axios.post('http://localhost:8000/api/register', formData);
+            if (response.data.success) {
+                alert('Register Berhasil');
+                navigate('/login');
+            } else {
+                setError(response.data.message || 'Register Gagal');
+            }
+        } catch (error) {
+            setError(error.response?.data?.message || 'Terjadi kesalahan. Silakan coba lagi');
+            console.error(error);
+        }
+    };
+    
+
   return (
     <div className="min-h-screen flex">
       {/* Register Form */}
@@ -7,18 +40,8 @@ function Register () {
         <div className="max-w-md w-full">
           <h3 className="text-2xl font-bold text-gray-800 mb-4" style={{ color: "#2F3A9F" }}>DAFTAR</h3>
 
-          {/* Error Messages */}
-          {/* Replace this section with your error handling logic if needed */}
-          <div className="mb-4">
-            {/* Example error messages */}
-            {/* <div className="bg-red-100 text-red-800 p-4 rounded mb-4">
-              <ul>
-                <li>Error message here</li>
-              </ul>
-            </div> */}
-          </div>
-
-          <form action="#" method="POST" className="space-y-4">
+          {error && <p className="text-red-500 mb-4">{error}</p>}
+          <form onSubmit={handleSubmit} className="space-y-4">
             {/* Username Input */}
             <div>
               <label htmlFor="name" className="block text-gray-700 font-medium mb-1">
@@ -30,6 +53,8 @@ function Register () {
                 name="name"
                 className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring focus:ring-blue-300"
                 placeholder="Enter your username"
+                value={formData.name}
+                onChange={handleChange}
               />
             </div>
 
@@ -44,6 +69,8 @@ function Register () {
                 name="email"
                 className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring focus:ring-blue-300"
                 placeholder="Enter your email"
+                value={formData.email}
+                onChange={handleChange}
               />
             </div>
 
@@ -58,11 +85,13 @@ function Register () {
                 name="password"
                 className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring focus:ring-blue-300"
                 placeholder="Enter your password"
+                value={formData.password}
+                onChange={handleChange}
               />
             </div>
 
             {/* Confirm Password Input */}
-            <div>
+            {/* <div>
               <label htmlFor="password_confirm" className="block text-gray-700 font-medium mb-1">
                 Konfirmasi Password
               </label>
@@ -73,7 +102,7 @@ function Register () {
                 className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring focus:ring-blue-300"
                 placeholder="Confirm your password"
               />
-            </div>
+            </div> */}
 
             {/* Submit Button */}
             <div>
