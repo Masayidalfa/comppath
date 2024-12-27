@@ -9,9 +9,9 @@ use App\Http\Controllers\Detail_userController;
 use App\Http\Controllers\RegistrationController;
 use App\Http\Controllers\CategoryController;
 
-// Route::get('/user', function (Request $request) {
-//     return $request->user();
-// })->middleware('auth:sanctum');
+Route::get('/user', function (Request $request) {
+    return $request->user();
+})->middleware('auth:sanctum');
 
 
 // User

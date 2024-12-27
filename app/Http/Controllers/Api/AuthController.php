@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 
+
 class AuthController extends Controller
 {
     // Display the login form
@@ -52,17 +53,31 @@ class AuthController extends Controller
     }
 
     // Handle the login logic
-    public function login(Request $request)
-    {
+    public function login(Request $request) {
         $credentials = $request->only('email', 'password');
-
+    
+        $request->validate([
+            'email' => 'required|email',
+            'password' => 'required|min:8',
+        ]);
+    
         if (Auth::attempt($credentials)) {
-            $request->session()->regenerate();
-            return redirect()->intended('/');
+            $user = Auth::user(); // Ambil user yang sedang login
+            $token = $user->createToken('token')->plainTextToken;
+            return response()->json([
+                "code" => 200,
+                'success' => true,
+                "message" => "Login Success",
+                "token" => $token,
+            ]);
         }
-
-        return back()->withErrors([
-            'email' => 'The provided credentials do not match our records.',
+    
+        return response()->json([
+            "code" => 401,
+            "status" => "error",
+            "message" => "Login Failed",
         ]);
     }
+    
+
 }
