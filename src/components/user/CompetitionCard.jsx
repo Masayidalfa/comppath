@@ -17,7 +17,8 @@ import {
 } from "../utils/constants/CompetitionCard.styled";
 
 const CompetitionCard = ({ competition }) => {
-  const competitionImage = competition.categoryImage || "/logo.jpg"; // Gambar kompetisi atau default
+  const competitionImage = competition.image ? `http://localhost:8000/storage/${competition.image}` 
+  : "/logo.jpg"; // Gambar kompetisi atau default
 
   return (
     <Wrapper>

@@ -57,7 +57,7 @@ const DetailLomba = () => {
 
   const { name, description, start_date, end_date, fee, requirement, image } = data;
 
-  const imageUrl = image || "/logo.jpg";
+  const imageUrl = image ? `http://localhost:8000/storage/${image}` : "/logo.jpg";
 
   // Fungsi untuk mengarahkan ke halaman pendaftaran
   const handleRegister = () => {
