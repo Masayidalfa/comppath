@@ -14,6 +14,11 @@ use App\Http\Controllers\CategoryController;
 //     return $request->user();
 // })->middleware('auth:sanctum');
 
+//default route
+Route::get('/', function () {
+    return view('welcome');
+});
+
 
 //User
 Route::apiResource('/user', UserController::class);
