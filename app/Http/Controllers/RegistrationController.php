@@ -18,7 +18,7 @@ class RegistrationController extends Controller
         $validator = Validator::make($request->all(), [
             'user_id' => 'required|exists:users,id',
             'competition_id' => 'required|exists:competitions,id',
-            'requirement_file' => 'required|file|mimes:pdf|max:10240',
+            'requirements_file' => 'required|file|mimes:pdf|max:10240',
             'payment_proof' => 'required|file|mimes:jpeg,png,jpg|max:2048',
         ]);
         
@@ -28,14 +28,14 @@ class RegistrationController extends Controller
         
         $registrationDate = $request->registration_date ?? now()->toDateString();
         
-        $requirementPath = $request->file('requirement_file')->store('requirements', 'public');
+        $requirementPath = $request->file('requirements_file')->store('requirements', 'public');
         $paymentPath = $request->file('payment_proof')->store('payments', 'public');
         
         $registration = Registration::create([
             'user_id' => $request->user_id,
             'competition_id' => $request->competition_id,
             'registration_date' => $registrationDate,
-            'requirement_file' => $requirementPath,
+            'requirements_file' => $requirementPath,
             'payment_proof' => $paymentPath,
         ]);
         
