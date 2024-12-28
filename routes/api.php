@@ -1,59 +1,59 @@
 <?php
 
-use App\Http\Controllers\Api\AuthController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\CompetitionController;
 use App\Http\Controllers\Detail_userController;
 use App\Http\Controllers\RegistrationController;
-use App\Http\Controllers\CategoryController;
 
 Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
 
 
-// User
-Route::get('/user', [UserController::class, 'index']);
-Route::post('/user', [UserController::class, 'store']);
-Route::get('/user/{id}', [UserController::class, 'show']);
-Route::put('/user/{id}', [UserController::class, 'update']);
-Route::delete('/user/{id}', [UserController::class, 'destroy']);
-
-// Detail User
-Route::get('/detail_user', [Detail_userController::class, 'index']);
-Route::post('/detail_user', [Detail_userController::class, 'store']);
-Route::get('/detail_user/{id}', [Detail_userController::class, 'show']);
-Route::put('/detail_user/{id}', [Detail_userController::class, 'update']);
-Route::delete('/detail_user/{id}', [Detail_userController::class, 'destroy']);
-
-// Category Competition
-Route::get('/category', [CategoryController::class, 'index']);
-Route::post('/category', [CategoryController::class, 'store']);
-Route::get('/category/{id}', [CategoryController::class, 'show']);
-Route::put('/category/{id}', [CategoryController::class, 'update']);
-Route::delete('/category/{id}', [CategoryController::class, 'destroy']);
-
-
-// Competition
-Route::get('/competition', [CompetitionController::class, 'index']);
-Route::post('/competition', [CompetitionController::class, 'store']);
-Route::get('/competition/{id}', [CompetitionController::class, 'show']);
-Route::put('/competition/{id}', [CompetitionController::class, 'update']);
-Route::delete('/competition/{id}', [CompetitionController::class, 'destroy']);
-
-// Registration
-Route::get('/registration', [RegistrationController::class, 'index']);
-Route::post('/registration', [RegistrationController::class, 'store']);
-Route::get('/registration/{id}', [RegistrationController::class, 'show']);
-Route::put('/registration/{id}', [RegistrationController::class, 'update']);
-Route::delete('/registration/{id}', [RegistrationController::class, 'destroy']);
-
 // Auth
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
 
+// hak akses pengunjung 
+Route::get('/category', [CategoryController::class, 'index']);
+Route::get('/competition', [CompetitionController::class, 'index']);
+Route::get('/competition/{id}', [CompetitionController::class, 'show']);
+Route::get('/dashboard', [DashboardController::class, 'index']);
+
+// Routes that require authentication
+
+    // Routes for role "user"
+    Route::middleware('auth:sanctum', 'peran:user-kontributor-admin')->group(function () {
+        Route::get('/user', [UserController::class, 'show']); // Only show user's own data
+        Route::get('/detail_user', [Detail_userController::class, 'index']);
+        Route::get('/detail_user/{id}', [Detail_userController::class, 'show']);
+        Route::get('/registration', [RegistrationController::class, 'index']);
+        Route::get('/registration/{id}', [RegistrationController::class, 'show']);
+        Route::post('/registration', [RegistrationController::class, 'store']);
+    });
+
+    // Routes for role "kontributor"
+    Route::middleware('auth:sanctum', 'peran:kontributor-admin')->group(function () {
+        Route::post('/competition', [CompetitionController::class, 'store']);
+        Route::put('/competition/{id}', [CompetitionController::class, 'update']);
+        Route::delete('/competition/{id}', [CompetitionController::class, 'destroy']);
+        Route::put('/registration/{id}', [RegistrationController::class, 'update']);
+        Route::delete('/registration/{id}', [RegistrationController::class, 'destroy']);
+    });
+
+    // Routes for role "admin"
+    Route::middleware('auth:sanctum', 'peran:admin')->group(function () {
+        Route::apiResource('/user', UserController::class);
+        Route::apiResource('/detail_user', Detail_userController::class);
+        Route::apiResource('/category', CategoryController::class);
+        Route::apiResource('/competition', CompetitionController::class);
+        Route::apiResource('/registration', RegistrationController::class);
+    });
 // === Routes Tambahan untuk Halaman Spesifik ===
 
 // Page Landing

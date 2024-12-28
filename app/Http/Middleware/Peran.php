@@ -23,6 +23,6 @@ class Peran
                 return $next($request);
             }
         }
-        return redirect('/');
+        return redirect('http://localhost:5173/login');
     }
 }
