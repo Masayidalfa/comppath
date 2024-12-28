@@ -1,5 +1,7 @@
-
-import React, { useEffect, useState } from 'react';
+/* eslint-disable no-irregular-whitespace */
+/* eslint-disable no-unused-vars */
+import React, { useEffect, useState, useNavigate } from "react";
+import { Link } from "react-router-dom";
 
 import {
   Container,
@@ -12,23 +14,28 @@ import {
   NavbarLink,
   LoginButton,
   SignUpButton,
-
   ProfileContainer,
   ProfileImage,
   DropdownMenu,
   DropdownItem,
-} from '../utils/constants/Navbar.styled';
+} from "../utils/constants/Navbar.styled";
 
 function Navbar() {
+  const [userRole, setUserRole] = useState(null);
+  useEffect(() => {
+    const role = localStorage.getItem("role");
+    setUserRole(role);
+  }, []); //menampung role user dari auth login
+
   const [isLoggedIn, setIsLoggedIn] = useState(false); // Status login
   const [userData, setUserData] = useState(null); // Data pengguna yang login
-  const defaultProfileImage = '/public/logo.jpg'; // Gambar default jika foto profil kosong
+  const defaultProfileImage = "/public/logo.jpg"; // Gambar default jika foto profil kosong
 
   useEffect(() => {
     // Fetch data pengguna yang login
     const fetchUserData = async () => {
       try {
-        const response = await fetch('http://localhost:8000/api/detail_user');
+        const response = await fetch("http://localhost:8000/api/detail_user");
         const result = await response.json();
 
         if (result.success) {
@@ -41,7 +48,7 @@ function Navbar() {
           }
         }
       } catch (error) {
-        console.error('Error fetching user data:', error);
+        console.error("Error fetching user data:", error);
         setIsLoggedIn(false); // Set status ke tidak login jika ada error
       }
     };
@@ -51,11 +58,10 @@ function Navbar() {
 
   const handleLogout = () => {
     // Logika logout
-    console.log('User logged out');
+    console.log("User logged out");
     setIsLoggedIn(false);
     setUserData(null);
   };
-
 
   return (
     <Container>
@@ -80,13 +86,15 @@ function Navbar() {
           <NavbarItem>
             <NavbarLink to="/contact">Contact</NavbarLink>
           </NavbarItem>
-          
-          
+          {userRole === "admin" && ( // membatasi jika user role admin dapat mengakses dashboard
+            <NavbarItem>
+              <NavbarLink to="/dashboard">Dashboard</NavbarLink>
+            </NavbarItem>
+          )}
         </NavbarList>
 
         {/* Profil atau Tombol Login */}
         <div>
-
           {isLoggedIn && userData ? (
             <ProfileContainer>
               <ProfileImage
@@ -110,7 +118,6 @@ function Navbar() {
               <SignUpButton>Sign Up</SignUpButton>
             </>
           )}
-
         </div>
       </NavbarStyled>
     </Container>
