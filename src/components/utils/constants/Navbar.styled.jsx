@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
-// Container Wrapper for Full Width Navbar and Footer
 export const Container = styled.div`
   background-color: #d6edff;
   padding: 10px 20px;
@@ -11,40 +10,39 @@ export const Container = styled.div`
   width: 100%;
 `;
 
-// Navbar Styled
 export const NavbarStyled = styled.nav`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 100%; /* Lebar penuh */
-  margin: 0; /* Reset margin */
+  width: 100%;
+  margin: 0;
 `;
 
 export const NavbarBrand = styled.div`
   display: flex;
   align-items: center;
-  gap: 10px; /* Beri jarak antara logo dan brand name */
+  gap: 10px;
 `;
 
 export const Logo = styled.img`
   height: 40px;
   width: 40px;
-  border-radius: 50%; /* Membuat logo menjadi bulat */
+  border-radius: 50%;
   margin-right: 10px;
 `;
 
-export const BrandName = styled.h1`
+export const BrandName = styled.h1` /* Tambahkan ini jika belum ada */
   font-size: 1.2rem;
   color: #002366;
   margin: 0;
-  line-height: 1; /* Hilangkan jarak default vertikal */
+  line-height: 1;
 `;
 
 export const NavbarList = styled.ul`
   display: flex;
   list-style: none;
-  gap: 30px; /* Tambahkan jarak antar item */
-  margin: 0; /* Reset margin */
+  gap: 30px;
+  margin: 0;
   padding: 0;
 `;
 
@@ -79,4 +77,45 @@ export const SignUpButton = styled(Button)`
   color: #002366;
   border: 1px solid #002366;
   margin-left: 10px;
+`;
+
+export const ProfileContainer = styled.div`
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+`;
+
+export const ProfileImage = styled.img`
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+`;
+
+export const DropdownMenu = styled.div`
+  display: none;
+  position: absolute;
+  top: 50px;
+  right: 0;
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+
+  ${ProfileContainer}:hover & {
+    display: block;
+  }
+`;
+
+export const DropdownItem = styled(Link)`
+  display: block;
+  padding: 10px 15px;
+  color: #000;
+  text-decoration: none;
+
+  &:hover {
+    background-color: #f0f0f0;
+    color: #002366;
+  }
 `;
