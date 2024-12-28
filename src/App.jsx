@@ -34,15 +34,6 @@ import Kegiatan from './pages/frontend/profile/kegiatan'
 import DaftarPeserta from './pages/frontend/profile/DaftarPeserta'
 import DaftarLombaKontributor from './pages/frontend/profile/DaftarLombaKontributor'
 import CreateLomba from './pages/frontend/profile/CreateLomba'
-<<<<<<< HEAD
-import ProfileKontributor from './pages/frontend/profile/ProfileKontributor'
-=======
-import About from './pages/frontend/About'
-
-// Auth
-import Login from './pages/auth/Login'
-import Register from './pages/auth/Register'
->>>>>>> 00794de3b5d0d98d86753e466172071aba18906e
 
 function App() {
   return (
@@ -71,13 +62,6 @@ function App() {
       <Route path="/daftar_lomba" element={<FrontendLayout><DaftarLomba /></FrontendLayout>} />
       <Route path="/detail_lomba/:id" element={<FrontendLayout><DetailLomba /></FrontendLayout>} />
       <Route path="/pendaftaran/:id" element={<FrontendLayout><FormPendaftaran /></FrontendLayout>} />
-<<<<<<< HEAD
-      <Route path="/user_profile" element={<FrontendLayout><UserProfile /></FrontendLayout>} />
-      <Route path="/profile_kontributor" element={<FrontendLayout><ProfileKontributor /></FrontendLayout>} />
-=======
-      <Route path="/about" element={<FrontendLayout><About /></FrontendLayout>} />
-      <Route path="/profile" element={<FrontendLayout><Profil /></FrontendLayout>} />
->>>>>>> 00794de3b5d0d98d86753e466172071aba18906e
       <Route path="/kegiatan" element={<FrontendLayout><Kegiatan /></FrontendLayout>} />
       <Route path="/daftar-peserta" element={<FrontendLayout><DaftarPeserta /></FrontendLayout>} />
       <Route path="/daftar-lomba-kontributor" element={<FrontendLayout><DaftarLombaKontributor /></FrontendLayout>} />
