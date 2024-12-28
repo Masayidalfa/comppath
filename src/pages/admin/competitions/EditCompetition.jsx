@@ -3,6 +3,9 @@ import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 
 function EditCompetition() {
+  //token
+  const token = localStorage.getItem("token");
+
   const { id } = useParams();
   const navigate = useNavigate();
   const [competition, setCompetition] = useState({
@@ -25,7 +28,11 @@ function EditCompetition() {
     const fetchCompetition = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:8000/api/competition/${id}`
+          `http://localhost:8000/api/competition/${id}`,{
+            headers: {
+              Authorization: `Bearer ${token}`
+            }
+          }
         );
         if (response.data.success) {
           const competitionData = response.data.data;
@@ -53,7 +60,11 @@ function EditCompetition() {
 
     const fetchCategories = async () => {
       try {
-        const response = await axios.get("http://localhost:8000/api/category");
+        const response = await axios.get("http://localhost:8000/api/category", {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        });
         if (response.data.success) {
           setCategories(response.data.data);
         } else {
@@ -111,6 +122,10 @@ function EditCompetition() {
           headers: {
             "Content-Type": "multipart/form-data",
           },
+        }, {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
         }
       );
 

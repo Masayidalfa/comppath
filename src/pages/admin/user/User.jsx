@@ -7,16 +7,25 @@ import axios from "axios";
 import Swal from "sweetalert2";
 
 function User() {
+
+  const token = localStorage.getItem('token');
+  const userRole = localStorage.getItem('role');
+
   const tableRef = useRef(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [user, setUser] = useState([]);
 
+
   // Fetch data from API
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const response = await axios.get("http://localhost:8000/api/user");
+        const response = await axios.get("http://localhost:8000/api/user", {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        });
         if (response.data.success) {
           setUser(response.data.data);
         } else {
@@ -44,7 +53,11 @@ function User() {
     }).then((result) => {
       if (result.isConfirmed) {
         axios
-          .delete(`http://localhost:8000/api/user/${id}`)
+          .delete(`http://localhost:8000/api/user/${id}`, {
+            headers: {
+              Authorization: `Bearer ${token}`
+            }
+          })
           .then((response) => {
             if (response.data.success) {
               Swal.fire({

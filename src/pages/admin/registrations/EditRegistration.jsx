@@ -3,6 +3,9 @@ import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 
 function EditRegistration() {
+  //token
+  const token = localStorage.getItem("token");
+
   const [users, setUsers] = useState([]); // List of users for select options
   const [competitions, setCompetitions] = useState([]); // List of competitions for select options
   const [registration, setRegistration] = useState({
@@ -23,6 +26,11 @@ function EditRegistration() {
           axios.get("http://localhost:8000/api/user"),
           axios.get("http://localhost:8000/api/competition"),
           axios.get(`http://localhost:8000/api/registration/${id}`),
+          {
+            headers: {
+              Authorization: `Bearer ${token}`
+            }
+          }
         ]);
 
         if (userResponse.data.success) {
@@ -71,6 +79,10 @@ function EditRegistration() {
           headers: {
             "Content-Type": "multipart/form-data",
           },
+        }, {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
         }
       );
 

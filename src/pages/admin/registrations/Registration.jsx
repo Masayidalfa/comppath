@@ -7,6 +7,9 @@ import axios from "axios";
 import Swal from "sweetalert2";
 
 function Registration() {
+  //token
+  const token = localStorage.getItem("token");
+
   const tableRef = useRef(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -16,7 +19,11 @@ function Registration() {
   useEffect(() => {
     const fetchRegistration = async () => {
       try {
-        const response = await axios.get("http://localhost:8000/api/registration");
+        const response = await axios.get("http://localhost:8000/api/registration", {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        });
         if (response.data.success) {
           setRegistration(response.data.data);
         } else {
@@ -44,7 +51,11 @@ function Registration() {
     }).then((result) => {
       if (result.isConfirmed) {
         axios
-          .delete(`http://localhost:8000/api/registration/${id}`)
+          .delete(`http://localhost:8000/api/registration/${id}`, {
+            headers: {
+              Authorization: `Bearer ${token}`
+            }
+          })
           .then((response) => {
             if (response.data.success) {
               Swal.fire("Deleted!", "Your registration has been deleted.", "success");

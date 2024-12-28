@@ -3,6 +3,9 @@ import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 
 function EditCategory() {
+  //token
+  const token = localStorage.getItem("token");
+
   const { id } = useParams();
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
@@ -15,7 +18,11 @@ function EditCategory() {
   useEffect(() => {
     const fetchCategory = async () => {
       try {
-        const response = await axios.get(`http://localhost:8000/api/category/${id}`);
+        const response = await axios.get(`http://localhost:8000/api/category/${id}`, {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        });
         console.log(response.data); // Log respons API untuk debugging
         if (response.data.success) {
           const categoryData = response.data.data; // Sesuaikan dengan struktur API
@@ -70,6 +77,10 @@ function EditCategory() {
         headers: {
           "Content-Type": "multipart/form-data",
         },
+      }, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
       });
 
       if (response.data.success) {

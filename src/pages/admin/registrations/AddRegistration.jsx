@@ -3,6 +3,9 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 function AddRegistration() {
+  //token
+  const token = localStorage.getItem("token");
+
   const [users, setUsers] = useState([]); // List of users for select options
   const [competitions, setCompetitions] = useState([]); // List of competitions for select options
   const [registration, setRegistration] = useState({
@@ -19,20 +22,25 @@ function AddRegistration() {
     const fetchUsersAndCompetitions = async () => {
       try {
         const [userResponse, competitionResponse] = await Promise.all([
-          axios.get("http://localhost:8000/api/user"),
-          axios.get("http://localhost:8000/api/competition"),
+          axios.get("http://localhost:8000/api/user", {
+            headers: { Authorization: `Bearer ${token}` },
+          }),
+          axios.get("http://localhost:8000/api/competition", {
+            headers: { Authorization: `Bearer ${token}` },
+          }),
         ]);
-
+    
         if (userResponse.data.success) {
-          setUsers(userResponse.data.data); // Assuming the response contains user data
+          setUsers(userResponse.data.data);
         }
         if (competitionResponse.data.success) {
-          setCompetitions(competitionResponse.data.data); // Assuming the response contains competition data
+          setCompetitions(competitionResponse.data.data);
         }
       } catch (error) {
         console.error("Error fetching data", error);
       }
     };
+    
 
     fetchUsersAndCompetitions();
   }, []);
@@ -51,8 +59,9 @@ function AddRegistration() {
       const response = await axios.post("http://localhost:8000/api/registration", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
+           Authorization: `Bearer ${token}`
         },
-      });
+      },);
 
       if (response.data.success) {
         alert("Registration Berhasil Ditambahkan");

@@ -3,6 +3,9 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 function AddCompetition() {
+  //token
+  const token = localStorage.getItem("token");
+
   const [competition, setCompetition] = useState({
     name: "",
     description: "",
@@ -22,7 +25,11 @@ function AddCompetition() {
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const response = await axios.get("http://localhost:8000/api/category");
+        const response = await axios.get("http://localhost:8000/api/category", {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        });
         if (response.data.success) {
           setCategories(response.data.data);
         } else {
@@ -55,14 +62,16 @@ function AddCompetition() {
     try {
       console.log("Form Data:", Object.fromEntries(formData.entries())); // Debugging
 
+      console.log("Data yang dikirim:", [...formData.entries()]);
       const response = await axios.post(
         "http://localhost:8000/api/competition",
         formData,
         {
           headers: {
             "Content-Type": "multipart/form-data",
+             Authorization: `Bearer ${token}`
           },
-        }
+        }, 
       );
 
       if (response.data.success) {
@@ -219,7 +228,7 @@ function AddCompetition() {
               <option value="sd">SD</option>
               <option value="smp">SMP</option>
               <option value="sma/smk">SMA/SMK</option>
-              <option value="perguruan_tinggi">Perguruan Tinggi</option>
+              <option value="kuliah">Perguruan Tinggi</option>
               <option value="umum">Umum</option>
             </select>
           </div>

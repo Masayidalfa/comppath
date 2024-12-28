@@ -7,6 +7,9 @@ import axios from "axios";
 import Swal from "sweetalert2";
 
 function Category() {
+  //token
+  const token = localStorage.getItem("token");
+
   const tableRef = useRef(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -16,7 +19,11 @@ function Category() {
   useEffect(() => {
     const fetchCategory = async () => {
       try {
-        const response = await axios.get("http://localhost:8000/api/category");
+        const response = await axios.get("http://localhost:8000/api/category", {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        });
         if (response.data.success) {
           setCategory(response.data.data);
         } else {
@@ -44,7 +51,11 @@ function Category() {
     }).then((result) => {
       if (result.isConfirmed) {
         axios
-          .delete(`http://localhost:8000/api/category/${id}`)
+          .delete(`http://localhost:8000/api/category/${id}`, {
+            headers: {
+              Authorization: `Bearer ${token}`
+            }
+          })
           .then((response) => {
             if (response.data.success) {
               Swal.fire({

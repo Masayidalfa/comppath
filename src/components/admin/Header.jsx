@@ -1,12 +1,18 @@
 /* eslint-disable react/prop-types */
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 function Header({ toggleSidebar, isSidebarOpen }) {
   const [isDropdownOpen, setDropdownOpen] = useState(false);
-
   const toggleDropdown = () => {
     setDropdownOpen((prev) => !prev);
   };
+
+  const navigate = useNavigate();
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    navigate("/");
+  }
 
   return (
     <nav
@@ -33,9 +39,9 @@ function Header({ toggleSidebar, isSidebarOpen }) {
           {isDropdownOpen && (
             <ul className="absolute right-0 mt-2 bg-gray-700 text-white rounded shadow-lg w-48">
               <li>
-                <a className="block px-4 py-2 hover:bg-gray-600" href="#!">
+                <button onClick={handleLogout} className="block px-4 py-2 hover:bg-gray-600" href="#!">
                   Logout
-                </a>
+                </button>
               </li>
             </ul>
           )}

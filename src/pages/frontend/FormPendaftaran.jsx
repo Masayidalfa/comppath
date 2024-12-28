@@ -14,6 +14,9 @@ import {
 } from "../../components/utils/constants/FormPendaftaran.styled";
 
 const FormPendaftaran = () => {
+  //token
+  const token = localStorage.getItem("token");
+
   const { id } = useParams(); // Mengambil id dari URL
   const [competition, setCompetition] = useState(null); // Data kompetisi
   const [error, setError] = useState(null); // Error handling
@@ -34,7 +37,11 @@ const FormPendaftaran = () => {
   
     const fetchCompetitionDetails = async () => {
       try {
-        const response = await axios.get(`http://localhost:8000/api/competition/${id}`);
+        const response = await axios.get(`http://localhost:8000/api/competition/${id}`, {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        });
         console.log("Response from API:", response);
   
         if (response.data.success) {
@@ -78,7 +85,11 @@ const FormPendaftaran = () => {
     }
 
     try {
-      await axios.post("http://localhost:8000/api/registration", form);
+      await axios.post("http://localhost:8000/api/registration", form, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
       alert("Pendaftaran berhasil!");
     } catch (error) {
       console.error("Error submitting registration:", error);

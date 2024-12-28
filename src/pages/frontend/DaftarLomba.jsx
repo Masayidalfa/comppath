@@ -10,11 +10,18 @@ import {
 import CompetitionCard from "../../components/user/CompetitionCard";
 
 const DaftarLomba = () => {
+  //token
+  const token = localStorage.getItem("token");
+
   const [competitions, setCompetitions] = useState([]);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    fetch("http://localhost:8000/api/competition")
+    fetch("http://localhost:8000/api/competition",{
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    })
       .then((res) => {
         // Cek apakah response berhasil
         if (!res.ok) {

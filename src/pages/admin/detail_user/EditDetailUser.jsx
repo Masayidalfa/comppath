@@ -3,6 +3,9 @@ import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 
 function EditDetailUser() {
+  //token
+  const token = localStorage.getItem("token");
+
   const { id } = useParams(); // Get user ID from route params
   const navigate = useNavigate();
   const [users, setUsers] = useState([]); // List of users for select options
@@ -20,7 +23,11 @@ function EditDetailUser() {
     // Fetch users data for select options
     const fetchUsers = async () => {
       try {
-        const response = await axios.get("http://localhost:8000/api/user");
+        const response = await axios.get("http://localhost:8000/api/user", {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        });
         if (response.data.success) {
           setUsers(response.data.data);
         }
@@ -33,7 +40,11 @@ function EditDetailUser() {
     const fetchDetailUser = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:8000/api/detail_user/${id}`
+          `http://localhost:8000/api/detail_user/${id}`, {
+            headers: {
+              Authorization: `Bearer ${token}`
+            }
+          }
         );
         if (response.data.success) {
           setDetailUser(response.data.data);
@@ -72,6 +83,10 @@ function EditDetailUser() {
           headers: {
             "Content-Type": "multipart/form-data",
           },
+        }, {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
         }
       );
 

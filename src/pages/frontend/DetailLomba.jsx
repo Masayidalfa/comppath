@@ -18,6 +18,9 @@ import {
 } from "../../components/utils/constants/DetailLomba.styled";
 
 const DetailLomba = () => {
+  //token
+  const token = localStorage.getItem("token");
+
   const { id } = useParams();
   const [data, setData] = useState(null);
   const [category, setCategory] = useState(null);
@@ -28,12 +31,20 @@ const DetailLomba = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`http://localhost:8000/api/competition/${id}`);
+        const response = await axios.get(`http://localhost:8000/api/competition/${id}`,{
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        });
         if (response.data.success) {
           setData(response.data.data);
 
           // Fetch kategori berdasarkan category_id
-          const categoryResponse = await axios.get(`http://localhost:8000/api/category/${response.data.data.category_id}`);
+          const categoryResponse = await axios.get(`http://localhost:8000/api/category/${response.data.data.category_id}`,{
+            headers: {
+              Authorization: `Bearer ${token}`
+            }
+          });
           if (categoryResponse.data.success) {
             setCategory(categoryResponse.data.data.name);
           } else {
