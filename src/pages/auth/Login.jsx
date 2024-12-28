@@ -19,9 +19,13 @@ function Login() {
 
       if (response.status === 200 && response.data.success) {
         localStorage.setItem('token', response.data.token);
+        localStorage.setItem('role', response.data.user.role);
         alert('Login Berhasil');
-        navigate('/frontend'); // Navigasi hanya pada kondisi sukses
-      } else {
+        if (response.data.user.role === 'admin') {
+          navigate('/dashboard'); // Navigasi hanya pada kondisi sukses
+        } else{
+          navigate('/'); // Navigasi hanya pada kondisi sukses}
+      }} else{
         setError(response.data.message || 'Login Failed');
       }
     } catch (error) {

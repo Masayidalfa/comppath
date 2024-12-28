@@ -7,6 +7,9 @@ import axios from "axios";
 import Swal from "sweetalert2";
 
 function Competition() {
+  //token
+  const token = localStorage.getItem("token");
+
   const tableRef = useRef(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -17,7 +20,11 @@ function Competition() {
     const fetchCompetition = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:8000/api/competition"
+          "http://localhost:8000/api/competition", {
+            headers: {
+              Authorization: `Bearer ${token}`
+            }
+          }
         );
         if (response.data.success) {
           setCompetition(response.data.data);
@@ -46,7 +53,11 @@ function Competition() {
     }).then((result) => {
       if (result.isConfirmed) {
         axios
-          .delete(`http://localhost:8000/api/competition/${id}`)
+          .delete(`http://localhost:8000/api/competition/${id}`, {
+            headers: {
+              Authorization: `Bearer ${token}`
+            }
+          })
           .then((response) => {
             if (response.data.success) {
               Swal.fire(

@@ -1,5 +1,7 @@
 /* eslint-disable no-unused-vars */
-import React from 'react';
+import React from "react";
+import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
 import {
   Container,
   NavbarStyled,
@@ -11,10 +13,16 @@ import {
   NavbarLink,
   LoginButton,
   SignUpButton,
-} from '../utils/constants/Navbar.styled';
-
+} from "../utils/constants/Navbar.styled";
 
 function Navbar() {
+  const [userRole, setUserRole] = useState(null);
+  useEffect(() => {
+    const role = localStorage.getItem("role");
+    setUserRole(role);
+  }, []); //menampung role user dari auth login
+
+
   return (
     <Container>
       <NavbarStyled>
@@ -38,12 +46,22 @@ function Navbar() {
           <NavbarItem>
             <NavbarLink to="/contact">Contact</NavbarLink>
           </NavbarItem>
+          {userRole === 'admin' && ( // membatasi jika user role admin dapat mengakses dashboard
+            <NavbarItem>
+            <NavbarLink to="/dashboard">Dashboard</NavbarLink>
+          </NavbarItem>
+          )}
+          
         </NavbarList>
 
         {/* Tombol Login dan Sign Up */}
         <div>
-          <LoginButton>Login</LoginButton>
-          <SignUpButton>Sign Up</SignUpButton>
+          <Link to="/login">
+            <LoginButton>Login</LoginButton>
+          </Link>
+          <Link to="/register">
+            <SignUpButton>Sign Up</SignUpButton>
+          </Link>
         </div>
       </NavbarStyled>
     </Container>

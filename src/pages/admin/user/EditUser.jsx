@@ -3,6 +3,9 @@ import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 
 function EditUser() {
+  //token
+  const token = localStorage.getItem("token");
+
   const { id } = useParams();
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
@@ -16,7 +19,11 @@ function EditUser() {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const response = await axios.get(`http://localhost:8000/api/user/${id}`);
+        const response = await axios.get(`http://localhost:8000/api/user/${id}`, {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        });
         if (response.data.success) {
           const userData = response.data.data; // Sesuaikan dengan struktur API
           setFormData({
@@ -56,7 +63,11 @@ function EditUser() {
     formDataToSend.append("role", formData.role);
 
     try {
-      const response = await axios.post(`http://localhost:8000/api/user/${id}`, formDataToSend);
+      const response = await axios.post(`http://localhost:8000/api/user/${id}`, formDataToSend, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
 
       if (response.data.success) {
         alert("User updated successfully");

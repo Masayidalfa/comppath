@@ -43,7 +43,7 @@ function App() {
   return (
     <Routes>
       {/* Admin Routes */}
-      <Route path="/" element={<AdminLayout><Dashboard /></AdminLayout>} />
+      <Route path="/dashboard" element={<AdminLayout><Dashboard /></AdminLayout>} />
       <Route path="/user" element={<AdminLayout><User /></AdminLayout>} />
       <Route path="/user/create" element={<AdminLayout><AddUser /></AdminLayout>} />
       <Route path="/user/edit/:id" element={<AdminLayout><EditUser /></AdminLayout>} />
@@ -61,7 +61,7 @@ function App() {
       <Route path="/registration/edit/:id" element={<AdminLayout><EditRegistration /></AdminLayout>} />
 
       {/* Frontend Routes */}
-      <Route path="/frontend" element={<FrontendLayout><Landing /></FrontendLayout>} />
+      <Route path="/" element={<FrontendLayout><Landing /></FrontendLayout>} />
       <Route path="/daftar-kategori" element={<FrontendLayout><DaftarKategori /></FrontendLayout>} />
       <Route path="/daftar_lomba" element={<FrontendLayout><DaftarLomba /></FrontendLayout>} />
       <Route path="/detail_lomba/:id" element={<FrontendLayout><DetailLomba /></FrontendLayout>} />

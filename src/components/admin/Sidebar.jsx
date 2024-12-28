@@ -16,7 +16,7 @@ function Sidebar({ isOpen }) {
       <nav className="flex flex-col h-full" id="sidenavAccordion">
         <div className="flex-grow p-4">
           <div className="text-sm font-semibold uppercase text-gray-400 mb-4">Core</div>
-          <a className="flex items-center text-gray-300 hover:text-white p-2 rounded" href="/">
+          <a className="flex items-center text-gray-300 hover:text-white p-2 rounded" href="/dashboard">
             <div className="mr-3">
               <i className="fas fa-tachometer-alt" />
             </div>

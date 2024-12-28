@@ -3,6 +3,9 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 function AddDetailUser() {
+  //token 
+  const token = localStorage.getItem("token");
+
   const [users, setUsers] = useState([]); // List of users for select options
   const [detailUser, setDetailUser] = useState({
     user_id: "",
@@ -19,7 +22,11 @@ function AddDetailUser() {
     // Fetch users data for the select option
     const fetchUsers = async () => {
       try {
-        const response = await axios.get("http://localhost:8000/api/user");
+        const response = await axios.get("http://localhost:8000/api/user", {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        });
         if (response.data.success) {
           setUsers(response.data.data); // Assuming the response contains user data
         }
@@ -47,8 +54,9 @@ function AddDetailUser() {
       const response = await axios.post("http://localhost:8000/api/detail_user", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
-        },
-      });
+           Authorization: `Bearer ${token}`
+        }, 
+      },);
 
       if (response.data.success) {
         alert("Detail User Berhasil Ditambahkan");

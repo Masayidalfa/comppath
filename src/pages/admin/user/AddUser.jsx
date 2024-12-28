@@ -3,6 +3,9 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 function AddUser() {
+  //token
+  const token = localStorage.getItem("token");
+
   const [user, setUser] = useState({ name: "", email: "", password: "", role: "" });
   const navigate = useNavigate();
 
@@ -19,8 +22,9 @@ function AddUser() {
       const response = await axios.post("http://localhost:8000/api/user", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
+          Authorization: `Bearer ${token}`
         },
-      });
+      },);
       if (response.data.success) {
         alert("User Berhasil Ditambahkan");
         navigate("/user"); // Redirect to user page

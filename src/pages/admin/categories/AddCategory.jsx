@@ -3,6 +3,9 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 function AddCategory() {
+  //token
+  const token = localStorage.getItem("token");
+
   const [category, setCategory] = useState({ name: "", gambar: null });
   const navigate = useNavigate();
 
@@ -17,8 +20,9 @@ function AddCategory() {
       const response = await axios.post("http://localhost:8000/api/category", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
+           Authorization: `Bearer ${token}`
         },
-      });
+      },);
       if (response.data.success) {
         alert("Category Berhasil Ditambahkan");
         navigate("/category"); // Redirect to category page

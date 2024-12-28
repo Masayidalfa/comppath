@@ -7,6 +7,9 @@ import axios from "axios";
 import Swal from "sweetalert2";
 
 function DetailUser() {
+  //token
+  const token = localStorage.getItem('token');
+
   const tableRef = useRef(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -16,7 +19,11 @@ function DetailUser() {
   useEffect(() => {
     const fetchDetailUser = async () => {
       try {
-        const response = await axios.get("http://localhost:8000/api/detail_user");
+        const response = await axios.get("http://localhost:8000/api/detail_user", {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        });
         if (response.data.success) {
           setDetailUser(response.data.data);
         } else {
@@ -57,7 +64,11 @@ function DetailUser() {
 
     if (confirmDelete.isConfirmed) {
       try {
-        const response = await axios.delete(`http://localhost:8000/api/detail_user/${id}`);
+        const response = await axios.delete(`http://localhost:8000/api/detail_user/${id}`,{
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        });
         if (response.data.success) {
           setDetailUser(detailUser.filter((user) => user.id !== id));
           Swal.fire("Deleted!", "Detail User has been deleted.", "success");

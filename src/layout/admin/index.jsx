@@ -3,6 +3,7 @@ import { Fragment, useState } from "react";
 import Header from "../../components/admin/Header";
 import Sidebar from "../../components/admin/Sidebar";
 import Footer from "../../components/admin/Footer";
+import ProtectedRoute from "../../pages/admin/ProtectedRoute";
 
 function Layout({ children }) {
   // State untuk toggle sidebar
@@ -23,7 +24,9 @@ function Layout({ children }) {
             isSidebarOpen ? "ml-64" : "ml-16"
           }`}
         >
-          <main className="flex-grow p-4 bg-gray-50">{children}</main>
+          <ProtectedRoute>
+            <main className="flex-grow p-4 bg-gray-50">{children}</main>
+          </ProtectedRoute>
           <Footer />
         </div>
       </div>
