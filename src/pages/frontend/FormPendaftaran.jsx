@@ -43,7 +43,7 @@ const FormPendaftaran = () => {
           setCompetition({
             name: competitionData.name,
             image: competitionData.image
-              ? `http://localhost:8000/competition/${competitionData.image}`
+              ? `http://localhost:8000/storage/${competitionData.image}`
               : "/public/logo.jpg",
           });
         } else {

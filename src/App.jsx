@@ -36,6 +36,10 @@ import DaftarLombaKontributor from './pages/frontend/profile/DaftarLombaKontribu
 import CreateLomba from './pages/frontend/profile/CreateLomba'
 import About from './pages/frontend/About'
 
+// Auth
+import Login from './pages/auth/Login'
+import Register from './pages/auth/Register'
+
 function App() {
   return (
     <Routes>
@@ -70,6 +74,9 @@ function App() {
       <Route path="/daftar-lomba-kontributor" element={<FrontendLayout><DaftarLombaKontributor /></FrontendLayout>} />
       <Route path="/create-lomba" element={<FrontendLayout><CreateLomba /></FrontendLayout>} />
 
+      {/* Public Routes */}
+      <Route path="/login" element={<Login />} />
+      <Route path="/register" element={<Register />} />
 
       {/* 404 Not Found */}
       <Route path="*" element={<h1>404 - Not Found</h1>} />
