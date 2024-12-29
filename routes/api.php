@@ -21,6 +21,7 @@ Route::post('/login', [AuthController::class, 'login']);
 
 // hak akses pengunjung 
 Route::get('/category', [CategoryController::class, 'index']);
+Route::get('/category/{id}', [CategoryController::class, 'show']);
 Route::get('/competition', [CompetitionController::class, 'index']);
 Route::get('/competition/{id}', [CompetitionController::class, 'show']);
 Route::get('/dashboard', [DashboardController::class, 'index']);
@@ -29,9 +30,15 @@ Route::get('/dashboard', [DashboardController::class, 'index']);
 
     // Routes for role "user"
     Route::middleware('auth:sanctum', 'peran:user-kontributor-admin')->group(function () {
+        //user
         Route::get('/user', [UserController::class, 'show']); // Only show user's own data
+        //detail_user
         Route::get('/detail_user', [Detail_userController::class, 'index']);
         Route::get('/detail_user/{id}', [Detail_userController::class, 'show']);
+        Route::post('/detail_user', [Detail_userController::class, 'store']);
+        Route::put('/detail_user/{id}', [Detail_userController::class, 'update']);
+        Route::delete('/detail_user/{id}', [Detail_userController::class, 'destroy']);
+        //registrasi
         Route::get('/registration', [RegistrationController::class, 'index']);
         Route::get('/registration/{id}', [RegistrationController::class, 'show']);
         Route::post('/registration', [RegistrationController::class, 'store']);
@@ -39,21 +46,41 @@ Route::get('/dashboard', [DashboardController::class, 'index']);
 
     // Routes for role "kontributor"
     Route::middleware('auth:sanctum', 'peran:kontributor-admin')->group(function () {
+        // lomba/competition
         Route::post('/competition', [CompetitionController::class, 'store']);
         Route::put('/competition/{id}', [CompetitionController::class, 'update']);
         Route::delete('/competition/{id}', [CompetitionController::class, 'destroy']);
+        
+        //registrasi
         Route::put('/registration/{id}', [RegistrationController::class, 'update']);
         Route::delete('/registration/{id}', [RegistrationController::class, 'destroy']);
     });
 
     // Routes for role "admin"
     Route::middleware('auth:sanctum', 'peran:admin')->group(function () {
-        Route::apiResource('/user', UserController::class);
-        Route::apiResource('/detail_user', Detail_userController::class);
-        Route::apiResource('/category', CategoryController::class);
-        Route::apiResource('/competition', CompetitionController::class);
-        Route::apiResource('/registration', RegistrationController::class);
+        //user
+        Route::post('/user', [UserController::class, 'store']);
+        Route::put('/user/{id}', [UserController::class, 'update']);
+        Route::delete('/user/{id}', [UserController::class, 'destroy']);
+
+        //catategory
+        Route::post('/category', [CategoryController::class, 'store']);
+        Route::put('/category/{id}', [CategoryController::class, 'update']);
+        Route::delete('/category/{id}', [CategoryController::class, 'destroy']);
+
+        //detail_user
+        //udah semua diatas
+
+        //lomba/competition
+        //udah semua diatas
+
+        //registrasi
+        //udah semua diatas
+
+
     });
+
+    
 // === Routes Tambahan untuk Halaman Spesifik ===
 
 // Page Landing
