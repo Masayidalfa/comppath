@@ -75,6 +75,7 @@ class UserController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email,' . $id,
             'password' => 'nullable|string|min:6',
+            'role' => 'nullable|in:admin,kontributor,user', // Validasi untuk role
         ]);
 
         if ($validator->fails()) {
@@ -90,6 +91,7 @@ class UserController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'password' => $request->password ? Hash::make($request->password) : $user->password,
+            'role' => $request->role, // Update role
         ]);
 
         return new ResponsResource(true, 'Data user berhasil diubah', $user);
