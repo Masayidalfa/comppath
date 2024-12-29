@@ -70,10 +70,10 @@ function Navbar() {
             <NavbarLink to="/about">About</NavbarLink>
           </NavbarItem>
           <NavbarItem>
-            <NavbarLink to="/service">Service</NavbarLink>
+            <NavbarLink to="/daftar_lomba">Lomba</NavbarLink>
           </NavbarItem>
           <NavbarItem>
-            <NavbarLink to="/contact">Contact</NavbarLink>
+            <NavbarLink to="/daftar-kategori">Kategori</NavbarLink>
           </NavbarItem>
           {userRole === "admin" && ( // Membatasi akses berdasarkan role user
             <NavbarItem>
@@ -106,8 +106,12 @@ function Navbar() {
             </ProfileContainer>
           ) : (
             <>
-              <LoginButton>Login</LoginButton>
-              <SignUpButton>Sign Up</SignUpButton>
+              <Link to="/login">
+                <LoginButton>Login</LoginButton>
+              </Link>
+              <Link to="/register">
+                <SignUpButton>Sign Up</SignUpButton>
+              </Link>
             </>
           )}
         </div>

@@ -74,7 +74,7 @@ function Landing(){
              {/* content 5 */}
              <div className="container mx-auto px-4 border-b border-gray-500 m-5">
                 <h2 className="text-3xl font-bold">Lomba</h2>
-                <a href="#" className="text-sm text-blue-500 float-right">Tampilkan Semua </a>
+                <a href="/daftar_lomba" className="text-sm text-blue-500 float-right">Tampilkan Semua </a>
             </div>
             <div className="flex flex-row gap-x-4 m-10 shadow-md ">
                 <div className="m-4">

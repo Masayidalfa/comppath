@@ -15,7 +15,7 @@ const About = () => {
   return (
     <Container>
       {/* Bagian Atas */}
-      <Section reverse>
+      <Section>
         <div>
           <HeaderText>
             <div>TEMUKAN LOMBA</div>
