@@ -26,7 +26,7 @@ class Detail_user extends Model
     // relasi database inverse dari tabel detail  ke tabel user
    public function user(): BelongsTo 
    {
-       return $this->belongsTo(User::class);
+       return $this->belongsTo(User::class, 'user_id');
    }
 
    //relasi one to many ke tabel registration

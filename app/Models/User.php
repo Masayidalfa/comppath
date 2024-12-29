@@ -50,7 +50,7 @@ class User extends Authenticatable
         ];
     }
 
-    public function detailUser():HasOne  
+    public function detail_user():HasOne  
     {
         return $this->hasOne(Detail_user::class, 'user_id');
     }

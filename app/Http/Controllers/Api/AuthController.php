@@ -64,6 +64,8 @@ class AuthController extends Controller
         if (Auth::attempt($credentials)) {
             $user = Auth::user(); // Ambil user yang sedang login
             $token = $user->createToken('token')->plainTextToken;
+            // Ambil foto profil dari relasi detail_user
+            $fotoProfil = $user->detail_user->foto_profil ?? null;
             return response()->json([
                 "code" => 200,
                 'success' => true,
@@ -74,6 +76,7 @@ class AuthController extends Controller
                     "name" => $user->name,
                     "email" => $user->email,
                     "role" => $user->role,
+                    "foto_profil" => $fotoProfil, // Tambahkan foto profil di sini
                 ]
             ]);
         }
