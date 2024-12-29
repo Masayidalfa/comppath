@@ -78,11 +78,10 @@ function Sidebar({ isOpen }) {
               className="flex items-center justify-between w-full text-gray-300 hover:text-white p-2 rounded"
             >
               <div className="flex items-center">
-                {/* Ganti dengan gambar bundar */}
                 <img
-                  src={`http://localhost:8000/storage/${userProfilePic}`}
+                  src={userProfilePic ? `http://localhost:8000/storage/${userProfilePic}` : '/image/defaultUser.jpg'}
                   alt="Logo"
-                  className="w-6 h-6 rounded-full mr-3"
+                  className="w-10 h-10 rounded-full mr-3"
                 />
                 {userName}
               </div>
