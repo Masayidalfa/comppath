@@ -1,6 +1,5 @@
-/* eslint-disable no-irregular-whitespace */
 /* eslint-disable no-unused-vars */
-import React, { useEffect, useState, useNavigate } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 import {
@@ -21,7 +20,6 @@ import {
 } from "../utils/constants/Navbar.styled";
 
 function Navbar() {
-  
   const token = localStorage.getItem("token");
   const [userRole, setUserRole] = useState(null);
   useEffect(() => {
@@ -29,47 +27,29 @@ function Navbar() {
     if (userData && userData.role) {
       setUserRole(userData.role);
     }
-  }, []); //menampung role user dari auth login
+  }, []); // Menyimpan role user dari login
 
   const [isLoggedIn, setIsLoggedIn] = useState(false); // Status login
   const [userData, setUserData] = useState(null); // Data pengguna yang login
   const defaultProfileImage = "/public/logo.jpg"; // Gambar default jika foto profil kosong
 
   useEffect(() => {
-    // Fetch data pengguna yang login
-    const fetchUserData = async () => {
-      try {
-        const response = await fetch("http://localhost:8000/api/detail_user",  {
-          headers: {
-            "Content-Type": "application/json", // Pastikan tipe konten JSON
-            Authorization: `Bearer ${token}` // Kirim token yang valid
-          },
-        });
-        const result = await response.json();
-
-        if (result.success) {
-          const loggedInUser = result.data.find((user) => user.id === 1); // Contoh user ID login
-          if (loggedInUser) {
-            setUserData(loggedInUser);
-            setIsLoggedIn(true);
-          } else {
-            setIsLoggedIn(false); // Tidak ada pengguna yang login
-          }
-        }
-      } catch (error) {
-        console.error("Error fetching user data:", error);
-        setIsLoggedIn(false); // Set status ke tidak login jika ada error
-      }
-    };
-
-    fetchUserData();
-  }, []);
+    const storedUserData = localStorage.getItem("userData");
+    if (storedUserData) {
+      setUserData(JSON.parse(storedUserData));
+    }
+  }, []); // Menjalankan useEffect hanya sekali saat komponen pertama kali di-render
 
   const handleLogout = () => {
-    // Logika logout
-    console.log("User logged out");
-    setIsLoggedIn(false);
+    localStorage.removeItem("token");
+    localStorage.removeItem("userData");
     setUserData(null);
+  };
+
+  const [isDropdownVisible, setIsDropdownVisible] = useState(false);
+
+  const toggleDropdown = () => {
+    setIsDropdownVisible(!isDropdownVisible); // Toggle dropdown visibility
   };
 
   return (
@@ -95,7 +75,7 @@ function Navbar() {
           <NavbarItem>
             <NavbarLink to="/contact">Contact</NavbarLink>
           </NavbarItem>
-          {userRole === "admin" && ( // membatasi jika user role admin dapat mengakses dashboard
+          {userRole === "admin" && ( // Membatasi akses berdasarkan role user
             <NavbarItem>
               <NavbarLink to="/dashboard">Dashboard</NavbarLink>
             </NavbarItem>
@@ -104,7 +84,7 @@ function Navbar() {
 
         {/* Profil atau Tombol Login */}
         <div>
-          {isLoggedIn && userData ? (
+          {userData ? (
             <ProfileContainer>
               <ProfileImage
                 src={
@@ -113,13 +93,16 @@ function Navbar() {
                     : defaultProfileImage
                 }
                 alt="Profile"
+                onClick={toggleDropdown} // Menambahkan klik untuk menampilkan dropdown
               />
-              <DropdownMenu>
-                <DropdownItem to="/edit_profile">Edit Profil</DropdownItem>
-                <DropdownItem to="/login" onClick={handleLogout}>
-                  Logout
-                </DropdownItem>
-              </DropdownMenu>
+              {isDropdownVisible && (
+                <DropdownMenu>
+                  <DropdownItem to="/edit_profile">Edit Profil</DropdownItem>
+                  <DropdownItem to="/login" onClick={handleLogout}>
+                    Logout
+                  </DropdownItem>
+                </DropdownMenu>
+              )}
             </ProfileContainer>
           ) : (
             <>
