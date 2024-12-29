@@ -1,6 +1,14 @@
 function DaftarKategori() {
     return(
-        <h2>Ini adalah halaman daftar kategori</h2>
+       <div>
+        <div>
+            <p>Kategori</p>
+        </div>
+
+
+
+
+       </div>        
     )
 }
 export default DaftarKategori;
