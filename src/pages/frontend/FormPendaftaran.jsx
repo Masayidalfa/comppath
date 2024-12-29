@@ -21,6 +21,7 @@ const FormPendaftaran = () => {
     user_id: "",
     competition_id: competitionId,
     registration_date: "",
+    status: "pending",
     requirements_file: null,
     payment_proof: null,
   });
