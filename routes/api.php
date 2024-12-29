@@ -31,7 +31,7 @@ Route::get('/dashboard', [DashboardController::class, 'index']);
     // Routes for role "user"
     Route::middleware('auth:sanctum', 'peran:user-kontributor-admin')->group(function () {
         //user
-        Route::get('/user', [UserController::class, 'show']); // Only show user's own data
+        Route::get('/user/{id}', [UserController::class, 'show']); // Only show user's own data
         //detail_user
         Route::get('/detail_user', [Detail_userController::class, 'index']);
         Route::get('/detail_user/{id}', [Detail_userController::class, 'show']);
@@ -59,6 +59,7 @@ Route::get('/dashboard', [DashboardController::class, 'index']);
     // Routes for role "admin"
     Route::middleware('auth:sanctum', 'peran:admin')->group(function () {
         //user
+        Route::get('/user', [UserController::class, 'index']);
         Route::post('/user', [UserController::class, 'store']);
         Route::put('/user/{id}', [UserController::class, 'update']);
         Route::delete('/user/{id}', [UserController::class, 'destroy']);
