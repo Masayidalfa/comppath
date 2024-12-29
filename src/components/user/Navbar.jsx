@@ -89,7 +89,7 @@ function Navbar() {
               <ProfileImage
                 src={
                   userData.foto_profil
-                    ? `http://localhost:8000/${userData.foto_profil}`
+                    ? `http://localhost:8000/storage/${userData.foto_profil}`
                     : defaultProfileImage
                 }
                 alt="Profile"
