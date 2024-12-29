@@ -29,12 +29,13 @@ import DaftarLomba from './pages/frontend/DaftarLomba'
 import DetailLomba from './pages/frontend/DetailLomba'
 import FormPendaftaran from './pages/frontend/FormPendaftaran'
 //profile
-import Profil from './pages/frontend/profile/profil'
+import UserProfile from './pages/frontend/profile/UserProfile'
 import Kegiatan from './pages/frontend/profile/kegiatan'
 import DaftarPeserta from './pages/frontend/profile/DaftarPeserta'
 import DaftarLombaKontributor from './pages/frontend/profile/DaftarLombaKontributor'
 import CreateLomba from './pages/frontend/profile/CreateLomba'
-import About from './pages/frontend/About'
+import ProfileKontributor from "./pages/frontend/profile/ProfileKontributor";
+import About from "./pages/frontend/About";
 
 // Auth
 import Login from './pages/auth/Login'
@@ -67,8 +68,9 @@ function App() {
       <Route path="/daftar_lomba" element={<FrontendLayout><DaftarLomba /></FrontendLayout>} />
       <Route path="/detail_lomba/:id" element={<FrontendLayout><DetailLomba /></FrontendLayout>} />
       <Route path="/pendaftaran/:id" element={<FrontendLayout><FormPendaftaran /></FrontendLayout>} />
+      <Route path="/user_profile" element={<FrontendLayout><UserProfile /></FrontendLayout>} />
+      <Route path="/profile_kontributor" element={<FrontendLayout><ProfileKontributor /></FrontendLayout>} />
       <Route path="/about" element={<FrontendLayout><About /></FrontendLayout>} />
-      <Route path="/profile" element={<FrontendLayout><Profil /></FrontendLayout>} />
       <Route path="/kegiatan" element={<FrontendLayout><Kegiatan /></FrontendLayout>} />
       <Route path="/daftar-peserta" element={<FrontendLayout><DaftarPeserta /></FrontendLayout>} />
       <Route path="/daftar-lomba-kontributor" element={<FrontendLayout><DaftarLombaKontributor /></FrontendLayout>} />
@@ -84,4 +86,4 @@ function App() {
   )
 }
 
-export default App
+export default App;
