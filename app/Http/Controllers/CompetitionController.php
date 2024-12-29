@@ -98,6 +98,7 @@ class CompetitionController extends Controller
             'start_date' => 'required|date',
             'end_date' => 'required|date',
             'creator_id' => 'required|exists:users,id',
+            'status' => 'nullable|in:open,closed',
             'fee' => 'nullable|string',
             'requirement' => 'nullable|file|mimes:pdf|max:10240', // Validasi file PDF (max 10MB)
             'group_link' => 'nullable|string|url',
@@ -107,6 +108,9 @@ class CompetitionController extends Controller
         if ($validator->fails()) {
             return response()->json($validator->errors(), 422);
         }
+
+        // Atur default status ke 'open' jika tidak ada dalam request
+        $status = $request->status ?? 'open';
 
         // Temukan data kompetisi berdasarkan ID
         $competition = Competition::findOrFail($id);
@@ -120,6 +124,7 @@ class CompetitionController extends Controller
             'start_date' => $request->start_date,
             'end_date' => $request->end_date,
             'creator_id' => $request->creator_id,
+            'status' => $status,
             'fee' => $request->fee,
             'requirement' => $request->requirement,
             'group_link' => $request->group_link,
