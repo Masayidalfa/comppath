@@ -21,6 +21,8 @@ import {
 } from "../utils/constants/Navbar.styled";
 
 function Navbar() {
+  
+  const token = localStorage.getItem("token");
   const [userRole, setUserRole] = useState(null);
   useEffect(() => {
     const role = localStorage.getItem("role");
@@ -35,7 +37,12 @@ function Navbar() {
     // Fetch data pengguna yang login
     const fetchUserData = async () => {
       try {
-        const response = await fetch("http://localhost:8000/api/detail_user");
+        const response = await fetch("http://localhost:8000/api/detail_user",  {
+          headers: {
+            "Content-Type": "application/json", // Pastikan tipe konten JSON
+            Authorization: `Bearer ${token}` // Kirim token yang valid
+          },
+        });
         const result = await response.json();
 
         if (result.success) {

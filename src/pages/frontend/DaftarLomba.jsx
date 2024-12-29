@@ -19,10 +19,13 @@ const DaftarLomba = () => {
   useEffect(() => {
     fetch("http://localhost:8000/api/competition",{
       headers: {
+        "Content-Type": "application/json", // Pastikan tipe konten JSON
         Authorization: `Bearer ${token}`
       }
     })
       .then((res) => {
+    console.log("Response status:", res.status);
+    console.log("Response headers:", res.headers);
         // Cek apakah response berhasil
         if (!res.ok) {
           throw new Error("Failed to fetch competitions");
