@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React from "react";
 import {
   Container,
@@ -15,7 +16,7 @@ const About = () => {
   return (
     <Container>
       {/* Bagian Atas */}
-      <Section reverse>
+      <Section>
         <div>
           <HeaderText>
             <div>TEMUKAN LOMBA</div>

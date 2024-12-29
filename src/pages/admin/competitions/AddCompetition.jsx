@@ -15,6 +15,7 @@ function AddCompetition() {
     start_date: "",
     end_date: "",
     creator_id: "",
+    status: "",
     fee: "",
     requirement: null,
     group_link: "",
@@ -27,8 +28,8 @@ function AddCompetition() {
       try {
         const response = await axios.get("http://localhost:8000/api/category", {
           headers: {
-            Authorization: `Bearer ${token}`
-          }
+            Authorization: `Bearer ${token}`,
+          },
         });
         if (response.data.success) {
           setCategories(response.data.data);
@@ -55,6 +56,7 @@ function AddCompetition() {
     formData.append("start_date", competition.start_date);
     formData.append("end_date", competition.end_date);
     formData.append("creator_id", competition.creator_id);
+    formData.append("status", competition.status);
     formData.append("fee", competition.fee);
     formData.append("requirement", competition.requirement);
     formData.append("group_link", competition.group_link);
@@ -69,9 +71,9 @@ function AddCompetition() {
         {
           headers: {
             "Content-Type": "multipart/form-data",
-             Authorization: `Bearer ${token}`
+            Authorization: `Bearer ${token}`,
           },
-        }, 
+        }
       );
 
       if (response.data.success) {
@@ -298,6 +300,29 @@ function AddCompetition() {
             />
           </div>
 
+          {/* status perlombaan */}
+          <div className="mb-4">
+            <label
+              htmlFor="status"
+              className="block text-sm font-medium text-gray-700"
+            >
+              Status
+            </label>
+            <select
+              id="status"
+              name="status"
+              className="mt-1 block w-1/2 px-3 py-2 border-gray-800 pb-2 shadow-sm focus:border-blue-500 focus:ring-blue-500 focus:outline-none ring-2 ring-transparent sm:text-sm border-b-2"
+              value={competition.status}
+              onChange={(e) =>
+                setCompetition({ ...competition, status: e.target.value })
+              }
+              required
+            >
+              <option value="">Pilih status</option>
+              <option value="opened">Opened</option>
+              <option value="closed">Closed</option>
+            </select>
+          </div>
           {/* Biaya Pendaftaran */}
           <div className="mb-4">
             <label

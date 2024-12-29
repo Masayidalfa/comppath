@@ -80,11 +80,11 @@ export const Button = styled.button`
   font-size: 14px;
   border: none;
   border-radius: 4px;
-  background-color: ${(props) => (props.primary ? "#007bff" : "#fff")};
-  color: ${(props) => (props.primary ? "#fff" : "#007bff")};
+  background-color: ${(props) => (props.primary ? "#2F3A9F" : "#fff")};
+  color: ${(props) => (props.primary ? "#fff" : "#2F3A9F")};
   cursor: pointer;
 
   &:hover {
-    background-color: ${(props) => (props.primary ? "#0056b3" : "#f0f0f0")};
+    background-color: ${(props) => (props.primary ? "#1e2b6d" : "#f0f0f0")};
   }
 `;
