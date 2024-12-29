@@ -12,6 +12,7 @@ function AddRegistration() {
     user_id: "",
     competition_id: "",
     registration_date: "",
+    status: "",
     requirements_file: null,
     payment_proof: null,
   });
@@ -29,7 +30,7 @@ function AddRegistration() {
             headers: { Authorization: `Bearer ${token}` },
           }),
         ]);
-    
+
         if (userResponse.data.success) {
           setUsers(userResponse.data.data);
         }
@@ -40,7 +41,6 @@ function AddRegistration() {
         console.error("Error fetching data", error);
       }
     };
-    
 
     fetchUsersAndCompetitions();
   }, []);
@@ -56,12 +56,16 @@ function AddRegistration() {
     formData.append("payment_proof", registration.payment_proof);
 
     try {
-      const response = await axios.post("http://localhost:8000/api/registration", formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-           Authorization: `Bearer ${token}`
-        },
-      },);
+      const response = await axios.post(
+        "http://localhost:8000/api/registration",
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
 
       if (response.data.success) {
         alert("Registration Berhasil Ditambahkan");
@@ -106,13 +110,20 @@ function AddRegistration() {
         <form onSubmit={handleSubmit}>
           {/* User ID (Select) */}
           <div className="mb-4">
-            <label htmlFor="user_id" className="block text-sm font-medium text-gray-700">User</label>
+            <label
+              htmlFor="user_id"
+              className="block text-sm font-medium text-gray-700"
+            >
+              User
+            </label>
             <select
               id="user_id"
               name="user_id"
               className="mt-1 block w-1/2 px-3 py-2 border-gray-800 pb-2 shadow-sm focus:border-blue-500 focus:ring-blue-500 focus:outline-none ring-2 ring-transparent sm:text-sm border-b-2"
               value={registration.user_id}
-              onChange={(e) => setRegistration({ ...registration, user_id: e.target.value })}
+              onChange={(e) =>
+                setRegistration({ ...registration, user_id: e.target.value })
+              }
               required
             >
               <option value="">Pilih User</option>
@@ -126,13 +137,23 @@ function AddRegistration() {
 
           {/* Competition ID (Select) */}
           <div className="mb-4">
-            <label htmlFor="competition_id" className="block text-sm font-medium text-gray-700">Competition</label>
+            <label
+              htmlFor="competition_id"
+              className="block text-sm font-medium text-gray-700"
+            >
+              Competition
+            </label>
             <select
               id="competition_id"
               name="competition_id"
               className="mt-1 block w-1/2 px-3 py-2 border-gray-800 pb-2 shadow-sm focus:border-blue-500 focus:ring-blue-500 focus:outline-none ring-2 ring-transparent sm:text-sm border-b-2"
               value={registration.competition_id}
-              onChange={(e) => setRegistration({ ...registration, competition_id: e.target.value })}
+              onChange={(e) =>
+                setRegistration({
+                  ...registration,
+                  competition_id: e.target.value,
+                })
+              }
               required
             >
               <option value="">Pilih Competition</option>
@@ -146,42 +167,97 @@ function AddRegistration() {
 
           {/* Registration Date */}
           <div className="mb-4">
-            <label htmlFor="registration_date" className="block text-sm font-medium text-gray-700">Registration Date</label>
+            <label
+              htmlFor="registration_date"
+              className="block text-sm font-medium text-gray-700"
+            >
+              Registration Date
+            </label>
             <input
               type="date"
               id="registration_date"
               name="registration_date"
               className="mt-1 block w-1/2 px-3 py-2 border-gray-800 pb-2 shadow-sm focus:border-blue-500 focus:ring-blue-500 focus:outline-none ring-2 ring-transparent sm:text-sm border-b-2"
               value={registration.registration_date}
-              onChange={(e) => setRegistration({ ...registration, registration_date: e.target.value })}
+              onChange={(e) =>
+                setRegistration({
+                  ...registration,
+                  registration_date: e.target.value,
+                })
+              }
               required
             />
           </div>
 
+          {/* Registration Status */}
+          <div className="mb-4">
+            <label
+              htmlFor="status"
+              className="block text-sm font-medium text-gray-700"
+            >
+              Status
+            </label>
+            <select
+              id="status"
+              name="status"
+              className="mt-1 block w-1/2 px-3 py-2 border-gray-800 pb-2 shadow-sm focus:border-blue-500 focus:ring-blue-500 focus:outline-none ring-2 ring-transparent sm:text-sm border-b-2"
+              value={registration.status}
+              onChange={(e) =>
+                setRegistration({ ...registration, status: e.target.value })
+              }
+              required
+            >
+              <option value="">Pilih status</option>
+              <option value="pending">Pending</option>
+              <option value="accepted">Accepted</option>
+              <option value="rejected">Rejected</option>
+            </select>
+          </div>
+
           {/* Requirements File */}
           <div className="mb-4">
-            <label htmlFor="requirements_file" className="block text-sm font-medium text-gray-700">Requirements File</label>
+            <label
+              htmlFor="requirements_file"
+              className="block text-sm font-medium text-gray-700"
+            >
+              Requirements File
+            </label>
             <input
               type="file"
               id="requirements_file"
               name="requirements_file"
               accept="application/pdf"
               className="mt-1 block w-1/2 px-3 py-2 border-gray-800 pb-2 shadow-sm focus:border-blue-500 focus:ring-blue-500 focus:outline-none ring-2 ring-transparent sm:text-sm border-b-2"
-              onChange={(e) => setRegistration({ ...registration, requirements_file: e.target.files[0] })}
+              onChange={(e) =>
+                setRegistration({
+                  ...registration,
+                  requirements_file: e.target.files[0],
+                })
+              }
               required
             />
           </div>
 
           {/* Payment Proof */}
           <div className="mb-4">
-            <label htmlFor="payment_proof" className="block text-sm font-medium text-gray-700">Payment Proof</label>
+            <label
+              htmlFor="payment_proof"
+              className="block text-sm font-medium text-gray-700"
+            >
+              Payment Proof
+            </label>
             <input
               type="file"
               id="payment_proof"
               name="payment_proof"
               accept="image/*"
               className="mt-1 block w-1/2 px-3 py-2 border-gray-800 pb-2 shadow-sm focus:border-blue-500 focus:ring-blue-500 focus:outline-none ring-2 ring-transparent sm:text-sm border-b-2"
-              onChange={(e) => setRegistration({ ...registration, payment_proof: e.target.files[0] })}
+              onChange={(e) =>
+                setRegistration({
+                  ...registration,
+                  payment_proof: e.target.files[0],
+                })
+              }
               required
             />
           </div>

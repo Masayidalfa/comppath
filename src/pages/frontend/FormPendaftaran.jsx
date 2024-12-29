@@ -1,7 +1,9 @@
 /* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
+
+
 import {
   Container,
   FormWrapper,
@@ -14,39 +16,49 @@ import {
 } from "../../components/utils/constants/FormPendaftaran.styled";
 
 const FormPendaftaran = () => {
-  //token
-  const token = localStorage.getItem("token");
-
-  const { id } = useParams(); // Mengambil id dari URL
-  const [competition, setCompetition] = useState(null); // Data kompetisi
-  const [error, setError] = useState(null); // Error handling
-  const [isLoading, setIsLoading] = useState(true); // Status loading
+  const { id: competitionId } = useParams(); // Ambil competition_id dari URL
   const [formData, setFormData] = useState({
-    requirement_file: null,
+    user_id: "",
+    competition_id: competitionId,
+    registration_date: "",
+    requirements_file: null,
     payment_proof: null,
   });
+  const [competition, setCompetition] = useState({ name: "", image: "" });
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState("");
+  const token = localStorage.getItem("token"); // Ambil token dari localStorage
+  const navigate = useNavigate();
+  
+  useEffect(() => {
+    // Ambil user_id dari localStorage
+    const storedUserData = JSON.parse(localStorage.getItem("userData"));
+    if (storedUserData) {
+      setFormData((prevData) => ({
+        ...prevData,
+        user_id: storedUserData.id,
+        registration_date: new Date().toISOString().split("T")[0], // Tanggal hari ini
+      }));
+    } else {
+      console.error("User data tidak ditemukan di localStorage");
+    }
+  }, []);
 
   useEffect(() => {
-    console.log("ID from useParams:", id);
-  
-    if (!id) {
-      setError("ID kompetisi tidak valid.");
-      setIsLoading(false);
-      return;
-    }
-  
+    // Fetch data competition
     const fetchCompetitionDetails = async () => {
       try {
-        const response = await axios.get(`http://localhost:8000/api/competition/${id}`, {
-          headers: {
-            Authorization: `Bearer ${token}`
+        const response = await axios.get(
+          `http://localhost:8000/api/competition/${competitionId}`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
           }
-        });
-        console.log("Response from API:", response);
-  
+        );
+
         if (response.data.success) {
           const competitionData = response.data.data;
-  
           setCompetition({
             name: competitionData.name,
             image: competitionData.image
@@ -63,37 +75,51 @@ const FormPendaftaran = () => {
         setIsLoading(false);
       }
     };
-  
+
     fetchCompetitionDetails();
-  }, [id]);
-  
+  }, [competitionId, token]);
 
   const handleChange = (e) => {
-    const { name, files } = e.target;
-    setFormData({
-      ...formData,
-      [name]: files ? files[0] : e.target.value,
-    });
+    const { name, files, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: files ? files[0] : value,
+    }));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    
+    // Validasi file sebelum submit
+    if (!formData.requirements_file || !formData.payment_proof) {
+      alert("File persyaratan dan bukti pembayaran harus diunggah.");
+      return;
+    }
+
     const form = new FormData();
-    form.append("competition_id", id); // Menggunakan key yang benar
+    form.append("competition_id", competitionId); // Pastikan key benar
     for (const key in formData) {
       form.append(key, formData[key]);
     }
 
     try {
-      await axios.post("http://localhost:8000/api/registration", form, {
+      const response = await axios.post("http://localhost:8000/api/registration", form, {
         headers: {
-          Authorization: `Bearer ${token}`
-        }
+          Authorization: `Bearer ${token}`,
+        },
       });
-      alert("Pendaftaran berhasil!");
+
+      if (response.data.success) {
+        alert("Pendaftaran berhasil!");
+        navigate("/kegiatan")
+      } else {
+        alert("Pendaftaran gagal: " + response.data.message);
+      }
     } catch (error) {
-      console.error("Error submitting registration:", error);
-      alert("Gagal mendaftar.");
+      console.error("Error submitting registration:", error.response?.data);
+      alert(
+        `Gagal mendaftar: ${error.response?.data?.message || "Error tidak diketahui"}`
+      );
     }
   };
 
@@ -119,7 +145,8 @@ const FormPendaftaran = () => {
               <label>File Persyaratan</label>
               <Input
                 type="file"
-                name="requirement_file"
+                accept="application/pdf"
+                name="requirements_file"
                 onChange={handleChange}
                 required
               />
@@ -128,12 +155,13 @@ const FormPendaftaran = () => {
               <label>Bukti Pembayaran</label>
               <Input
                 type="file"
+                accept="image/*"
                 name="payment_proof"
                 onChange={handleChange}
                 required
               />
             </FormField>
-            <Button type="submit" primary>
+            <Button primary type="submit">
               Daftar
             </Button>
           </form>

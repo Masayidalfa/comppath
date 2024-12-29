@@ -76,12 +76,10 @@ function EditCategory() {
       const response = await axios.post(`http://localhost:8000/api/category/${id}`, formDataToSend, {
         headers: {
           "Content-Type": "multipart/form-data",
-        },
-      }, {
-        headers: {
           Authorization: `Bearer ${token}`
-        }
-      });
+        },
+      },
+    );
 
       if (response.data.success) {
         alert("Category updated successfully");
