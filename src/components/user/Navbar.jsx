@@ -25,8 +25,10 @@ function Navbar() {
   const token = localStorage.getItem("token");
   const [userRole, setUserRole] = useState(null);
   useEffect(() => {
-    const role = localStorage.getItem("role");
-    setUserRole(role);
+    const userData = JSON.parse(localStorage.getItem("userData"));
+    if (userData && userData.role) {
+      setUserRole(userData.role);
+    }
   }, []); //menampung role user dari auth login
 
   const [isLoggedIn, setIsLoggedIn] = useState(false); // Status login

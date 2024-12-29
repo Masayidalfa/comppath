@@ -18,8 +18,10 @@ function Login() {
       });
 
       if (response.status === 200 && response.data.success) {
-        localStorage.setItem('token', response.data.token);
-        localStorage.setItem('role', response.data.user.role);
+        // menyimpan token dan data user ke locall storage
+        const {token, user} = response.data;
+        localStorage.setItem('token', token);
+        localStorage.setItem('userData', JSON.stringify(user));
         alert('Login Berhasil');
         if (response.data.user.role === 'admin') {
           navigate('/dashboard'); // Navigasi hanya pada kondisi sukses
