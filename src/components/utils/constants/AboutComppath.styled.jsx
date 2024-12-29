@@ -11,13 +11,14 @@ export const Section = styled.div`
   background-color: ${(props) => props.bgColor || "white"};
   padding: 40px;
   text-align: left;
-  flex-direction: ${(props) => (props.reverse ? "row-reverse" : "row")};
+  flex-direction: row; /* Pastikan elemen mengalir dari kiri ke kanan */
 
   @media (max-width: 768px) {
     flex-direction: column;
     text-align: center;
   }
 `;
+
 
 export const HeaderText = styled.div`
   color: #3b3b98;
