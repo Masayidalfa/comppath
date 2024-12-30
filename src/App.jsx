@@ -29,6 +29,7 @@ import DaftarKategori from './pages/frontend/DaftarKategori'
 import DaftarLomba from './pages/frontend/DaftarLomba'
 import DetailLomba from './pages/frontend/DetailLomba'
 import FormPendaftaran from './pages/frontend/FormPendaftaran'
+
 //profile
 import Profile from './pages/frontend/profile/Profile'
 import Kegiatan from './pages/frontend/profile/kegiatan'
@@ -69,13 +70,17 @@ function App() {
       <Route path="/detail_lomba/:id" element={<FrontendLayout><DetailLomba /></FrontendLayout>} />
       <Route path="/pendaftaran/:id" element={<FrontendLayout><FormPendaftaran /></FrontendLayout>} />
       <Route path="/about" element={<FrontendLayout><About /></FrontendLayout>} />
-      <Route path="/kegiatan" element={<FrontendLayout><Kegiatan /></FrontendLayout>} />
-      <Route path="/daftar-peserta" element={<FrontendLayout><DaftarPeserta /></FrontendLayout>} />
-      <Route path="/daftar-lomba-kontributor" element={<FrontendLayout><DaftarLombaKontributor /></FrontendLayout>} />
-      <Route path="/create-lomba" element={<FrontendLayout><CreateLomba /></FrontendLayout>} />
 
       {/* Profile Routes */}
       <Route path="/profile" element={<ProfileLayout><Profile /></ProfileLayout>} />
+      <Route path="/kegiatan" element={<ProfileLayout><Kegiatan /></ProfileLayout>} />
+      <Route path="/daftar-peserta" element={<ProfileLayout><DaftarPeserta /></ProfileLayout>} />
+      <Route path="/daftar-lomba-kontributor" element={<ProfileLayout><DaftarLombaKontributor /></ProfileLayout>} />
+      <Route path="/create-lomba" element={<ProfileLayout><CreateLomba /></ProfileLayout>} />
+
+
+
+
 
 
       {/* Public Routes */}
