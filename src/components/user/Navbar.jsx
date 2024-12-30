@@ -97,7 +97,7 @@ function Navbar() {
               />
               {isDropdownVisible && (
                 <DropdownMenu>
-                  <DropdownItem to="/edit_profile">Edit Profil</DropdownItem>
+                  <DropdownItem to="/profile">Profile</DropdownItem>
                   <DropdownItem to="/login" onClick={handleLogout}>
                     Logout
                   </DropdownItem>

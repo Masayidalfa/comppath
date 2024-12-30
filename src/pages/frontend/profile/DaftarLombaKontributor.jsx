@@ -91,10 +91,27 @@ const DaftarLombaKontributor = () => {
               </CardHeader>
               <CardTitle>{competition.name}</CardTitle> 
               <CardDescription>{competition.description}</CardDescription>
+
               <CardDate>
                 {new Date(competition.start_date).toLocaleDateString()} -{" "}
                 {new Date(competition.end_date).toLocaleDateString()}
               </CardDate>
+
+               {/* Buttons for actions */}
+               <div className="mt-4 flex gap-4">
+                <Link
+                  to={`/daftar-peserta/${competition.id}`}
+                  className="px-3 py-2 bg-green-500 text-white rounded hover:bg-green-600"
+                >
+                  Lihat Peserta
+                </Link>
+                <Link
+                  to={`/edit-lomba/${competition.id}`}
+                  className="px-3 py-2 bg-yellow-500 text-white rounded hover:bg-yellow-600"
+                >
+                  Edit Lomba
+                </Link>
+              </div>
             </CardContent>
           </Card>
         );

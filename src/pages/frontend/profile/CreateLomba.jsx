@@ -6,7 +6,6 @@ import { useNavigate } from "react-router-dom";
 const CreateLomba = () => {
     //token
     const token = localStorage.getItem("token");
-    const userData = JSON.parse(localStorage.getItem("userData"));
 
     const [competition, setCompetition] = useState({
       name: "",
@@ -113,7 +112,7 @@ const CreateLomba = () => {
             >
               <ol className="flex space-x-2">
                 <li>
-                  <a href="/" className="text-blue-500 hover:underline">
+                  <a href="/profile" className="text-blue-500 hover:underline">
                     Profile
                   </a>
                 </li>

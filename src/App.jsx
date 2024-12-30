@@ -36,6 +36,7 @@ import Kegiatan from './pages/frontend/profile/kegiatan'
 import DaftarPeserta from './pages/frontend/profile/DaftarPeserta'
 import DaftarLombaKontributor from './pages/frontend/profile/DaftarLombaKontributor'
 import CreateLomba from './pages/frontend/profile/CreateLomba'
+import EditLomba from './pages/frontend/profile/EditLomba'
 import About from "./pages/frontend/About";
 
 // Auth
@@ -74,9 +75,10 @@ function App() {
       {/* Profile Routes */}
       <Route path="/profile" element={<ProfileLayout><Profile /></ProfileLayout>} />
       <Route path="/kegiatan" element={<ProfileLayout><Kegiatan /></ProfileLayout>} />
-      <Route path="/daftar-peserta" element={<ProfileLayout><DaftarPeserta /></ProfileLayout>} />
+      <Route path="/daftar-peserta/:id" element={<ProfileLayout><DaftarPeserta /></ProfileLayout>} />
       <Route path="/daftar-lomba-kontributor" element={<ProfileLayout><DaftarLombaKontributor /></ProfileLayout>} />
       <Route path="/create-lomba" element={<ProfileLayout><CreateLomba /></ProfileLayout>} />
+      <Route path="/edit-lomba/:id" element={<ProfileLayout><EditLomba /></ProfileLayout>} />
 
 
 
