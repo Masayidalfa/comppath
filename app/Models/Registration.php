@@ -31,8 +31,8 @@ class Registration extends Model
     }
 
     // relasi inverse one to many ke tabel detail_user
-    public function detailUser(): BelongsTo
+    public function user(): BelongsTo
     {
-        return $this->belongsTo(Detail_user::class);
+        return $this->belongsTo(User::class);
     }
 }

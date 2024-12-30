@@ -104,4 +104,4 @@ Route::get('/user/{user_id}/profile', [Detail_userController::class, 'getUserPro
 Route::middleware('auth:sanctum')->get('/user/{user_id}/created-competitions', [CompetitionController::class, 'getCreatedCompetitions']);
 
 // Page Daftar Peserta
-Route::get('/competition/{id}/participants', [RegistrationController::class, 'getCompetitionParticipants']);
+Route::get('/competition/{id}/participants', [RegistrationController::class, 'Peserta']);

@@ -113,4 +113,18 @@ class RegistrationController extends Controller
         $registration->delete();
         return response()->json(['success' => true, 'message' => 'Registration deleted']);
     }
+
+    public function Peserta($id)
+    {
+        // Mengambil data registrasi dengan relasi ke tabel user
+        $registrations = Registration::with('user')
+            ->where('competition_id', $id)
+            ->get();
+
+        if ($registrations->isEmpty()) {
+            return response()->json(['success' => false, 'message' => 'No participants found'], 404);
+        }
+
+        return response()->json(['success' => true, 'data' => $registrations]);
+    }
 }
