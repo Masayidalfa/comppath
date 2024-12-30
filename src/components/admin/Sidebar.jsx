@@ -69,7 +69,7 @@ function Sidebar({ isOpen }) {
 
           {/* Account */}
           <div className="text-sm font-semibold uppercase text-gray-200 mt-6 mb-4">
-            Account
+            ACCOUNT
           </div>
 
           {token && (
@@ -103,7 +103,7 @@ function Sidebar({ isOpen }) {
           )}
 
           <div className="text-sm font-semibold uppercase text-gray-200 mt-6 mb-4">
-            Interface
+            NAVIGATION
           </div>
           {/* Master Data */}
           <button

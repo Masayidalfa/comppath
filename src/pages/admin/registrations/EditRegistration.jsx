@@ -12,6 +12,7 @@ function EditRegistration() {
     user_id: "",
     competition_id: "",
     registration_date: "",
+    status: "",
     requirements_file: null,
     payment_proof: null,
   });
@@ -23,14 +24,21 @@ function EditRegistration() {
     const fetchData = async () => {
       try {
         const [userResponse, competitionResponse, registrationResponse] = await Promise.all([
-          axios.get("http://localhost:8000/api/user"),
-          axios.get("http://localhost:8000/api/competition"),
-          axios.get(`http://localhost:8000/api/registration/${id}`),
-          {
+          axios.get("http://localhost:8000/api/user", {
             headers: {
               Authorization: `Bearer ${token}`
             }
-          }
+          }),
+          axios.get("http://localhost:8000/api/competition", {
+            headers: {
+              Authorization: `Bearer ${token}`
+            }
+          }),
+          axios.get(`http://localhost:8000/api/registration/${id}`, {
+            headers: {
+              Authorization: `Bearer ${token}`
+            }
+          })
         ]);
 
         if (userResponse.data.success) {
@@ -45,6 +53,7 @@ function EditRegistration() {
             user_id: data.user_id,
             competition_id: data.competition_id,
             registration_date: data.registration_date,
+            status: data.status,
             requirements_file: null,
             payment_proof: null,
           });
@@ -61,9 +70,11 @@ function EditRegistration() {
     e.preventDefault();
 
     const formData = new FormData();
+    formData.append("_method", "PUT");
     formData.append("user_id", registration.user_id);
     formData.append("competition_id", registration.competition_id);
     formData.append("registration_date", registration.registration_date);
+    formData.append("status", registration.status);
     if (registration.requirements_file) {
       formData.append("requirements_file", registration.requirements_file);
     }
@@ -78,12 +89,9 @@ function EditRegistration() {
         {
           headers: {
             "Content-Type": "multipart/form-data",
+             Authorization: `Bearer ${token}`
           },
-        }, {
-          headers: {
-            Authorization: `Bearer ${token}`
-          }
-        }
+        }, 
       );
 
       if (response.data.success) {
@@ -180,6 +188,32 @@ function EditRegistration() {
               required
             />
           </div>
+
+          {/* Registration Status */}
+          <div className="mb-4">
+            <label
+              htmlFor="status"
+              className="block text-sm font-medium text-gray-700"
+            >
+              Status
+            </label>
+            <select
+              id="status"
+              name="status"
+              className="mt-1 block w-1/2 px-3 py-2 border-gray-800 pb-2 shadow-sm focus:border-blue-500 focus:ring-blue-500 focus:outline-none ring-2 ring-transparent sm:text-sm border-b-2"
+              value={registration.status}
+              onChange={(e) =>
+                setRegistration({ ...registration, status: e.target.value })
+              }
+              required
+            >
+              <option value="">Pilih status</option>
+              <option value="pending">Pending</option>
+              <option value="accepted">Accepted</option>
+              <option value="rejected">Rejected</option>
+            </select>
+          </div>
+
 
           {/* Requirements File */}
           <div className="mb-4">

@@ -82,12 +82,9 @@ function EditDetailUser() {
         {
           headers: {
             "Content-Type": "multipart/form-data",
+             Authorization: `Bearer ${token}`
           },
-        }, {
-          headers: {
-            Authorization: `Bearer ${token}`
-          }
-        }
+        },
       );
 
       if (response.data.success) {

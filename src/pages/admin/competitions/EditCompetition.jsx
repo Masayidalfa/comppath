@@ -17,6 +17,7 @@ function EditCompetition() {
     start_date: "",
     end_date: "",
     creator_id: "",
+    status: "",
     fee: "",
     requirement: null,
     group_link: "",
@@ -45,6 +46,7 @@ function EditCompetition() {
             start_date: competitionData.start_date || "",
             end_date: competitionData.end_date || "",
             creator_id: competitionData.creator_id || "",
+            status: competitionData.status || "",
             fee: competitionData.fee || "",
             requirement: null, // Keep null as we don't fetch file data
             group_link: competitionData.group_link || "",
@@ -109,6 +111,7 @@ function EditCompetition() {
     formData.append("start_date", competition.start_date);
     formData.append("end_date", competition.end_date);
     formData.append("creator_id", competition.creator_id);
+    formData.append("status", competition.status);
     formData.append("fee", competition.fee);
     if (competition.requirement)
       formData.append("requirement", competition.requirement);
@@ -121,12 +124,9 @@ function EditCompetition() {
         {
           headers: {
             "Content-Type": "multipart/form-data",
-          },
-        }, {
-          headers: {
             Authorization: `Bearer ${token}`
-          }
-        }
+          },
+        },
       );
 
       if (response.data.success) {
@@ -274,7 +274,7 @@ function EditCompetition() {
               <option value="sd">SD</option>
               <option value="smp">SMP</option>
               <option value="sma/smk">SMA/SMK</option>
-              <option value="perguruan_tinggi">Perguruan Tinggi</option>
+              <option value="kuliah">Kuliah</option>
               <option value="umum">Umum</option>
             </select>
           </div>
@@ -335,6 +335,30 @@ function EditCompetition() {
               onChange={handleInputChange}
               required
             />
+          </div>
+
+          {/* Status */}
+          <div className="mb-4">
+            <label
+              htmlFor="status"
+              className="block text-sm font-medium text-gray-700"
+            >
+              Status
+            </label>
+            <select
+              id="status"
+              name="status"
+              className="mt-1 block w-1/2 px-3 py-2 border-gray-800 pb-2 shadow-sm focus:border-blue-500 focus:ring-blue-500 focus:outline-none ring-2 ring-transparent sm:text-sm border-b-2"
+              value={competition.status}
+              onChange={(e) =>
+                setCompetition({ ...competition, status: e.target.value })
+              }
+              required
+            >
+              <option value="">Pilih status</option>
+              <option value="open">Opened</option>
+              <option value="closed">Closed</option>
+            </select>
           </div>
 
           {/* Biaya Pendaftaran */}
