@@ -6,5 +6,4 @@ function DaftarPeserta
         </h2>
     )
 }
-export default DaftarPeserta
-;
+export default DaftarPeserta;
