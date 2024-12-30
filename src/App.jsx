@@ -3,6 +3,7 @@ import { Routes, Route } from 'react-router-dom'
 //layout
 import AdminLayout from './layout/admin/index'
 import FrontendLayout from './layout/frontend/index'
+import ProfileLayout from './layout/profile/index'
 
 //Admin
 import Dashboard from './pages/admin/Dashboard'
@@ -26,15 +27,17 @@ import EditRegistration from './pages/admin/registrations/EditRegistration'
 import Landing from './pages/frontend/Landing'
 import DaftarKategori from './pages/frontend/DaftarKategori'
 import DaftarLomba from './pages/frontend/DaftarLomba'
+import DaftarLombaKategori from './pages/frontend/DaftarLombaKategori'
 import DetailLomba from './pages/frontend/DetailLomba'
 import FormPendaftaran from './pages/frontend/FormPendaftaran'
+
 //profile
-import UserProfile from './pages/frontend/profile/UserProfile'
+import Profile from './pages/frontend/profile/Profile'
 import Kegiatan from './pages/frontend/profile/kegiatan'
 import DaftarPeserta from './pages/frontend/profile/DaftarPeserta'
 import DaftarLombaKontributor from './pages/frontend/profile/DaftarLombaKontributor'
 import CreateLomba from './pages/frontend/profile/CreateLomba'
-import ProfileKontributor from "./pages/frontend/profile/ProfileKontributor";
+import EditLomba from './pages/frontend/profile/EditLomba'
 import About from "./pages/frontend/About";
 
 // Auth
@@ -66,15 +69,23 @@ function App() {
       <Route path="/" element={<FrontendLayout><Landing /></FrontendLayout>} />
       <Route path="/daftar-kategori" element={<FrontendLayout><DaftarKategori /></FrontendLayout>} />
       <Route path="/daftar_lomba" element={<FrontendLayout><DaftarLomba /></FrontendLayout>} />
+      <Route path="/daftar_lomba_kategori/:id" element={<FrontendLayout><DaftarLombaKategori /></FrontendLayout>} />
       <Route path="/detail_lomba/:id" element={<FrontendLayout><DetailLomba /></FrontendLayout>} />
       <Route path="/pendaftaran/:id" element={<FrontendLayout><FormPendaftaran /></FrontendLayout>} />
-      <Route path="/user_profile" element={<FrontendLayout><UserProfile /></FrontendLayout>} />
-      <Route path="/profile_kontributor" element={<FrontendLayout><ProfileKontributor /></FrontendLayout>} />
       <Route path="/about" element={<FrontendLayout><About /></FrontendLayout>} />
-      <Route path="/kegiatan" element={<FrontendLayout><Kegiatan /></FrontendLayout>} />
-      <Route path="/daftar-peserta" element={<FrontendLayout><DaftarPeserta /></FrontendLayout>} />
-      <Route path="/daftar-lomba-kontributor" element={<FrontendLayout><DaftarLombaKontributor /></FrontendLayout>} />
-      <Route path="/create-lomba" element={<FrontendLayout><CreateLomba /></FrontendLayout>} />
+
+      {/* Profile Routes */}
+      <Route path="/profile" element={<ProfileLayout><Profile /></ProfileLayout>} />
+      <Route path="/kegiatan" element={<ProfileLayout><Kegiatan /></ProfileLayout>} />
+      <Route path="/daftar-peserta/:id" element={<ProfileLayout><DaftarPeserta /></ProfileLayout>} />
+      <Route path="/daftar-lomba-kontributor" element={<ProfileLayout><DaftarLombaKontributor /></ProfileLayout>} />
+      <Route path="/create-lomba" element={<ProfileLayout><CreateLomba /></ProfileLayout>} />
+      <Route path="/edit-lomba/:id" element={<ProfileLayout><EditLomba /></ProfileLayout>} />
+
+
+
+
+
 
       {/* Public Routes */}
       <Route path="/login" element={<Login />} />

@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
@@ -62,6 +63,16 @@ const DaftarLombaKontributor = () => {
 
   return (
     <Wrapper>
+      {/* Link untuk membuat lomba */}
+      <div className="mb-4 flex justify-end">
+        <Link
+          to="/create-lomba"
+          className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+        >
+          + Create Competition
+        </Link>
+      </div>
+
       {competitions.map((competition) => {
         const competitionImage = competition.image
           ? `http://localhost:8000/storage/${competition.image}`
@@ -78,12 +89,29 @@ const DaftarLombaKontributor = () => {
                 <CardStatus>{competition.status.toUpperCase()}</CardStatus>
                 <CardJenjang>{competition.jenjang}</CardJenjang>
               </CardHeader>
-              <CardTitle>{competition.name}</CardTitle>
+              <CardTitle>{competition.name}</CardTitle> 
               <CardDescription>{competition.description}</CardDescription>
+
               <CardDate>
                 {new Date(competition.start_date).toLocaleDateString()} -{" "}
                 {new Date(competition.end_date).toLocaleDateString()}
               </CardDate>
+
+               {/* Buttons for actions */}
+               <div className="mt-4 flex gap-4">
+                <Link
+                  to={`/daftar-peserta/${competition.id}`}
+                  className="px-3 py-2 bg-green-500 text-white rounded hover:bg-green-600"
+                >
+                  Lihat Peserta
+                </Link>
+                <Link
+                  to={`/edit-lomba/${competition.id}`}
+                  className="px-3 py-2 bg-yellow-500 text-white rounded hover:bg-yellow-600"
+                >
+                  Edit Lomba
+                </Link>
+              </div>
             </CardContent>
           </Card>
         );

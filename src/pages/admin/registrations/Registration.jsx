@@ -116,7 +116,7 @@ function Registration() {
             <thead>
               <tr className="bg-gray-100">
                 <th className="border border-gray-200 px-4 py-2">No</th>
-                <th className="border border-gray-200 px-4 py-2">Id Penyelenggara</th>
+                <th className="border border-gray-200 px-4 py-2">Id User</th>
                 <th className="border border-gray-200 px-4 py-2">Id Lomba</th>
                 <th className="border border-gray-200 px-4 py-2">Tanggal Pendaftaran</th>
                 <th className="border border-gray-200 px-4 py-2">Status Pendaftaran</th>
@@ -128,7 +128,7 @@ function Registration() {
             <tfoot>
               <tr className="bg-gray-100">
                 <th className="border border-gray-200 px-4 py-2">No</th>
-                <th className="border border-gray-200 px-4 py-2">Id Penyelenggara</th>
+                <th className="border border-gray-200 px-4 py-2">Id User</th>
                 <th className="border border-gray-200 px-4 py-2">Id Lomba</th>
                 <th className="border border-gray-200 px-4 py-2">Tanggal Pendaftaran</th>
                 <th className="border border-gray-200 px-4 py-2">Status Pendaftaran</th>
