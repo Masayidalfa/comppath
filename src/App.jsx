@@ -3,6 +3,7 @@ import { Routes, Route } from 'react-router-dom'
 //layout
 import AdminLayout from './layout/admin/index'
 import FrontendLayout from './layout/frontend/index'
+import ProfileLayout from './layout/profile/index'
 
 //Admin
 import Dashboard from './pages/admin/Dashboard'
@@ -29,12 +30,11 @@ import DaftarLomba from './pages/frontend/DaftarLomba'
 import DetailLomba from './pages/frontend/DetailLomba'
 import FormPendaftaran from './pages/frontend/FormPendaftaran'
 //profile
-import UserProfile from './pages/frontend/profile/UserProfile'
+import Profile from './pages/frontend/profile/Profile'
 import Kegiatan from './pages/frontend/profile/kegiatan'
 import DaftarPeserta from './pages/frontend/profile/DaftarPeserta'
 import DaftarLombaKontributor from './pages/frontend/profile/DaftarLombaKontributor'
 import CreateLomba from './pages/frontend/profile/CreateLomba'
-import ProfileKontributor from "./pages/frontend/profile/ProfileKontributor";
 import About from "./pages/frontend/About";
 
 // Auth
@@ -68,13 +68,15 @@ function App() {
       <Route path="/daftar_lomba" element={<FrontendLayout><DaftarLomba /></FrontendLayout>} />
       <Route path="/detail_lomba/:id" element={<FrontendLayout><DetailLomba /></FrontendLayout>} />
       <Route path="/pendaftaran/:id" element={<FrontendLayout><FormPendaftaran /></FrontendLayout>} />
-      <Route path="/user_profile" element={<FrontendLayout><UserProfile /></FrontendLayout>} />
-      <Route path="/profile_kontributor" element={<FrontendLayout><ProfileKontributor /></FrontendLayout>} />
       <Route path="/about" element={<FrontendLayout><About /></FrontendLayout>} />
       <Route path="/kegiatan" element={<FrontendLayout><Kegiatan /></FrontendLayout>} />
       <Route path="/daftar-peserta" element={<FrontendLayout><DaftarPeserta /></FrontendLayout>} />
       <Route path="/daftar-lomba-kontributor" element={<FrontendLayout><DaftarLombaKontributor /></FrontendLayout>} />
       <Route path="/create-lomba" element={<FrontendLayout><CreateLomba /></FrontendLayout>} />
+
+      {/* Profile Routes */}
+      <Route path="/profile" element={<ProfileLayout><Profile /></ProfileLayout>} />
+
 
       {/* Public Routes */}
       <Route path="/login" element={<Login />} />

@@ -1,5 +1,5 @@
 import "react";
-import SideBar from "./SideBar";
+import SideBar from "../../../components/profile/Sidebar";
 
 const CreateLomba = () => {
   return (
