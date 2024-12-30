@@ -60,7 +60,7 @@ function Landing(){
                         <div className="text-right mb-4 ">
                             <a href="/DaftarKategori" className="text-blue-600 hover:underline font-bold">Selengkapnya </a>
                         </div>
-                        <div className="grid md:grid-cols-2 gap-4 m-24 ">
+                        <div className="grid md:grid-cols-2 gap-2 m-16 ">
                             <a className=" bg-gray-100 hover:bg-blue-700 text-sky-800 font-bold py-8 px-4 text-center rounded">Olahraga</a>
                             <a className=" bg-gray-100 hover:bg-blue-700 text-sky-800 font-bold py-8 px-4 text-center rounded">Akademik</a>
                             <a className=" bg-gray-100 hover:bg-blue-700 text-sky-800 font-bold py-8 px-4 text-center rounded">Seni dan Kreativitas</a>
@@ -92,6 +92,56 @@ function Landing(){
                     <div className="flex justify-between">
                         <div>
                         <h2 className="text-xl font-bold">Mobail Legend </h2>
+                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem pariatur 
+                            magnam voluptate! Earum, pariatur. Nostrum assumenda dolor quod illo deserunt quos 
+                            cumque optio eum? Enim, consequatur quisquam. Quis, similique ea!</p>
+                        </div>
+                    </div>
+                    <a href="/DetailLomba" className="bg-blue-700 text-white hover:underline px-6 py-1 rounded">Lihat Detail</a>
+            </div>
+        </div>
+        
+        <div className="flex flex-row gap-x-4 m-10 shadow-md ">
+                <div className="m-4">
+                    <img 
+                    src="./image/photo9.jpg"
+                    alt=""
+                    className="object-cover sm:max-w-56  rounded-2xl " 
+                    />
+                </div>
+                <div className="container mx-auto shadow-md rounded px-4 py-2 ">
+                        <div className="flex gap-4">
+                        <a href="" className="bg-teal-500 text-white px-6 py-1 rounded  shadow">Status</a>
+                        <a href="" className="bg-teal-500  text-white px-6 py-1 rounded shadow">Jenjang Lomba</a>
+                        </div>
+                    <div className="flex justify-between">
+                        <div>
+                        <h2 className="text-xl font-bold">PUBG Mobile</h2>
+                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem pariatur 
+                            magnam voluptate! Earum, pariatur. Nostrum assumenda dolor quod illo deserunt quos 
+                            cumque optio eum? Enim, consequatur quisquam. Quis, similique ea!</p>
+                        </div>
+                    </div>
+                    <a href="/DetailLomba" className="bg-blue-700 text-white hover:underline px-6 py-1 rounded">Lihat Detail</a>
+            </div>
+        </div>
+
+        <div className="flex flex-row gap-x-4 m-10 shadow-md ">
+                <div className="m-4">
+                    <img 
+                    src="./image/photo10.jpeg"
+                    alt=""
+                    className="object-cover sm:max-w-56  rounded-2xl" 
+                    />
+                </div>
+                <div className="container mx-auto shadow-md rounded px-4 py-2 ">
+                        <div className="flex gap-4">
+                        <a href="" className="bg-teal-500 text-white px-6 py-1 rounded  shadow">Status</a>
+                        <a href="" className="bg-teal-500  text-white px-6 py-1 rounded shadow">Jenjang Lomba</a>
+                        </div>
+                    <div className="flex justify-between">
+                        <div>
+                        <h2 className="text-xl font-bold">Sepak Bola</h2>
                         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem pariatur 
                             magnam voluptate! Earum, pariatur. Nostrum assumenda dolor quod illo deserunt quos 
                             cumque optio eum? Enim, consequatur quisquam. Quis, similique ea!</p>
