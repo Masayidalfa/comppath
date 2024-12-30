@@ -70,7 +70,7 @@ function Profile() {
             setPreviewImage(
               detailUser.foto_profil
                 ? `http://localhost:8000/storage/${detailUser.foto_profil}`
-                : `http://localhost:8000/logo.jpg` // Default gambar jika tidak ada
+                : `/logo.jpg` // Default gambar jika tidak ada
             );
           }
         }
