@@ -63,6 +63,16 @@ const DaftarLombaKontributor = () => {
 
   return (
     <Wrapper>
+      {/* Link untuk membuat lomba */}
+      <div className="mb-4 flex justify-end">
+        <Link
+          to="/create-lomba"
+          className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+        >
+          + Create Competition
+        </Link>
+      </div>
+
       {competitions.map((competition) => {
         const competitionImage = competition.image
           ? `http://localhost:8000/storage/${competition.image}`
@@ -79,7 +89,7 @@ const DaftarLombaKontributor = () => {
                 <CardStatus>{competition.status.toUpperCase()}</CardStatus>
                 <CardJenjang>{competition.jenjang}</CardJenjang>
               </CardHeader>
-              <CardTitle>{competition.name}</CardTitle>
+              <CardTitle>{competition.name}</CardTitle> 
               <CardDescription>{competition.description}</CardDescription>
               <CardDate>
                 {new Date(competition.start_date).toLocaleDateString()} -{" "}
