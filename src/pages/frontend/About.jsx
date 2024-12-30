@@ -44,7 +44,7 @@ const About = () => {
         <div>
           <AboutTitle>Tentang CompPath !!!</AboutTitle>
           <AboutText>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident.
+          Comppath merupakan sebuah website pencari lomba yang dapat membantu semua kalangan di Indonesia mulai dari SD, SMP, SMA, Mahasiswa, hingga masyarakat umum dalam menemukan lomba yang sesuai dengan minat dan bakat mereka.
           </AboutText>
         </div>
       </Section>
