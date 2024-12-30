@@ -58,7 +58,7 @@ function Landing(){
                 </div>  
                 <div className="container mx-auto px-4 py-8 ">
                         <div className="text-right mb-4 ">
-                            <a href="/DaftarKategori" className="text-blue-600 hover:underline font-bold">Selengkapnya </a>
+                            <a href="/daftar-kategori" className="text-blue-600 hover:underline font-bold">Selengkapnya </a>
                         </div>
                         <div className="grid md:grid-cols-2 gap-2 m-16 ">
                             <a className=" bg-gray-100 hover:bg-blue-700 text-sky-800 font-bold py-8 px-4 text-center rounded">Olahraga</a>

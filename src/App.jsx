@@ -75,7 +75,7 @@ function App() {
       <Route path="/about" element={<FrontendLayout><About /></FrontendLayout>} />
 
       {/* Profile Routes */}
-      <Route path="/profile" element={<ProfileLayout><Profile /></ProfileLayout>} />
+      <Route path="/profile/:id" element={<ProfileLayout><Profile /></ProfileLayout>} />
       <Route path="/kegiatan" element={<ProfileLayout><Kegiatan /></ProfileLayout>} />
       <Route path="/daftar-peserta/:id" element={<ProfileLayout><DaftarPeserta /></ProfileLayout>} />
       <Route path="/daftar-lomba-kontributor" element={<ProfileLayout><DaftarLombaKontributor /></ProfileLayout>} />

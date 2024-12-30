@@ -1,7 +1,5 @@
-/* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-
 import {
   Container,
   NavbarStyled,
@@ -17,39 +15,41 @@ import {
   ProfileImage,
   DropdownMenu,
   DropdownItem,
-} from "../utils/constants/Navbar.styled";
+} from "../utils/constants/Navbar.styled"; // Mengimpor style dari lokasi yang benar
 
+// Komponen Navbar
 function Navbar() {
   const token = localStorage.getItem("token");
   const [userRole, setUserRole] = useState(null);
+  const [userData, setUserData] = useState(null); // Menyimpan data pengguna yang login
+  const [isDropdownVisible, setIsDropdownVisible] = useState(false); // Untuk kontrol dropdown
+  const defaultProfileImage = "/public/logo.jpg"; // Gambar default jika tidak ada foto profil
+
+  // Menyimpan role user setelah login
   useEffect(() => {
     const userData = JSON.parse(localStorage.getItem("userData"));
     if (userData && userData.role) {
       setUserRole(userData.role);
     }
-  }, []); // Menyimpan role user dari login
+  }, []); // Menyimpan role user setelah login
 
-  const [isLoggedIn, setIsLoggedIn] = useState(false); // Status login
-  const [userData, setUserData] = useState(null); // Data pengguna yang login
-  const defaultProfileImage = "/public/logo.jpg"; // Gambar default jika foto profil kosong
-
+  // Menangani status login dan pengambilan data pengguna
   useEffect(() => {
     const storedUserData = localStorage.getItem("userData");
     if (storedUserData) {
       setUserData(JSON.parse(storedUserData));
     }
-  }, []); // Menjalankan useEffect hanya sekali saat komponen pertama kali di-render
+  }, []); // Ambil data user dari localStorage
 
+  // Menangani logout
   const handleLogout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("userData");
     setUserData(null);
   };
 
-  const [isDropdownVisible, setIsDropdownVisible] = useState(false);
-
   const toggleDropdown = () => {
-    setIsDropdownVisible(!isDropdownVisible); // Toggle dropdown visibility
+    setIsDropdownVisible(!isDropdownVisible); // Menampilkan atau menyembunyikan dropdown
   };
 
   return (
@@ -75,7 +75,7 @@ function Navbar() {
           <NavbarItem>
             <NavbarLink to="/daftar-kategori">Kategori</NavbarLink>
           </NavbarItem>
-          {userRole === "admin" && ( // Membatasi akses berdasarkan role user
+          {userRole === "admin" && ( // Menampilkan Dashboard hanya untuk admin
             <NavbarItem>
               <NavbarLink to="/dashboard">Dashboard</NavbarLink>
             </NavbarItem>
@@ -93,11 +93,11 @@ function Navbar() {
                     : defaultProfileImage
                 }
                 alt="Profile"
-                onClick={toggleDropdown} // Menambahkan klik untuk menampilkan dropdown
+                onClick={toggleDropdown} // Menampilkan dropdown jika gambar profil diklik
               />
               {isDropdownVisible && (
                 <DropdownMenu>
-                  <DropdownItem to="/profile">Profile</DropdownItem>
+                  <DropdownItem to={`/profile/${userData.id}`}>Profile</DropdownItem> {/* Link ke halaman profile berdasarkan ID user */}
                   <DropdownItem to="/login" onClick={handleLogout}>
                     Logout
                   </DropdownItem>

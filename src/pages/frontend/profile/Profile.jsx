@@ -1,74 +1,192 @@
-/* eslint-disable no-unused-vars */
-import React from "react";
+// eslint-disable-next-line no-unused-vars
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import { useParams } from "react-router-dom";
+import {
+  Container,
+  ProfileImageContainer,
+  ProfileImage,
+  ButtonsContainer,
+  Button,
+  ProfileName,
+  Form,
+  Label,
+  Input,
+  TextArea,
+} from "../../../components/utils/constants/Profile.styled"; // Pastikan sesuai dengan file styled-components
 
 function Profile() {
+  const { id: userId } = useParams(); // Ambil user_id dari URL
+  const token = localStorage.getItem("token");
+
+  const [user, setUser] = useState({ name: "" });
+  const [formData, setFormData] = useState({
+    alamat: "",
+    no_handphone: "",
+    tanggal_lahir: "",
+    jenis_kelamin: "",
+    instansi: "",
+    foto_profil: "",
+  });
+  const [previewImage, setPreviewImage] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        // Ambil data dasar user
+        const userResponse = await axios.get(
+          `http://localhost:8000/api/user/${userId}`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+
+        if (userResponse.data.success) {
+          setUser(userResponse.data.data); // Simpan nama user
+        }
+
+        // Ambil detail user
+        const detailResponse = await axios.get(
+          `http://localhost:8000/api/detail_user`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+
+        if (detailResponse.data.success) {
+          const detailUser = detailResponse.data.data.find(
+            (detail) => detail.user_id === parseInt(userId, 10)
+          );
+
+          if (detailUser) {
+            setFormData(detailUser);
+
+            // Tentukan URL gambar profil
+            setPreviewImage(
+              detailUser.foto_profil
+                ? `http://localhost:8000/storage/${detailUser.foto_profil}`
+                : `http://localhost:8000/logo.jpg` // Default gambar jika tidak ada
+            );
+          }
+        }
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchData();
+  }, [userId, token]);
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
+
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    setFormData({ ...formData, foto_profil: file });
+    setPreviewImage(URL.createObjectURL(file)); // Preview gambar lokal
+  };
+
+  const handleSave = async (e) => {
+    e.preventDefault();
+    const data = new FormData();
+    data.append("user_id", userId);
+    for (const key in formData) {
+      data.append(key, formData[key]);
+    }
+
+    try {
+      const response = await axios.post(
+        "http://localhost:8000/api/detail_user",
+        data,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+
+      if (response.data.success) {
+        alert("Data berhasil diperbarui!");
+      }
+    } catch (error) {
+      console.error("Error updating data:", error);
+    }
+  };
+
+  if (isLoading) {
+    return <Container>Loading...</Container>;
+  }
+
   return (
-      <div className="space-y-8">
-        {/* Profile Header */}
-        <header className="flex items-center justify-between">
-          <h1 className="text-2xl font-bold">My Profile</h1>
-          <button className="px-6 py-2 bg-blue-500 text-white border border-blue-500 rounded">
-            Edit Profile
-          </button>
-        </header>
+    <Container>
+      <ProfileImageContainer>
+        <ProfileImage
+          src={previewImage}
+          alt="Foto Profil"
+        />
+      </ProfileImageContainer>
+      <ProfileName>{user.name}</ProfileName> {/* Nama User */}
 
-        {/* Profile Section */}
-        <section className="bg-white p-6 shadow rounded-lg">
-          {/* User Image and Action Buttons */}
-          <div className="flex items-center gap-6">
-            <div className="w-24 h-24 bg-gray-300 rounded-full flex items-center justify-center">
-              <span className="text-gray-600 text-sm">100x100</span>
-            </div>
-            <div>
-              <h2 className="text-lg font-medium">Pengguna</h2>
-              <div className="flex gap-2 mt-4">
-                <button className="px-4 py-2 bg-blue-500 text-white rounded">
-                  Change Picture
-                </button>
-                <button className="px-4 py-2 bg-red-500 text-white rounded">
-                  Delete Picture
-                </button>
-              </div>
-            </div>
-          </div>
-        </section>
+      <Form onSubmit={handleSave}>
+        <Label>Alamat</Label>
+        <TextArea
+          name="alamat"
+          value={formData.alamat}
+          onChange={handleInputChange}
+        />
 
-        {/* Form Section */}
-        <section className="bg-white p-6 shadow rounded-lg">
-          <form className="space-y-6">
-            {[
-              { label: "Profile Name", type: "text", placeholder: "Enter your name" },
-              { label: "Email", type: "email", placeholder: "Enter your email" },
-              { label: "No. HP", type: "text", placeholder: "Enter your phone number" },
-              { label: "Alamat", type: "textarea", placeholder: "Enter your address" },
-              { label: "Usia", type: "number", placeholder: "Enter your age" },
-              { label: "Jenis Kelamin", type: "text", placeholder: "Enter your gender" },
-              { label: "Instansi", type: "text", placeholder: "Enter your institution" },
-            ].map((field, idx) => (
-              <div key={idx}>
-                <label className="block text-sm font-bold mb-1">{field.label}</label>
-                {field.type === "textarea" ? (
-                  <textarea
-                    placeholder={field.placeholder}
-                    className="w-full px-3 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  ></textarea>
-                ) : (
-                  <input
-                    type={field.type}
-                    placeholder={field.placeholder}
-                    className="w-full px-3 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  />
-                )}
-              </div>
-            ))}
-            <div className="flex justify-end">
-              <button type="submit" className="px-6 py-2 bg-blue-500 text-white rounded">
-                Simpan
-              </button>
-            </div>
-          </form>
-        </section>
-      </div>
+        <Label>No Handphone</Label>
+        <Input
+          type="text"
+          name="no_handphone"
+          value={formData.no_handphone}
+          onChange={handleInputChange}
+        />
+
+        <Label>Tanggal Lahir</Label>
+        <Input
+          type="date"
+          name="tanggal_lahir"
+          value={formData.tanggal_lahir}
+          onChange={handleInputChange}
+        />
+
+        <Label>Jenis Kelamin</Label>
+        <Input
+          type="text"
+          name="jenis_kelamin"
+          value={formData.jenis_kelamin}
+          onChange={handleInputChange}
+        />
+
+        <Label>Instansi</Label>
+        <Input
+          type="text"
+          name="instansi"
+          value={formData.instansi}
+          onChange={handleInputChange}
+        />
+
+        <Label>Foto Profil</Label>
+        <Input type="file" name="foto_profil" onChange={handleFileChange} />
+
+        <ButtonsContainer>
+          <Button type="submit" className="change">
+            Simpan
+          </Button>
+        </ButtonsContainer>
+      </Form>
+    </Container>
   );
 }
 
