@@ -18,8 +18,8 @@ function Sidebar() {
   return (
     <div className="w-1/4 bg-gray-200 h-full flex flex-col">
       {/* Logo */}
-      <div className="flex items-center p-6 bg-blue-500">
-        <span className="text-white text-xl font-bold">Settings</span>
+      <div className="flex items-center p-6 bg-gray-200">
+        <span className="text-gray-700 text-xl font-bold">Settings</span>
       </div>
 
       {/* Navigation Menu */}

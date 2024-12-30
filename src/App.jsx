@@ -28,6 +28,7 @@ import Landing from './pages/frontend/Landing'
 import DaftarKategori from './pages/frontend/DaftarKategori'
 import DaftarLomba from './pages/frontend/DaftarLomba'
 import DaftarLombaKategori from './pages/frontend/DaftarLombaKategori'
+import DaftarLombaJenjang from './pages/frontend/DaftarLombaJenjang'
 import DetailLomba from './pages/frontend/DetailLomba'
 import FormPendaftaran from './pages/frontend/FormPendaftaran'
 
@@ -69,6 +70,7 @@ function App() {
       <Route path="/" element={<FrontendLayout><Landing /></FrontendLayout>} />
       <Route path="/daftar-kategori" element={<FrontendLayout><DaftarKategori /></FrontendLayout>} />
       <Route path="/daftar_lomba" element={<FrontendLayout><DaftarLomba /></FrontendLayout>} />
+      <Route path="/daftar_lomba/:jenjang" element={<FrontendLayout><DaftarLombaJenjang /></FrontendLayout>} />
       <Route path="/daftar_lomba_kategori/:id" element={<FrontendLayout><DaftarLombaKategori /></FrontendLayout>} />
       <Route path="/detail_lomba/:id" element={<FrontendLayout><DetailLomba /></FrontendLayout>} />
       <Route path="/pendaftaran/:id" element={<FrontendLayout><FormPendaftaran /></FrontendLayout>} />
