@@ -52,6 +52,7 @@ function AddRegistration() {
     formData.append("user_id", registration.user_id);
     formData.append("competition_id", registration.competition_id);
     formData.append("registration_date", registration.registration_date);
+    formData.append("status", registration.status);
     formData.append("requirements_file", registration.requirements_file);
     formData.append("payment_proof", registration.payment_proof);
 

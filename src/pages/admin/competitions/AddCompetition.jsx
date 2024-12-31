@@ -63,8 +63,8 @@ function AddCompetition() {
 
     try {
       console.log("Form Data:", Object.fromEntries(formData.entries())); // Debugging
-
       console.log("Data yang dikirim:", [...formData.entries()]);
+
       const response = await axios.post(
         "http://localhost:8000/api/competition",
         formData,
@@ -83,8 +83,26 @@ function AddCompetition() {
         alert(`Competition Gagal Ditambahkan: ${response.data.message}`);
       }
     } catch (error) {
-      alert("Terjadi kesalahan. Silakan coba lagi");
-      console.error("Error:", error);
+      console.error("Error:", error); // Log umum
+      if (error.response) {
+        // Log respons error dari server
+        console.error("Response data:", error.response.data);
+        console.error("Response status:", error.response.status);
+        console.error("Response headers:", error.response.headers);
+        alert(
+          `Error: ${error.response.status} - ${JSON.stringify(
+            error.response.data
+          )}`
+        );
+      } else if (error.request) {
+        // Log jika tidak ada respons
+        console.error("Request:", error.request);
+        alert("No response received from server");
+      } else {
+        // Log error lainnya
+        console.error("Error message:", error.message);
+        alert("Error occurred: " + error.message);
+      }
     }
   };
 
@@ -319,7 +337,7 @@ function AddCompetition() {
               required
             >
               <option value="">Pilih status</option>
-              <option value="opened">Opened</option>
+              <option value="open">Opened</option>
               <option value="closed">Closed</option>
             </select>
           </div>
