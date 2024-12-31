@@ -319,7 +319,7 @@ function AddCompetition() {
               required
             >
               <option value="">Pilih status</option>
-              <option value="opened">Opened</option>
+              <option value="open">Opened</option>
               <option value="closed">Closed</option>
             </select>
           </div>
